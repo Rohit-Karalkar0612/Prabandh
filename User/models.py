@@ -16,7 +16,6 @@ class Profile(models.Model):
     #     return reverse("_detail", kwargs={"pk": self.pk})
 
 class Seller (models.Model):
-
     seller=models.OneToOneField(User,on_delete=models.CASCADE)
     name_of_business=models.CharField(max_length=50)
     gst_no=models.CharField(max_length=15,validators=[MinLengthValidator(15)])
