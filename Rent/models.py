@@ -16,7 +16,7 @@ class Product(models.Model):
     deposit=models.IntegerField()
 
     def __str__(self):
-        return self.seller.name
+        return self.title
 
     # def get_absolute_url(self):
     #     return reverse("_detail", kwargs={"pk": self.pk})
