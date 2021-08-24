@@ -29,10 +29,6 @@ class Rent_Amount (models.Model):
     payment=models.IntegerField()
     satisfaction=models.BooleanField(default=True)
     expected=models.DateField()
- 
-
-    def __str__(self):
-        return self.related_n.id
 
     # def get_absolute_url(self):
     #     return reverse("_detail", kwargs={"pk": self.pk})
@@ -53,9 +49,6 @@ class Ratings(models.Model):
     rating_by=models.ForeignKey(User, related_name='rating_by', on_delete=models.CASCADE)
     rating=models.IntegerField()
     review=models.TextField()
-    
-    def __str__(self):
-        return self.rating
 
 class Bookings(models.Model):
     booking=models.OneToOneField(Product,on_delete=models.CASCADE)
