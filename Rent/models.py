@@ -14,6 +14,7 @@ class Product(models.Model):
     about=models.TextField()
     category=models.CharField(max_length=50)
     deposit=models.IntegerField()
+    image_of_product=models.ImageField(upload_to='title_photos')
 
     def __str__(self):
         return self.title
