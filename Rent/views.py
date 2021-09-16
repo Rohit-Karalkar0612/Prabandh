@@ -9,5 +9,6 @@ def index(request):
         'photos':Photos,
     }
     return render(request, 'Rent/home_page.html',param)
+    
 def show(request):
     return render(request, 'Rent/booking.html')

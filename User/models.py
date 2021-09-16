@@ -7,7 +7,7 @@ class Profile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE)
     bank_acc_no=models.CharField(max_length=16,validators=[MinLengthValidator(16)])
     ifsc=models.CharField(max_length=11,validators=[MinLengthValidator(11)])
-    address=models.TextField();
+    address=models.TextField()
 
     def __str__(self):
         return self.user.username
