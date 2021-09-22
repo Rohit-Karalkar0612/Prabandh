@@ -22,6 +22,7 @@ urlpatterns = [
     # path('user/',include('User.urls')),
     path('',include('Rent.urls')),
     path('user/',include('User.urls')),
+    path('captcha/', include('captcha.urls')),
 ]
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
