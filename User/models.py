@@ -15,6 +15,7 @@ class Profile(models.Model):
     # def get_absolute_url(self):
     #     return reverse("_detail", kwargs={"pk": self.pk})
 
+
 class Seller (models.Model):
     seller=models.OneToOneField(User,on_delete=models.CASCADE)
     name_of_business=models.CharField(max_length=50)

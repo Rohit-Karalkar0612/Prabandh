@@ -36,4 +36,3 @@ class SellerForm(forms.ModelForm):
     class Meta:
         model=Seller
         exclude=('seller',)
-    

@@ -21,7 +21,6 @@ class Product(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse("_detail", kwargs={"pk": self.pk})
-
 class Rent_Amount (models.Model):
     customer_of_item=models.ForeignKey(User,related_name='customer_of_item',on_delete=models.CASCADE)
     delivered_date=models.DateField()

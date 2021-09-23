@@ -34,6 +34,7 @@ def SellerView(request):
             p=form.save(commit=False)
             p.seller=u
             p.save()
+
             return redirect('register')
         else:
             return render(request,'User/seller.html',{'form':form})

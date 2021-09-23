@@ -1,0 +1,13 @@
+{% extends 'User/basic.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+<form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+    
+        <button class="btn btn-danger" type="submit">Submit</button>
+</div>
+<button class="btn btn-danger" type="submit">Add more images</button>
+
+{% endblock %}
