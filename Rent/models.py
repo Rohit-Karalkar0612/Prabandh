@@ -3,7 +3,6 @@ from User.models import Seller
 from django.contrib.auth.models import User
 
 # Create your models here.
-
 class Product(models.Model):
 
     seller_of_item=models.ForeignKey(Seller,related_name='seller_of_item', on_delete=models.CASCADE)

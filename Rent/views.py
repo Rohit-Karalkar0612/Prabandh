@@ -18,12 +18,9 @@ def show(request):
     return render(request, 'Rent/booking.html')
 def Productform(request):
     if request.method=='POST':
-        form=ProductForm(request.POST)
+        form=ProductForm(request.POST,request.FILES)
         if form.is_valid():
-            user=request.session['user']
-            u=user.objects.get(username=user)
-            p=form.save(commit=False)
-            p.Product=u
+            p = form.save(commit=False)
             p.save()
             return redirect('user')
         else:
