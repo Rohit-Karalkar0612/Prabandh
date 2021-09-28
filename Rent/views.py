@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.views import View
 from django.views.generic import CreateView
 from .models import Product,Photo
+from User.models import Seller
 from .forms import ProductForm
 # Create your views here.
 def index(request):
@@ -20,9 +21,13 @@ def Productform(request):
     if request.method=='POST':
         form=ProductForm(request.POST,request.FILES)
         if form.is_valid():
+            us=request.user
+            u = Seller.objects.get(seller=us)
             p = form.save(commit=False)
+            p.seller_of_item = u
+            p.availability=True
             p.save()
-            return redirect('user')
+            return redirect('seller')
         else:
             return render(request,'Rent/Product.html',{'form':form})
     else:
