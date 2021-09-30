@@ -27,7 +27,8 @@ def Productform(request):
             p.seller_of_item = u
             p.availability=True
             p.save()
-            return redirect('seller')
+            products = Product.objects.filter(id=(p.pk))
+            return render(request, 'Rent/ProdView.html', {'Product': products})
         else:
             return render(request,'Rent/Product.html',{'form':form})
     else:
