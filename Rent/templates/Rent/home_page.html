@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'Rent/css/basic_manual.css' %}?{% now "U" %}">
+<link rel="stylesheet" href="{% static 'Rent/css/basic_manual1.css' %}?{% now "U" %}">
 <style>
   .height{
   height:300px;
@@ -102,6 +102,44 @@
         <!-- horizontal carousal ends here -->
   <!-- Second Navbar Ends Here -->
 
+    <!-- Register Part -->
+    <div class="section">
+
+      <div class="carousel-inner">
+        <div class="seller">
+          <img src="{% static 'Rent/images/seller.png' %}" class="seller-width" alt="...">
+          <div class="card-seller d-md-block">
+            <h5>Welcome Sellers</h5>
+            <p>You can add your products for Rent</p>
+            <button type="submit" class="btn btn-outline-success">Register</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="carousel-inner">
+        <div class="seller">
+          <img src="{% static 'Rent/images/rent_user.png' %}" class="seller-width" alt="...">
+          <div class="card-seller d-md-block">
+            <h5>Welcome User</h5>
+            <p>You can Rent any products from here</p>
+            <button type="submit" class="btn btn-outline-success">Register</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="carousel-inner">
+        <div class="seller">
+          <img src="{% static 'Rent/images/event_plan.jfif' %}" class="seller-width" alt="...">
+          <div class="card-seller d-md-block">
+            <h5> Coming Soon</h5>
+            <p>Plan your Special Moment</p>
+            <button type="submit" class="btn btn-warning" disabled>Plan Event</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
   <!-- Cards Starts here -->
   <div class="container">
   <div class="card-group">
@@ -120,36 +158,6 @@
 
   </div>
   </div>
-
-
-  <!-- Feedback -->
-  <section id="feedback">
-    <h3>Feedback form</h3>
-    <div id="contact-box">
-      <form action="">
-        <div class="form-group">
-          <label for="name">Name :</label>
-          <input type="text" name="name" id="name" placeholder="Rohit">
-        </div>
-        <div class="form-group">
-          <label for="Email">Email :</label>
-          <input type="email" name="Email" id="Email" placeholder="rohit12@gmail.com">
-        </div>
-        <div class="form-group">
-          <label for="Contact No.">Contact No.:</label>
-          <input type="Number" name="Contact No. id=" Contact" placeholder="9876543210">
-        </div>
-        <div class="form-group">
-          <label for="Message">Message :</label>
-          <!-- <input type="text" name="name" id="name" placeholder="Enter Your Name"> -->
-          <textarea name="message" id="message" cols="30" rows="3"
-            placeholder="Enter Your Doubts/Issues also Give Us Your Feedback"> </textarea>
-        </div>
-        <button class="btn">Submit</button>
-    </div>
-    </form>
-    </div>
-  </section>
 
 
   <section id="contacts">
