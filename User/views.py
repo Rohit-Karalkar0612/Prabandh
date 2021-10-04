@@ -13,15 +13,21 @@ def Register(request):
         if form.is_valid() and rform.is_valid():
             user=form.save()
             pro=rform.save(commit=False)
+            isSeller=rform.cleaned_data['seller']
+            print(isSeller)
             pro.user=user
             request.session['user']=user.username
             pro.save()
-            return redirect('seller')
+            if isSeller:
+                return redirect('seller')
+            else:
+                return redirect('home')
         else:
-            print("jajjaja")
+            print(form.errors)
             return render(request,'User/register.html',{'user':form,'register':rform})
 
     else:
+        # print(form.errors)
         form=UserForm()
     return render(request,'User/register.html',{'user':UserForm,'register':RegisterForm})
 

@@ -3,16 +3,28 @@ from User.models import Seller
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Subcategory(models.Model):
+    subcategories = models.CharField(max_length=50)
+    Categories = models.ForeignKey("Category",on_delete=models.CASCADE)
 
+    def _unicode_(self):
+        return u'%s' % (self.name)
+
+
+class Category(models.Model):
+    category = models.CharField(max_length=50)
+
+    def _unicode_(self):
+        return u'%s' % (self.name)
 class Product(models.Model):
 
     seller_of_item=models.ForeignKey(Seller,related_name='seller_of_item', on_delete=models.CASCADE)
     availability=models.BooleanField(default=True)
     title=models.CharField(max_length=20)
-    subcategory=models.CharField(max_length=50)
+    subcategory=models.ForeignKey("Subcategory",on_delete=models.CASCADE)
     rental_price=models.IntegerField()
     about=models.TextField()
-    category=models.CharField(max_length=50)
+    category=models.ForeignKey("Category",on_delete=models.CASCADE)
     deposit=models.IntegerField()
     image_of_product=models.ImageField(upload_to='title_photos')
 
