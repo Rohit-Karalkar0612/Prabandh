@@ -2,11 +2,28 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container">
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" id="perform" data-subcat-url="{% url 'ajax_load_subcat' %}">
         {% csrf_token %}
         {{ form|crispy }}
     
         <button class="btn btn-danger" type="submit">Submit</button>
 </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_category").change(function () {
+        const url = $("#perform").attr("data-subcat-url");
+        console.log('Hello');
+        const CategoryId = $(this).val();  // get the selected category ID from the HTML input
+        $.ajax({                       // initialize an AJAX request
+            url: url,
+            data: {
+                'CategoryId': CategoryId
+            },
+            success: function (data) {
+                $("#id_subcategory").html(data);  // replace the contents of the subcat input with the data that came from the server
+            }
+        });
+    });
+</script>
 {% endblock %}
