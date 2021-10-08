@@ -7,24 +7,24 @@ class Subcategory(models.Model):
     subcategories = models.CharField(max_length=50)
     Categories = models.ForeignKey("Category",on_delete=models.CASCADE)
 
-    def _unicode_(self):
-        return u'%s' % (self.name)
+    def __str__(self):
+        return self.subcategories
 
 
 class Category(models.Model):
     category = models.CharField(max_length=50)
 
-    def _unicode_(self):
-        return u'%s' % (self.name)
+    def __str__(self):
+        return self.category
 class Product(models.Model):
 
     seller_of_item=models.ForeignKey(Seller,related_name='seller_of_item', on_delete=models.CASCADE)
     availability=models.BooleanField(default=True)
     title=models.CharField(max_length=20)
-    subcategory=models.ForeignKey("Subcategory",on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
+    subcategory=models.ForeignKey(Subcategory,on_delete=models.SET_NULL, blank=True, null=True)
     rental_price=models.IntegerField()
     about=models.TextField()
-    category=models.ForeignKey("Category",on_delete=models.CASCADE)
     deposit=models.IntegerField()
     image_of_product=models.ImageField(upload_to='title_photos')
 
