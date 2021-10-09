@@ -1,0 +1,9 @@
+{% extends 'User/basic.html' %}
+{% load static %}
+{% block content %}
+<div>Hello</div>
+{% for i in product %}
+<div>{{i.title}}</div>
+<img src='/media/{{i.image_of_product}}' class="card-img-top" alt="..." height="400px" width="400px">
+{% endfor %}
+{% endblock %}

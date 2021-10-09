@@ -1,0 +1,8 @@
+{% extends 'User/basic.html' %}
+{% load static %}
+{% block content %}
+<div>Hello</div>
+{% for i in subcat %}
+<a href="/subcategory/{{i}}"><button class="btn btn-primary cart" id="qv{{i}}">{{i}}</button></a>
+{% endfor %}
+{% endblock %}

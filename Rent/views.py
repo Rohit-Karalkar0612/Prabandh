@@ -13,7 +13,19 @@ def index(request):
         'product':products,
         'photos':Photos,
     }
+    print(products)
     return render(request, 'Rent/home_page.html',param)
+def search_subcat(request,mysubcat):
+    category = get_object_or_404(Subcategory, subcategories=mysubcat)
+    products = Product.objects.filter(subcategory=category)
+    return render(request, 'Rent/subcstfil.html',{'product':products})
+def Weddings(request):
+    subcat=['Ethnic','Drum','Gifts','Car']
+    param={
+        'subcat':subcat,
+    }
+    print(subcat)
+    return render(request,'Rent/Weddings.html',param)
 def load_subcat(request):
     print('Hello')
     category_id = request.GET.get('CategoryId')
