@@ -9,11 +9,12 @@ class ProductForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['subcategory'].queryset = Subcategory.objects.none()
+
         if 'category' in self.data:
             try:
-                country_id = int(self.data.get(''))
-                self.fields['subcategories'].queryset = Category.objects.filter(country_id=country_id).order_by('category')
+                category_id = int(self.data.get('category'))
+                self.fields['subcategory'].queryset = Subcategory.objects.filter(Categories_id=category_id).order_by('subcategories')
             except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty City queryset
+                pass  # invalid input from the client; ignore and fallback to empty subcategory queryset
         elif self.instance.pk:
-            self.fields['subcategories'].queryset = self.instance.country.city_set.order_by('category')
+            self.fields['subcategory'].queryset = self.instance.category.category_self.order_by('subcategories')
