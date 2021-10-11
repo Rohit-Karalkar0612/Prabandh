@@ -5,6 +5,16 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model=Product
         exclude=('seller_of_item','availability')
+        widgets={
+        'title': forms.TextInput(attrs={'placeholder': 'Enter Product Title'}),
+        'about': forms.Textarea(
+            attrs={'placeholder': 'Enter description here'}),
+       'Category' : forms.Select(attrs={'placeholder': 'Select Category'}),
+        'rental_price': forms.NumberInput(
+            attrs={'placeholder': 'Enter rent price(per day)'}),
+        'deposit': forms.NumberInput(
+            attrs={'placeholder': 'Enter deposit here(should be greater than rent price)'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
