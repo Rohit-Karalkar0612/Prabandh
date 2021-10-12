@@ -46,7 +46,8 @@ def Weddings(request,my_id):
         'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
     }
     context={
-        'test':test
+        'test':test,
+
     }
     return render(request,'Rent/Weddings.html',context)
 def load_subcat(request):
