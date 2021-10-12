@@ -11,6 +11,7 @@ def Register(request):
         form=UserForm(request.POST)
         rform=RegisterForm(request.POST)
         if form.is_valid() and rform.is_valid():
+
             user=form.save()
             pro=rform.save(commit=False)
             isSeller=rform.cleaned_data['seller']

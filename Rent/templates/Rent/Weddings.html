@@ -1,8 +1,87 @@
 {% extends 'User/basic.html' %}
 {% load static %}
+{% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <style>
+        .container1 {
+            border: 2px solid rgb(212, 194, 194);
+            width: 200px;
+            margin: 5px;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            font-size: 1.05rem;
+            color: rgb(20, 20, 20);
+            font-weight: bold;
+        }
+
+        .container1 li a {
+            text-decoration: none;
+        }
+
+        .container1 li {
+            margin: 10px;
+        }
+
+        .collapse li a {
+            font-size: 1.1rem;
+            color: rgb(156, 150, 150);
+            margin-left: 30px;
+        }
+
+        .container2 li a{
+            margin-left: 50px;
+            font-size: 1.2rem;
+        }
+    </style>
+{% endblock css %}
 {% block content %}
-<div>Hello</div>
-{% for i in subcat %}
-<a href="/subcategory/{{i}}"><button class="btn btn-primary cart" id="qv{{i}}">{{i}}</button></a>
-{% endfor %}
+    <div class="container2">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Wedding Session</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Birthday</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pooja</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+            <div class="container1">
+            <button class="btn d-inline-flex align-items-center rounded collapsed" data-bs-toggle="collapse"
+                    data-bs-target="#forms-collapse" aria-expanded="false">
+                        <span class="caret"></span>
+                        Clothes
+            </button>
+            <div class="collapse" id="forms-collapse">
+                <ul class="list-unstyled fw-normal pb-1 small">
+                {% for v in Clothes %}
+    <!--                    <a href="/subcategory/{{i}}"><button class="btn btn-primary cart" id="qv{{i}}">{{i}}</button></a>-->
+
+                        <li><a href="/subcategory/{{v}}" class="d-inline-flex align-items-center rounded" id="qv{{v}}">{{v}}</a></li>
+                {% endfor %}
+
+                </ul>
+            </div>
+            </div>
 {% endblock %}
+{% block js %}
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+        crossorigin="anonymous"></script>
+{% endblock js %}

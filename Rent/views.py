@@ -24,13 +24,13 @@ def search_subcat(request,mysubcat):
     return render(request, 'Rent/subcstfil.html',{'product':products})
 
 def Weddings(request):
-    subcat=['Ethnic','Drum','Gifts','Car']
-    param={
-        'subcat':subcat,
+    # subcat_01=['Ethnic','Drum','Gifts','Car',]
+    # subcat_02=['Swift','Audi','Sedan','Mercedes']
+    context={
+        'Clothes': ['Ethnic','Drum','Gifts','Car',],
+        'Car': ['Swift','Audi','Sedan','Mercedes']
     }
-    print(subcat)
-    return render(request,'Rent/Weddings.html',param)
-
+    return render(request,'Rent/Weddings.html',context)
 def load_subcat(request):
     print('Hello')
     category_id = request.GET.get('CategoryId')
@@ -45,14 +45,18 @@ def Productform(request):
     if request.method=='POST' :
         form=ProductForm(request.POST,request.FILES)
         print(form)
+        service=['DJ','Banquet Hall','Car']
         if form.is_valid():
             us=request.user
             u = Seller.objects.get(seller=us)
             p = form.save(commit=False)
             p.seller_of_item = u
-            p.availability=True
             p_img=p.image_of_product
             print(p_img)
+            if 'p.subcategory' in service:
+                p.availability=False
+            else:
+                p.availability = True
             p.save()
             products = Product.objects.get(id=(p.pk))
             ph=Photo(photo=p_img,product_photo=products)
