@@ -49,13 +49,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Wedding Session</a>
+                            <a class="nav-link active" aria-current="page" href="/wedding/1">Wedding Session</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Birthday</a>
+                            <a class="nav-link" href="/wedding/2">Birthday</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pooja</a>
+                            <a class="nav-link" href="/wedding/3">Pooja</a>
                         </li>
                     </ul>
                 </div>
@@ -63,13 +63,13 @@
         </nav>
     </div>
             <div class="container1">
-            {% for k,v in test.items %}
+                {% for k,v in test.items %}
                 <button class="btn d-inline-flex align-items-center rounded collapsed" data-bs-toggle="collapse"
-                        data-bs-target="#forms-collapse" aria-expanded="false">
+                        data-bs-target="#forms-collapse{{k}}" aria-expanded="false">
                             <span class="caret">{{k}}</span>                       
                 </button>
                 <br>
-                <div class="collapse" id="forms-collapse">
+                <div class="collapse" id="forms-collapse{{k}}">
                     <ul class="list-unstyled fw-normal pb-1 small">
                         {% for v1 in v %}
                         <li><a href="/subcategory/{{v1}}" class="d-inline-flex align-items-center rounded" id="qv{{v1}}">{{v1}}</a></li>
