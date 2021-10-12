@@ -26,9 +26,12 @@ def search_subcat(request,mysubcat):
 def Weddings(request):
     # subcat_01=['Ethnic','Drum','Gifts','Car',]
     # subcat_02=['Swift','Audi','Sedan','Mercedes']
+    test={
+            'Clothes': ['Ethnic','Drum','Gifts','Car',],
+            'Car': ['Swift','Audi','Sedan','Mercedes'],
+    }
     context={
-        'Clothes': ['Ethnic','Drum','Gifts','Car',],
-        'Car': ['Swift','Audi','Sedan','Mercedes']
+        'test':test
     }
     return render(request,'Rent/Weddings.html',context)
 def load_subcat(request):

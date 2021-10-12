@@ -63,21 +63,20 @@
         </nav>
     </div>
             <div class="container1">
-            <button class="btn d-inline-flex align-items-center rounded collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#forms-collapse" aria-expanded="false">
-                        <span class="caret"></span>
-                        Clothes
-            </button>
-            <div class="collapse" id="forms-collapse">
-                <ul class="list-unstyled fw-normal pb-1 small">
-                {% for v in Clothes %}
-    <!--                    <a href="/subcategory/{{i}}"><button class="btn btn-primary cart" id="qv{{i}}">{{i}}</button></a>-->
-
-                        <li><a href="/subcategory/{{v}}" class="d-inline-flex align-items-center rounded" id="qv{{v}}">{{v}}</a></li>
-                {% endfor %}
-
-                </ul>
-            </div>
+            {% for k,v in test.items %}
+                <button class="btn d-inline-flex align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#forms-collapse" aria-expanded="false">
+                            <span class="caret">{{k}}</span>                       
+                </button>
+                <br>
+                <div class="collapse" id="forms-collapse">
+                    <ul class="list-unstyled fw-normal pb-1 small">
+                        {% for v1 in v %}
+                        <li><a href="/subcategory/{{v1}}" class="d-inline-flex align-items-center rounded" id="qv{{v1}}">{{v1}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+             {% endfor %}
             </div>
 {% endblock %}
 {% block js %}
