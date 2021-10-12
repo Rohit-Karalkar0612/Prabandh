@@ -1,0 +1,14 @@
+<!-- {% for p in Product %}
+<div class="imgb">
+    <img src="{{ p.photo.url }}">
+</div>
+{% endfor %} -->
+<div class="col-5 left">
+    <div class="col-12 k">
+        {% for p in Product %}
+            <div class="imgb">
+                <img src="{{ p.photo.url }}">
+            </div>
+        {% endfor %}
+    </div>
+</div>

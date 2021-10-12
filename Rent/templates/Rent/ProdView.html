@@ -1,14 +1,79 @@
-{% extends 'user/basic.html' %}
-{% block title%}{{Product.product_name}}{%endblock%}
-{% block body %}
-<div class="container">
+{% extends 'User/basic.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'Rent/css/ProdView.css' %}?{% now "U" %}">
+{% endblock %}
+{% block title%}
+    {{Product.product_name}}
+{%endblock%}
+{% block content %}
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
-            <img src='/media/{{Product.img}}' class="card-img-top" alt="..." height="400px" width="400px">
-        </div>
-        <div class="col-md-4">
-            Product Name:{{Product.product_name}}
+        <h2>Product Details</h2>
+        {% include 'Rent/loop.html' %}
+        <!-- <div class="col-5 left">
+            <div class="col-12 k">
+                 {% for p in Product %}
+                    <div class="imgb">
+                        <img src="{{ p.photo.url }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div> -->
+        <div class="col-1"></div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Product Name: </h2>
+                    <h2>Product Description</h2>
+                </div>
+                <div class="col-6">
+                    <h2>{{ pro.title }}</h2>
+                    <h4>{{ pro.about }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <form method="POST" class="photoform" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ pform }}
+                    <button class="btn btn-info file" data-val="{{ pro.id }}">Submit</button>
+                </form>
+                <button class="btn btn-info"> Add new Product</button>
+            </div>
+
         </div>
     </div>
 </div>
+{% endblock %}
+{% block js %}
+    <script>
+        $(document).ready(function(){
+            $('.photoform').submit(function(e){
+                e.preventDefault();
+                console.log("LLLL");
+                var w=$('.file').data('val');
+                var fdata=new FormData(this);
+                var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+                console.log(fdata);
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'addImage' %}",
+                    headers:{
+                        "X-CSRFToken": csrftoken
+                    },
+                    data:{
+                        k:fdata,
+                        l:w,
+                    },
+                    cache:false,
+                    success: function (response){
+                        location.reload();
+                    },
+                    contentType: false,
+                    processData: false
+                });
+            })
+        })
+    </script>
 {% endblock %}

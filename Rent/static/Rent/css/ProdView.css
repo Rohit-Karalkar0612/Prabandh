@@ -1,0 +1,18 @@
+.imgb {
+  background-color: #999;
+  width: inherit;
+  height: inherit;
+  display: inline-block;
+  /* overflow: hidden; */
+}
+.imgb img {
+  width: inherit !important;
+  height: inherit !important;
+}
+.left {
+  background-color: red;
+  padding-bottom: 30px;
+}
+.info {
+  text-align: center;
+}

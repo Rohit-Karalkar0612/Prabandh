@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product,Category,Subcategory
+from .models import Product,Category,Subcategory,Photo
 from django.contrib.auth.forms import UserCreationForm
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -28,3 +28,10 @@ class ProductForm(forms.ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty subcategory queryset
         elif self.instance.pk:
             self.fields['subcategory'].queryset = self.instance.category.category_self.order_by('subcategories')
+
+
+class PhotoForm(forms.ModelForm):
+    
+    class Meta:
+        model = Photo
+        exclude=('product_photo',)
