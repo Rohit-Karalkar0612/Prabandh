@@ -38,12 +38,16 @@ def Productform(request):
     if request.method=='POST' :
         form=ProductForm(request.POST,request.FILES)
         print(form)
+        service=['DJ','Banquet Hall','Car']
         if form.is_valid():
             us=request.user
             u = Seller.objects.get(seller=us)
             p = form.save(commit=False)
             p.seller_of_item = u
-            p.availability=True
+            if 'p.subcategory' in service:
+                p.availability=False
+            else:
+                p.availability = True
             p.save()
             products = Product.objects.filter(id=(p.pk))
             return render(request, 'Rent/ProdView.html', {'Product': products})
