@@ -114,21 +114,33 @@ def load(request):
     return render(request,'Rent/loop.html',context)
 
 
-def AddImage(request):
+def NewImage(request):
+    print("lll")
+    print(request)
     if request.method=='POST':
         current_url = resolve(request.path_info).url_name
+        curr_id=request.POST['blog']
+        curr_ph=Product.objects.get(id=curr_id)
         print(request.POST)
+        print(request.FILES['photo'])
         print(request.get_full_path())
-        # if 'djj' in request.POST:
-        #     print("KDSKSk")
-        t=request.POST.get('djj')
-        # # t1=request.FILES['djj']
-        form=PhotoForm(t)
-        # print(t)
+        form=PhotoForm(request.POST,request.FILES)
         if form.is_valid():
-            form.save()
-            return JsonResponse({'bool':True})
+            j=form.save(commit=False)
+            j.product_photo=curr_ph
+            j.save()
         else:
             print(form.errors)
 
+    return JsonResponse({'bool':True})
+
+
+def deleteImage(request):
+    if request.method=='POST':
+        ph_id=request.POST['ph_id']
+        p_id=request.POST['p_id']
+        i=Product.objects.get(id=p_id)
+        i.product_name.filter(id=ph_id).delete()
+        
+    
     return JsonResponse({'bool':True})

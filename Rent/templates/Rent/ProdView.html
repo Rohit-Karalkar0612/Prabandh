@@ -11,16 +11,16 @@
 <div class="container-fluid">
     <div class="row">
         <h2>Product Details</h2>
-        {% include 'Rent/loop.html' %}
-        <!-- <div class="col-5 left">
-            <div class="col-12 k">
+        <div class="col-5 left">
+            {% include 'Rent/loop.html' %}
+            <!-- <div class="col-12 k">
                  {% for p in Product %}
                     <div class="imgb">
                         <img src="{{ p.photo.url }}">
                     </div>
                 {% endfor %}
-            </div>
-        </div> -->
+            </div> -->
+        </div>
         <div class="col-1"></div>
         <div class="col-6">
             <div class="row">
@@ -54,26 +54,51 @@
                 console.log("LLLL");
                 var w=$('.file').data('val');
                 var fdata=new FormData(this);
+                fdata.append("blog",JSON.stringify(w));
+                console.log(fdata);
                 var csrftoken = $("[name=csrfmiddlewaretoken]").val();
                 console.log(fdata);
                 $.ajax({
-                    type: "post",
-                    url: "{% url 'addImage' %}",
-                    headers:{
+                     type: "post",
+                     url: "{% url 'NewImage' %}",
+                     headers:{
                         "X-CSRFToken": csrftoken
                     },
-                    data:{
-                        k:fdata,
-                        l:w,
-                    },
-                    cache:false,
-                    success: function (response){
-                        location.reload();
-                    },
-                    contentType: false,
-                    processData: false
-                });
+                     data:fdata,
+                     contentType: false,
+                     processData: false,
+                     enctype: 'multipart/form-data',
+                     success: function (response) {
+                        $(".left").html('').load(
+                            "{% url 'load' %}"
+                        ).fadeIn(500);
+                     }
+                 });
             })
         })
+
+       $(document).ready(function(){
+            $(document).delegate(".delete","click",function () { 
+                console.log("kkk");
+                var w=$(this).data('val');
+                var w1=$('.file').data('val');
+                console.log(w+""+w1);
+                $.ajax({
+                    type: "post",
+                    url: "{% url 'Delete Image' %}",
+                    data: {
+                        ph_id:w,
+                        p_id:w1,
+                        csrfmiddlewaretoken:"{{csrf_token}}",
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        $(".left").html('').load(
+                            "{% url 'load' %}"
+                        ).fadeIn(500);
+                    }
+                });
+             })
+       })
     </script>
 {% endblock %}
