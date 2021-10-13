@@ -3,12 +3,19 @@
     <img src="{{ p.photo.url }}">
 </div>
 {% endfor %} -->
-<div class="col-5 left">
+<!-- <div class="col-5 left"> -->
     <div class="col-12 k">
         {% for p in Product %}
+        <!-- <div class="outerimg"> -->
             <div class="imgb">
                 <img src="{{ p.photo.url }}">
+                <div class="over">
+                    <div class="vertical-center">
+                        <button class="btn btn-danger delete" data-val="{{ p.id }}">Delete</button>
+                    </div>
+                </div>
             </div>
+        <!-- </div> -->
         {% endfor %}
     </div>
-</div>
+<!-- </div> -->
