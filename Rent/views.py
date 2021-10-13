@@ -23,15 +23,31 @@ def search_subcat(request,mysubcat):
     products = Product.objects.filter(subcategory=category)
     return render(request, 'Rent/subcstfil.html',{'product':products})
 
-def Weddings(request):
+def Weddings(request,my_id):
     # subcat_01=['Ethnic','Drum','Gifts','Car',]
     # subcat_02=['Swift','Audi','Sedan','Mercedes']
-    test={
+    if my_id==1:
+        test={
             'Clothes': ['Ethnic','Drum','Gifts','Car',],
             'Car': ['Swift','Audi','Sedan','Mercedes'],
+        }
+    elif(my_id==2):
+        test = {
+            'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
+            'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
+        }
+    elif(my_id==3):
+        test = {
+            'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
+            'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
+        }
+    test = {
+        'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
+        'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
     }
     context={
-        'test':test
+        'test':test,
+
     }
     return render(request,'Rent/Weddings.html',context)
 def load_subcat(request):
