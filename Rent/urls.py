@@ -7,8 +7,11 @@ urlpatterns = [
     path('ajax/load_subcat/', views.load_subcat, name='ajax_load_subcat'),
     path('event/<my_id>',views.Event,name="product"),
     path('Image/<prod_id>',views.Prod_view,name="Prod_view"),
-    path("NewImage/",views.NewImage,name="NewImage"),
+    path("NewImage/",views.AddImage,name="addImage"),
     path('subcategory/<my_id>/<mysubcat>',views.search_subcat,name="Search subcat"),
     path('Image/',views.load,name="load"),
     path('deleteImage/',views.deleteImage,name="Delete Image"),
+    path('subcategory/<str:mysubcat1>', views.search_subcat1, name="Search subcat1"),
+    path('search/', views.search_subcat1, name="search"),
+    # path('Image/49',views.load,name="load"),
 ]
