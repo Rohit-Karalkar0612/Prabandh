@@ -137,7 +137,7 @@
   word-wrap: break-word;
   overflow: hidden;
   overflow-y: scroll;
-  height: 130px;
+  max-height: 130px;
   border-radius: 1px;
 }
 .aboutblock::-webkit-scrollbar {

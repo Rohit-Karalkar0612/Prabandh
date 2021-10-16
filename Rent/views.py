@@ -95,13 +95,19 @@ def Productform(request):
 
 def Prod_view(request,prod_id):
     # print(pk)
+    request.session['p_id']=prod_id
     ppk=prod_id
     context={
         'Product':Photo.objects.filter(product_photo__id=ppk),
         'pro':Product.objects.get(id=ppk),
         'pform':PhotoForm,
     }
-    return render(request,'Rent/ProdView.html',context)
+    if str(request.user)==str(Product.objects.get(id=ppk).seller_of_item):
+        print(str(request.user)+" "+str(Product.objects.get(id=ppk).seller_of_item))
+        return render(request,'Rent/ProdView.html',context)
+    else:
+        print(str(request.user)+" "+str(Product.objects.get(id=ppk).seller_of_item))
+        return render(request,'Rent/ProdViewCust.html',context)
 
 
 def load(request):
@@ -144,3 +150,4 @@ def deleteImage(request):
         
     
     return JsonResponse({'bool':True})
+
