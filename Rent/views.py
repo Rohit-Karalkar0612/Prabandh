@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import CreateView
 from .models import Product,Photo,Subcategory,Category,Photo
-from Prabandh.User.models import Seller
+from User.models import Seller
 from .forms import ProductForm,PhotoForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
