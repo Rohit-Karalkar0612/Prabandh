@@ -3,11 +3,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import CreateView
 from .models import Product,Photo,Subcategory,Category,Photo
-from User.models import Seller
+from Prabandh.User.models import Seller
 from .forms import ProductForm,PhotoForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
 # Create your views here.
+
+def search_match(query,item):
+    if query in item.title.lower() or query in item.about.lower() or query in item.category or query in item.subcategory:
+        return True
+    else:
+        return False
+
 def index(request):
     products=Product.objects.all()
     Photos=Photo.objects.all()
@@ -39,6 +46,13 @@ def search_subcat(request,my_id,mysubcat):
         'product': products
     }
     return render(request, 'Rent/Weddings.html',context)
+
+def search_subcat1(request):
+    query=request.GET.get('search')
+    category = get_object_or_404(Subcategory, subcategories='Ethnic')
+    products1 = Product.objects.filter(subcategory=category)
+    products=[item for item in products1 if search_match(query,item)]
+    return render(request, 'Rent/subcstfil.html',{'product':products})
 
 def Event(request,my_id=''):
     # subcat_01=['Ethnic','Drum','Gifts','Car',]
@@ -132,7 +146,7 @@ def load(request):
     return render(request,'Rent/loop.html',context)
 
 
-def NewImage(request):
+def AddImage(request):
     print("lll")
     print(request)
     if request.method=='POST':
