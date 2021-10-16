@@ -1,22 +1,30 @@
 {% extends 'User/basic.html' %}
 {% load static %}
 {% block css %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'Rent/css/basic_manual1.css' %}?{% now "U" %}">
+
+    <link rel="stylesheet" href="{% static 'Rent/css/base.css' %}">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'Rent/css/r.css' %}" rel="stylesheet">
     <style>
+        .scrollable{
+            background-color: cyan;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: auto;
+        }
+        #carousel2{
+            border-radius: 20px;
+        }
         .container1 {
-            border: 2px solid rgb(212, 194, 194);
             width: 200px;
             margin: 5px;
             font-size: 1.1rem;
+            border-radius: 10px;
         }
-
-        .btn {
-            font-size: 1.05rem;
-            color: rgb(20, 20, 20);
-            font-weight: bold;
-        }
-
         .container1 li a {
             text-decoration: none;
         }
@@ -27,7 +35,7 @@
 
         .collapse li a {
             font-size: 1.1rem;
-            color: rgb(156, 150, 150);
+            color: rgb(106, 103, 103);
             margin-left: 30px;
         }
 
@@ -35,79 +43,163 @@
             margin-left: 50px;
             font-size: 1.2rem;
         }
+        .container4{
+            width: 230px;
+            background-color: rgb(251, 239, 97);
+            border-radius: 5px;
+        }
+        .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+        .height{
+            height:300px;
+        }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      @media screen and (max-width: 500px){
+      .container1{
+        margin: 0px;
+       }
+        .container4{
+            width: 1000px !important ;
+            display: flex;
+            float: left;
+            border-radius: 10px;
+        }
+      }
+      span{
+        padding: 4px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      span a{
+        padding: 4px;
+        margin-left: 30px;
+        margin-right: 50px;
+      }
+      span:nth-child(6){
+        margin-left: 0px;
+      }
     </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'Rent/css/sidebars.css' %}" rel="stylesheet">
 {% endblock css %}
-{% block content %}
-    <div class="container2">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/wedding/1">Wedding Session</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/wedding/2">Birthday</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/wedding/3">Pooja</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-            <div class="container1">
-                {% for k,v in test.items %}
-                <button class="btn d-inline-flex align-items-center rounded collapsed" data-bs-toggle="collapse"
-                        data-bs-target="#forms-collapse{{k}}" aria-expanded="false">
-                            <span class="caret">{{k}}</span>                       
-                </button>
-                <br>
-                <div class="collapse" id="forms-collapse{{k}}">
-                    <ul class="list-unstyled fw-normal pb-1 small">
-                        {% for v1 in v %}
-                        <li><a href="/subcategory/{{v1}}" class="d-inline-flex align-items-center rounded" id="qv{{v1}}">{{v1}}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-             {% endfor %}
-    </div>
-{% for i in product %}
-     <div class="card mb-3 border-bottom" style="max-width: 540px;">
-  <div class="row g-0 border-bottom">
-    <div class="col-md-3 col-sm-4">
-      <img src='/media/{{i.image_of_product}}' class="img-fluid me-2" alt="...">
-    </div>
-<div class="col-md-9 col-sm-8">
-      <div class="card-body">
-        <h5 class="card-title">{{i.title}}</h5>
-        <div id="ca">{{i.score}}</div>
-        <span class="fa fa-star checked" id="first"></span>
-        <span class="fa fa-star checked" id="second"></span>
-        <span class="fa fa-star checked" id="third"></span>
-        <span class="fa fa-star" id="fourth"></span>
-        <span class="fa fa-star" id="fifth"></span>
-        <script src="{% static 'Saarthi/dashboard1.js' %}">
-       handlestar();
-        </script>
-        <p class="card-text">{{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
-       Deposit:{{i.deposit}}
-        </p>
 
-      <div></div> <a href="#" class="btn btn-primary" style="margin-right:10px;">Add to Cart</a><a href="#" class="btn btn-primary">Rent</a></div>
-      </div>
+{% block content %}
+
+  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="carousel2">
+                  <div class="container-fluid">
+                    <span> <a class="navbar-brand" id="1" href="/event/1">Wedding Session</a> </span>
+
+                    <span> <a class="navbar-brand" id="2" href="/event/2">Birthday</a> </span>
+
+                    <span> <a class="navbar-brand" id="3" href="/event/3">Pooja</a> </span>
+
+                    <span> <a class="navbar-brand" href="#">Product4</a> </span>
+
+                    <span> <a class="navbar-brand" href="#">Product5</a> </span>
+
+                    <span> <a class="navbar-brand" href="#">Product6</a> </span>
+                  </div>
+                </nav>
+              </div>
+
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+    </div>
+
+    <main>
+    <h1 class="visually-hidden">Sidebars examples</h1>
+
+    <div class="container4 p-3 ">
+
+        {% for k,v in test.items %}
+            <div class="container1">
+              <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                  <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                          data-bs-target="#home-collapse{{k}}" aria-expanded="true">
+                    {{k}}
+                  </button>
+                  <div class="collapse" id="home-collapse{{k}}">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                       {% for v1 in v %}
+                            <li><a href="/subcategory/{{my_id}}/{{v1}}" id="qv{{v1}}" class="link-dark rounded">{{v1}}</a></li>
+                       {% endfor %}
+                    </ul>
+                  </div>
+                </li>
+                <li class="border-top my-3"></li>
+              </ul>
             </div>
-  </div>
-       {% endfor %}
+        {% endfor %}
+    </div>
+
+     <div class="b-example-divider"></div>
+
+     <div class="scrollable">
+         <br>
+         {% for i in product %}
+            <div class="card mb-3 border-bottom" style="max-width: 1340px;">
+              <div class="row g-0 border-bottom">
+                <div class="col-md-3 col-sm-4">
+                  <img src='/media/{{i.image_of_product}}' class="img-fluid me-2" alt="...">
+                </div>
+                <div class="col-md-9 col-sm-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{i.title}}</h5>
+                          <div id="ca">
+                              {{i.score}}
+                          </div>
+
+                            <script src="{% static 'Saarthi/dashboard1.js' %}">
+                                handlestar();
+                            </script>
+                            <p class="card-text">
+                              {{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
+                              Deposit:{{i.deposit}}
+                            </p>
+                    </div>
+                  <a href="#" class="btn btn-primary" style="margin-right:10px;">Add to Cart</a>
+                  <a href="#" class="btn btn-primary">Rent</a>
+                </div>
+              </div>
+            </div>
+     {% endfor %}
+     </div>
+  </main>
+
 {% endblock %}
 {% block js %}
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
-        crossorigin="anonymous"></script>
+     <script src="{% static 'Rent/css/sidebars.js' %}"></script>
+
+    <script src="{% static 'Rent/css/r.js' %}"></script>
+
+    <script src="{% static 'Rent/css/calculate.js' %}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).on('click','div span', function(){
+        $(this).addClass('active')
+    })
+
+    </script>
 {% endblock js %}

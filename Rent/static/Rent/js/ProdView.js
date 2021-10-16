@@ -16,7 +16,7 @@ function bg(input){
 function remove(event){
     event.preventDefault();
     $(".inactive").hide();
-    $(".removeb").hide();
+    $(".removeb").addClass("d-none");
     $(".imagecover").show();
     $(".product").show();
 }

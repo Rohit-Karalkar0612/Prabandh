@@ -8,6 +8,13 @@ from .forms import ProductForm,PhotoForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
 # Create your views here.
+
+def search_match(query,item):
+    if query in item.title.lower() or query in item.about.lower() or query in item.category or query in item.subcategory:
+        return True
+    else:
+        return False
+
 def index(request):
     products=Product.objects.all()
     Photos=Photo.objects.all()
@@ -18,36 +25,61 @@ def index(request):
     print(products)
     return render(request, 'Rent/home_page.html',param)
 
-def search_subcat(request,mysubcat):
-    category = get_object_or_404(Subcategory, subcategories=mysubcat)
-    products = Product.objects.filter(subcategory=category)
-    return render(request, 'Rent/subcstfil.html',{'product':products})
-
-def Weddings(request,my_id):
-    # subcat_01=['Ethnic','Drum','Gifts','Car',]
-    # subcat_02=['Swift','Audi','Sedan','Mercedes']
-    if my_id==1:
+def search_subcat(request,my_id,mysubcat):
+    if my_id=='1':
         test={
             'Clothes': ['Ethnic','Drum','Gifts','Car',],
             'Car': ['Swift','Audi','Sedan','Mercedes'],
         }
-    elif(my_id==2):
+    elif(my_id=='2'):
         test = {
-            'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
-            'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
+            'Cake': ['Strawberry', 'Pineapple', 'Chocolate', 'Apple', ],
+            'Gift': ['Watch', 'Pencil', 'Pen', 'Rubber'],
         }
-    elif(my_id==3):
-        test = {
-            'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
-            'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
-        }
-    test = {
-        'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
-        'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
+
+    category = get_object_or_404(Subcategory, subcategories=mysubcat)
+    products = Product.objects.filter(subcategory=category)
+
+    context = {
+        'test': test,
+        'my_id': my_id,
+        'product': products
     }
+    return render(request, 'Rent/Weddings.html',context)
+
+def search_subcat1(request):
+    query=request.GET.get('search')
+    category = get_object_or_404(Subcategory, subcategories='Ethnic')
+    products1 = Product.objects.filter(subcategory=category)
+    products=[item for item in products1 if search_match(query,item)]
+    return render(request, 'Rent/subcstfil.html',{'product':products})
+
+def Event(request,my_id=''):
+    # subcat_01=['Ethnic','Drum','Gifts','Car',]
+    # subcat_02=['Swift','Audi','Sedan','Mercedes']
+    if my_id=='1':
+        test={
+            'Clothes': ['Ethnic','Drum','Gifts','Car',],
+            'Car': ['Swift','Audi','Sedan','Mercedes'],
+        }
+    elif(my_id=='2'):
+        test = {
+            'Cake': ['Strawberry', 'Pineapple', 'Chocolate', 'Apple', ],
+            'Gift': ['Watch', 'Pencil', 'Pen', 'Rubber'],
+        }
+    elif(my_id=='3'):
+        test = {
+            'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
+            'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
+        }
+
+    category = get_object_or_404(Subcategory, subcategories='Ethnic')
+    products = Product.objects.filter(subcategory=category)
+
     context={
         'test':test,
-
+        'my_id':my_id,
+        'product':products
     }
     return render(request,'Rent/Weddings.html',context)
 def load_subcat(request):
@@ -63,7 +95,6 @@ def show(request):
 def Productform(request):
     if request.method=='POST' :
         form=ProductForm(request.POST,request.FILES)
-        print(form)
         service=['DJ','Banquet Hall','Car']
         if form.is_valid():
             us=request.user
@@ -102,6 +133,8 @@ def Prod_view(request,prod_id):
         'pro':Product.objects.get(id=ppk),
         'pform':PhotoForm,
     }
+    print(Photo.objects.filter(product_photo__id=ppk))
+    print(Product.objects.get(id=ppk))
     if str(request.user)==str(Product.objects.get(id=ppk).seller_of_item):
         print(str(request.user)+" "+str(Product.objects.get(id=ppk).seller_of_item))
         return render(request,'Rent/ProdView.html',context)
