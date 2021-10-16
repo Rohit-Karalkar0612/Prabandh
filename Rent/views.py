@@ -17,10 +17,16 @@ def index(request):
     }
     print(products)
     return render(request, 'Rent/home_page.html',param)
-
-def search_subcat(request,mysubcat):
-    category = get_object_or_404(Subcategory, subcategories=mysubcat)
-    products = Product.objects.filter(subcategory=category)
+def search_match(query,item):
+    if query in item.title.lower() or query in item.about.lower() or query in item.category or query in item.subcategory:
+        return True
+    else:
+        return False
+def search_subcat(request):
+    query=request.GET.get('search')
+    category = get_object_or_404(Subcategory, subcategories='Ethnic')
+    products1 = Product.objects.filter(subcategory=category)
+    products=[item for item in products1 if search_match(query,item)]
     return render(request, 'Rent/subcstfil.html',{'product':products})
 
 def Weddings(request,my_id):
