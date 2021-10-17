@@ -95,7 +95,6 @@ def show(request):
 def Productform(request):
     if request.method=='POST' :
         form=ProductForm(request.POST,request.FILES)
-        print(form)
         service=['DJ','Banquet Hall','Car']
         if form.is_valid():
             us=request.user
@@ -127,13 +126,21 @@ def Productform(request):
 
 def Prod_view(request,prod_id):
     # print(pk)
+    request.session['p_id']=prod_id
     ppk=prod_id
     context={
         'Product':Photo.objects.filter(product_photo__id=ppk),
         'pro':Product.objects.get(id=ppk),
         'pform':PhotoForm,
     }
-    return render(request,'Rent/ProdView.html',context)
+    print(Photo.objects.filter(product_photo__id=ppk))
+    print(Product.objects.get(id=ppk))
+    if str(request.user)==str(Product.objects.get(id=ppk).seller_of_item):
+        print(str(request.user)+" "+str(Product.objects.get(id=ppk).seller_of_item))
+        return render(request,'Rent/ProdView.html',context)
+    else:
+        print(str(request.user)+" "+str(Product.objects.get(id=ppk).seller_of_item))
+        return render(request,'Rent/ProdViewCust.html',context)
 
 
 def load(request):
@@ -146,7 +153,7 @@ def load(request):
     return render(request,'Rent/loop.html',context)
 
 
-def AddImage(request):
+def NewImage(request):
     print("lll")
     print(request)
     if request.method=='POST':
@@ -176,3 +183,4 @@ def deleteImage(request):
         
     
     return JsonResponse({'bool':True})
+

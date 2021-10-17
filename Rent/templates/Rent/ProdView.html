@@ -11,37 +11,81 @@
 <div class="container-fluid">
     <div class="row">
         <h2>Product Details</h2>
-        <div class="col-5 left">
-            {% include 'Rent/loop.html' %}
-            <!-- <div class="col-12 k">
-                 {% for p in Product %}
-                    <div class="imgb">
-                        <img src="{{ p.photo.url }}">
-                    </div>
-                {% endfor %}
-            </div> -->
+        <br>
+        <br>
+        <br>
+        <div class="col-sm-5 left1">
+            <div class="col-12 left">
+                {% include 'Rent/loop.html' %}
+            </div>
         </div>
-        <div class="col-1"></div>
-        <div class="col-6">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5 right col-xs-12"  style="border: 2px solid black;">
             <div class="row">
-                <div class="col-6">
-                    <h2>Product Name: </h2>
-                    <h2>Product Description</h2>
+                <div class="col-12">
+                    <br>
+                    <div class="row">
+                        <div class="col-5">
+                            <h5>Product Name: </h5>
+                        </div>
+                        <div class="col-7">
+                            <h5>{{ pro.title }}</h5>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-5">
+                            <h5>Product Description</h5>
+                        </div>
+                        <div class="col-7">
+                            <div class="aboutblock">
+                                <h5>{{ pro.about }}</h5>
+                            </div>
+                            <br>
+                            <form method="POST" class="photoform" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <h4 for="id_photo"><strong>Add more Images?</strong></h4>
+                                </div>
+                                <br>
+                                <div class="row filecon container-fluid">
+                                    <div class="col-4 imagecover h-100">
+                                        <input type="file" name="photo" accept="image/*" required id="id_photo" class="imagefile" onchange="bg(event)">
+                                        <div class="drag">
+                                            <h3>Drag Your image here</h3>
+                                        </div>
+                                    </div>
+                                    <div id="im" class="inactive">
+                                        <img id="o">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <button class="btn btn-info file" data-val="{{ pro.id }}" type="submit">Submit</button>
+                                    </div>  
+                                    <div class="forbtn col-sm">
+                                        <button class="btn btn-danger removeb d-none" onclick="remove(event)" type="text">Remove</button>
+                                    </div>
+                                    <div class="col-sm product">
+                                        <a href="{% url 'product' %}" class="btn btn-info">Product</a>             
+                                    </div>           
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <h2>{{ pro.title }}</h2>
-                    <h4>{{ pro.about }}</h4>
-                </div>
+                    <!-- <div class="col-6">
+                        <h4>{{ pro.about }}</h4>
+                        <form method="POST" class="photoform" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ pform }}
+                            <br>
+                            <button class="btn btn-info file" data-val="{{ pro.id }}">Submit</button>
+                        </form>
+                        <button class="btn btn-info"> Add new Product</button>
+                    </div> -->
             </div>
-            <div class="row">
-                <form method="POST" class="photoform" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ pform }}
-                    <button class="btn btn-info file" data-val="{{ pro.id }}">Submit</button>
-                </form>
-                <button class="btn btn-info"> Add new Product</button>
-            </div>
-
         </div>
     </div>
 </div>
@@ -72,6 +116,11 @@
                         $(".left").html('').load(
                             "{% url 'load' %}"
                         ).fadeIn(500);
+                        document.getElementById("id_photo").value="";
+                        $(".inactive").hide();
+                        $(".removeb").addClass("d-none");
+                        $(".imagecover").show();
+                        $(".product").show();
                      }
                  });
             })
@@ -101,4 +150,5 @@
              })
        })
     </script>
+    <script src="{% static 'Rent/js/ProdView.js' %}?{% now "U" %}"></script>
 {% endblock %}

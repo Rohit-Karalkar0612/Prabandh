@@ -1,0 +1,69 @@
+{% extends 'User/basic.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'Rent/css/ProdViewCust.css' %}?{% now "U" %}">
+{% endblock %}
+{% block title%}
+    {{Product.product_name}}
+{%endblock%}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <h2>Product Details</h2>
+        <br>
+        <br>
+        <br>
+        <div class="col-sm-5 left1">
+            <div class="col-12 left">
+                {% include 'Rent/loop.html' %}
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5 right col-xs-12"  style="border: 2px solid black;">
+            <div class="row">
+                <div class="col-12">
+                    <br>
+                    <div class="row">
+                        <div class="col-5">
+                            <h5>Product Name: </h5>
+                        </div>
+                        <div class="col-7">
+                            <h5>{{ pro.title }}</h5>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-5">
+                            <h5>Product Description</h5>
+                        </div>
+                        <div class="col-7">
+                            <div class="aboutblock">
+                                <h5>{{ pro.about }}</h5>
+                            </div>
+                            <br>
+                            <form method="POST" class="photoform" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <button class="btn btn-danger file" data-val="{{ pro.id }}" type="submit">Add to Cart</button>
+                                    </div>  
+                                    <div class="col-sm product">
+                                        <button class="btn btn-danger">Rent</button>             
+                                    </div>           
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    $(".over").addClass("d-none");
+</script>
+{% endblock %}
