@@ -10,11 +10,19 @@
     <!-- Bootstrap core CSS -->
     <link href="{% static 'Rent/css/r.css' %}" rel="stylesheet">
     <style>
+        ::-webkit-scrollbar {
+            width: 5px;
+            background: transparent;
+        }
         .scrollable{
             background-color: cyan;
+            height: -webkit-fill-available;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: scroll;
             height: auto;
+            box-sizing: content-box;
+            padding-left: 20px;
+            padding-right: 20px;
         }
         #carousel2{
             border-radius: 20px;
@@ -47,6 +55,7 @@
             width: 230px;
             background-color: rgb(251, 239, 97);
             border-radius: 5px;
+            height: 1000px;
         }
         .bd-placeholder-img {
         font-size: 1.125rem;
@@ -62,17 +71,6 @@
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
-      @media screen and (max-width: 500px){
-      .container1{
-        margin: 0px;
-       }
-        .container4{
-            width: 1000px !important ;
-            display: flex;
-            float: left;
-            border-radius: 10px;
-        }
-      }
       span{
         padding: 4px;
         margin-left: 10px;
@@ -128,8 +126,7 @@
     <main>
     <h1 class="visually-hidden">Sidebars examples</h1>
 
-    <div class="container4 p-3 ">
-
+    <div class="container4 p-3">
         {% for k,v in test.items %}
             <div class="container1">
               <ul class="list-unstyled ps-0">

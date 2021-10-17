@@ -3,6 +3,7 @@ from User.models import Seller
 from django.contrib.auth.models import User
 
 # Create your models here.
+
 class Subcategory(models.Model):
     subcategories = models.CharField(max_length=50)
     Categories = models.ForeignKey("Category",on_delete=models.CASCADE)
@@ -70,3 +71,9 @@ class Bookings(models.Model):
     start_time=models.DateField()
     end_time=models.DateField()
     confirmation=models.BooleanField()
+
+class Cart(models.Model):
+    user=models.ForeignKey(User,related_name='user', on_delete=models.CASCADE)
+    product_id=models.ForeignKey(Product,related_name='product_id', on_delete=models.CASCADE)
+    def _str_(self):
+        return self.product_id
