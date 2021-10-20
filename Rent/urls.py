@@ -6,6 +6,7 @@ urlpatterns = [
     path('product/',views.Productform,name="product"),
     path('ajax/load_subcat/', views.load_subcat, name='ajax_load_subcat'),
     path('cart/',views.cart,name="cart"),
+    path('cartdel/<my_id>',views.cartdel,name="cart"),
     path('event/<my_id>',views.Event,name="product"),
     path('Image/<prod_id>',views.Prod_view,name="Prod_view"),
     path("NewImage/",views.NewImage,name="NewImage"),

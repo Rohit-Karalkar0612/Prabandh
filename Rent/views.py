@@ -30,7 +30,9 @@ def cart(request):
     }
     print(products)
     return render(request, 'Rent/subcstfil.html', param)
-
+def cartdel(request, my_id):
+    Cart.objects.filter(product_id=my_id).delete()
+    return redirect('cart')
 
 def search_match(query,item):
     if query in item.title.lower() or query in item.about.lower() or query in item.category or query in item.subcategory:
