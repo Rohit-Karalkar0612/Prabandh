@@ -20,9 +20,13 @@ def cart(request):
     for i in range(0, j):
         prod=prod+list(Cartobj[i].values())
     print(prod)
+    sum=0
     products = Product.objects.filter(id__in=prod)
+    for i in products:
+        sum=sum+i.deposit
     param = {
         'product': products,
+        'sum':sum,
     }
     print(products)
     return render(request, 'Rent/subcstfil.html', param)
