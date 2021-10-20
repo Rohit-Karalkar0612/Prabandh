@@ -30,6 +30,14 @@ def cart(request):
     }
     print(products)
     return render(request, 'Rent/subcstfil.html', param)
+def cartadd(request,my_id):
+    us = request.user
+    prod = Product.objects.get(id=my_id)
+    b = Cart(user=us, product_id=prod)
+    b.save()
+    return redirect('cart')
+
+
 def cartdel(request, my_id):
     Cart.objects.filter(product_id=my_id).delete()
     return redirect('cart')
@@ -140,8 +148,6 @@ def Productform(request):
             # base=reverse('Prod_view')
             # query=urlencode({'prod_id':p.pk})
             # url='{}?{}'.format(base,query)
-            b= Cart(user=us,product_id=products)
-            b.save()
             return redirect('Prod_view',p.pk)
         else:
             print(form.errors)
