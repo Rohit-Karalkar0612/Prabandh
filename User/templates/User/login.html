@@ -1,12 +1,41 @@
-{% extends 'User/basic.html' %}
+{% extends 'User/nonav.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'User/css/login.css' %}?{% now "U" %}">
+{% endblock css %}
 {% block content %}
-<div class="container">
-<form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-    
-        <button class="btn btn-danger" type="submit">Submit</button>
-</form> 
+<div class="container col-6 justify-content-center container1">
+        <div class="container col-12 inner">
+        <div class="container col-10">
+                <div class="im">
+                <img src="../../static/User/images/Prabandh.png" height="100px" width="100px"></img>
+                </div>
+                <h2 style="color: white;">Login </h2>
+                <br>
+        <form method="POST">
+                {% csrf_token %}
+                <div id="div_id_username" class="form-group">
+                        <label for="id_username" class="requiredField down">
+                                Username<span class="asteriskField">*</span> 
+                        </label> 
+                        <div class=""> 
+                                <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="textinput textInput form-control" required id="id_username"> 
+                        </div> 
+                </div> 
+                <br>
+                <div id="div_id_password" class="form-group"> 
+                        <label for="id_password" class="requiredField down">
+                                Password<span class="asteriskField">*</span> 
+                        </label> 
+                        <div class=""> 
+                                <input type="password" name="password" autocomplete="current-password" class="textinput textInput form-control" required id="id_password"> 
+                        </div> 
+                </div>
+                <br>
+                <button class="btn btn-danger" type="submit">Submit</button>
+        </form> 
+        </div>
+        </div>
 </div>
 {% endblock %}

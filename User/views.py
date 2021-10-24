@@ -3,6 +3,7 @@ from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
 from .forms import RegisterForm,UserForm,SellerForm
+from .models import Seller
 
 # Create your views here.
 
@@ -33,18 +34,19 @@ def Register(request):
     return render(request,'User/register.html',{'user':UserForm,'register':RegisterForm})
 
 def SellerView(request):
-    if request.method=='POST':
-        form=SellerForm(request.POST)
-        if form.is_valid():
-            user=request.session['user']
-            u=User.objects.get(username=user)
-            p=form.save(commit=False)
-            p.seller=u
-            p.save()
-            return redirect('register')
+    # if Seller.objects.filter(seller=request.user).count()==0 or Seller.objects.filter(seller=User.objects.get(username=request.session['user'])).count()==0:
+        if request.method=='POST':
+            form=SellerForm(request.POST)
+            if form.is_valid():
+                user=request.session['user']
+                u=User.objects.get(username=user)
+                p=form.save(commit=False)
+                p.seller=u
+                p.save()
+                return redirect('register')
+            else:
+                return render(request,'User/seller.html',{'user':form})
         else:
-            return render(request,'User/seller.html',{'form':form})
-    else:
-        form=SellerForm()
-    return render(request,'User/seller.html',{'form':SellerForm})
+            form=SellerForm()
+        return render(request,'User/seller.html',{'user':SellerForm})
 
