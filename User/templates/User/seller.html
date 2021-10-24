@@ -1,12 +1,114 @@
 {% extends 'User/basic.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'User/css/seller.css' %}?{% now "U" %}">
+{% endblock css %}
 {% block content %}
 <div class="container">
-<form method="POST">
+        <div class="row top no-gutters justify-content-center">
+                <div class="col-lg-5 col-sm-12 super">
+                    <div class="col-lg-12 below-right no-gutters">
+                    </div>
+                    <div class="col-lg-12 cover-right no-gutters">
+                        <div class='container hello'>
+                                <h2 class='center-me'>Sell with Us</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 left">
+                    <div class="container-left container col-lg-12 col-sm-12">
+                        <div class="container col-lg-10">
+                            <div class="row register-heading">
+                                <h3>Seller</h3>
+                            </div>
+                            <div class="row top-left side-row ">
+                                <form method="POST">
+                                        {% csrf_token %}
+                                        <!-- {{ user|crispy }}
+                                        {{ register|crispy }} -->
+                                        <!-- {{ user.username.label }} -->    
+                                        <div class="form-group">
+                                                <div class="fieldWrapper">
+                                                <label for="{{ user.name_of_business.id_for_label }}" class="down">Name of Business</label>
+                                                {{ user.name_of_business }}
+                                                </div>
+                                                {{ user.name_of_business.errors }}
+                                                <div class="fieldWrapper">
+                                                <label for="{{ user.gst_no.id_for_label }}" class="down">GST_No</label>
+                                                {{ user.gst_no }}
+                                                </div>
+                                                {{ user.email.errors }}
+                                                <div class="fieldWrapper">
+                                                <label for="{{ user.mobile_no.id_for_label }}" class="down">Mobile_No</label>
+                                                {{ user.mobile_no }}
+                                                </div>
+                                                {{ user.password1.errors }}
+                                                <div class="fieldWrapper">
+                                                <label for="{{ user.city.id_for_label }}"class="down">City</label>
+                                                {{ user.city }}
+                                                </div>
+                                                {{ user.password2.errors }}
+                                                <div class="fieldWrapper">
+                                                <label for="{{ user.PAN.id_for_label }}"class="down">PAN</label>
+                                                {{ user.PAN }}
+                                                </div>
+                                                <br>
+                                                <button class="btn btn-info" type="submit">Submit</button>
+                                        </div>
+                                </form> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+<!-- <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
+        <div id="div_id_name_of_business" class="form-group"> 
+                <label for="id_name_of_business" class=" requiredField">
+                        Name of business<span class="asteriskField">*</span> 
+                </label> 
+                <div class=""> 
+                        <input type="text" name="name_of_business" class="form-control textinput textinput textInput form-control" maxlength="50" required id="id_name_of_business"> 
+                </div>
+        </div>
+        <div id="div_id_gst_no" class="form-group"> 
+                <label for="id_gst_no" class=" requiredField">
+                        Gst no<span class="asteriskField">*</span> 
+                </label> 
+                <div class=""> 
+                        <input type="text" name="gst_no" class="form-control textinput textinput textInput form-control" maxlength="15" required id="id_gst_no"> 
+                </div> 
+        </div> 
+        <div id="div_id_mobile_no" class="form-group"> 
+                <label for="id_mobile_no" class=" requiredField">
+                        Mobile no<span class="asteriskField">*</span> 
+                </label> 
+                <div class=""> 
+                        <input type="number" name="mobile_no" class="form-control textinput numberinput form-control" maxlength="10" required id="id_mobile_no"> 
+                </div> 
+        </div> 
+        <div id="div_id_city" class="form-group"> 
+                <label for="id_city" class=" requiredField">
+                        City<span class="asteriskField">*</span> 
+                </label> 
+                <div class=""> 
+                        <input type="text" name="city" class="form-control textinput textinput textInput form-control" maxlength="15" required id="id_city"> 
+                </div> 
+        </div> 
+        <div id="div_id_PAN" class="form-group"> 
+                <label for="id_PAN" class=" requiredField">
+                        PAN<span class="asteriskField">*</span> 
+                </label> 
+                <div class=""> 
+                        <input type="text" name="PAN" class="form-control textinput textinput textInput form-control" maxlength="10" required id="id_PAN"> 
+                </div> 
+        </div>
+
     
         <button class="btn btn-danger" type="submit">Submit</button>
-</form> 
+    
+</form>  -->
 </div>
 {% endblock %}

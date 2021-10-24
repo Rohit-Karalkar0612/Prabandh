@@ -1,0 +1,121 @@
+@media screen and (min-width: 1000px) {
+  .container-left {
+    float: right;
+  }
+}
+
+.top {
+  margin-top: 5%;
+}
+
+.top-left {
+  margin-top: 5%;
+}
+.left {
+  border: 1px solid black;
+  /* background-color: white; */
+  background-color: rgba(34, 12, 233, 0.3);
+}
+.register-heading {
+  margin-top: 12%;
+}
+#div_id_username {
+  font-weight: bold;
+}
+
+.textinput {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px white solid;
+  box-shadow: none !important;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0);
+  color: white !important;
+}
+.textinput:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+  background-color: rgba(0, 0, 0, 0);
+}
+.down {
+  font-weight: bold;
+  margin-top: 2%;
+  color: white;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+h3 {
+  font-size: 40px;
+  color: white;
+}
+.below-right {
+  background-position: center;
+  background-size: cover;
+  transition: ease-in 0.5s;
+  z-index: -2;
+  height: 100%;
+  position: absolute;
+}
+.cover-right {
+  /* background-color: rgba(199, 195, 236, 0.3); */
+  background-image: linear-gradient(to bottom right, blue, grey);
+  position: relative;
+  z-index: 200;
+  width: 103%;
+  height: 100%;
+}
+.super {
+  position: relative;
+}
+
+body {
+  background-image: url("../images/bg.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.textareaclass::-webkit-scrollbar {
+  display: none;
+}
+.btn-info {
+  color: white;
+  background-color: darkblue;
+  font-weight: bold;
+}
+.hello {
+  height: 100%;
+  position: relative;
+}
+.center-me {
+  position: absolute;
+  top: 50%;
+  color: white;
+  font-size: 40px;
+  transition: 0.5s ease-in;
+  left: 25%;
+  text-align: center;
+}
+
+#id_captcha_1 {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px blue solid;
+  box-shadow: none !important;
+  outline: none;
+  font-weight: 500;
+}
+
+.form-check-input {
+  border: 2px solid black;
+}
+
+@media screen and (max-width: 800px) {
+  .hello {
+    display: none;
+  }
+}

@@ -1,0 +1,29 @@
+.container1 {
+  height: 100vh;
+  position: relative;
+}
+.inner {
+  position: absolute;
+  margin: auto;
+  top: 13%;
+}
+.col-12 {
+  background-color: rgb(0, 0, 85);
+  padding-top: 5%;
+  padding-bottom: 5%;
+  border-radius: 25px;
+  box-shadow: 5px 10px 18px black;
+}
+.down {
+  font-size: 20px;
+  font-weight: bolder;
+  color: white;
+}
+body {
+  background-image: url("../images/white.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.im {
+  text-align: center;
+}
