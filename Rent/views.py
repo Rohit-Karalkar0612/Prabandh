@@ -82,6 +82,7 @@ def Event(request,my_id=''):
         'product':products
     }
     return render(request,'Rent/Weddings.html',context)
+    
 def load_subcat(request):
     print('Hello')
     category_id = request.GET.get('CategoryId')

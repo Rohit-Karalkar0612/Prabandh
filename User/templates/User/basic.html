@@ -5,12 +5,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rental IT</title>
+  <title>PRABANDH</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   {% block css %}
   {% endblock css %}
-  <!-- <link rel="stylesheet" href="phone.css"> -->
 </head>
 
   <body>
@@ -18,7 +17,7 @@
           <div class="container">
             <div class="me-4">
               <!-- <img src="images/lo.jfif" class="logo_image" alt="" srcset=""> -->
-              <a class="navbar-brand">PRABANDH</a>
+              <a href="#" class="navbar-brand">PRABANDH</a>
             </div>
             <form class="d-flex" method='get' action='/search'>
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
@@ -26,12 +25,12 @@
             </form>
             <div class="color">
               <a href="#" class=".text-decoration-none me-4">Cart</a>
-              <a href="#" class=".text-decoration-none">Login</a>
+              <a href="/user" class=".text-decoration-none">Sign Up</a>
             </div>
           </div>
       </nav>
 
-      {% block content %}
+      {% block body %}
       {% endblock %}
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
