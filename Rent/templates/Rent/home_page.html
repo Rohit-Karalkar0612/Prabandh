@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'Rent/css/basic_manual1.css' %}?{% now "U" %}">
+<link rel="stylesheet" href="{% static 'Rent/css/basic_manual.css' %}?{% now "U" %}">
 <style>
   .height{
   height:300px;
@@ -103,31 +103,9 @@
   <!-- Second Navbar Ends Here -->
 
     <!-- Register Part -->
-    <div class="section">
+    <div class="section container">
 
-      <div class="carousel-inner">
-        <div class="seller">
-          <img src="{% static 'Rent/images/seller.png' %}" class="seller-width" alt="...">
-          <div class="card-seller d-md-block">
-            <h5>Welcome Sellers</h5>
-            <p>You can add your products for Rent</p>
-            <button type="submit" class="btn btn-outline-success">Register</button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="carousel-inner">
-        <div class="seller">
-          <img src="{% static 'Rent/images/rent_user.png' %}" class="seller-width" alt="...">
-          <div class="card-seller d-md-block">
-            <h5>Welcome User</h5>
-            <p>You can Rent any products from here</p>
-            <button type="submit" class="btn btn-outline-success">Register</button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="carousel-inner">
+      <div class="carousel-inner mx-5">
         <div class="seller">
           <img src="{% static 'Rent/images/event_plan.jfif' %}" class="seller-width" alt="...">
           <div class="card-seller d-md-block">
@@ -137,9 +115,21 @@
           </div>
         </div>
       </div>
-    </div>
   
-
+      <div class="carousel-inner">
+        <div class="seller">
+          <img src="{% static 'Rent/images/seller.png' %}" class="seller-width" alt="...">
+          <div class="card-seller d-md-block">
+            <h5>Contact Us</h5>
+            <p>Here we are available for 24*7 </p>
+            <form action="#contacts">
+            <button type="submit" class="btn btn-outline-primary">Contact</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+      
   <!-- Cards Starts here -->
   <div class="container">
   <div class="card-group">
@@ -209,51 +199,7 @@
               }
             </style>
           </div>
-
-
-        </div>
       </div>
-
-
-      <div id="col-280435187" class="col medium-2 small-7 large-2">
-        <div class="col-inner">
-          <div id="text-24730617" class="text">
-            <p style="text-align: center;">Follow us</p>
-            <style>
-              #text-24730617 {
-                line-height: 0.75;
-                text-align: center;
-              }
-            </style>
-          </div>
-
-          <div class="social-icons follow-icons full-width text-center" style="font-size:75%"><a
-              href="https://www.facebook.com" target="_blank" data-label="Facebook"
-              rel="noopener noreferrer nofollow" class="icon button circle is-outline facebook tooltip"
-              title="Follow on Facebook" aria-label="Follow on Facebook"><i class="icon-facebook"></i></a>
-            <a href="https://twitter.com" target="_blank" data-label="Twitter"
-              rel="noopener noreferrer nofollow" class="icon button circle is-outline  twitter tooltip"
-              title="Follow on Twitter" aria-label="Follow on Twitter"><i class="icon-twitter"></i></a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer nofollow"
-              data-label="LinkedIn" class="icon button circle is-outline  linkedin tooltip" title="Follow on LinkedIn"
-              aria-label="Follow on LinkedIn"><i class="icon-linkedin"></i></a>
-            <a href="https://www.youtube.com" target="_blank"
-              rel="noopener noreferrer nofollow" data-label="YouTube"
-              class="icon button circle is-outline  youtube tooltip" title="Follow on YouTube"
-              aria-label="Follow on YouTube"><i class="icon-youtube"></i></a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div id="gap-828615903" class="gap-element clearfix" style="display:block; height:auto;">
-      <style>
-        #gap-828615903 {
-          padding-top: 30px;
-        }
-      </style>
     </div>
   </section>
 

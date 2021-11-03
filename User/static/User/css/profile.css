@@ -1,0 +1,36 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.snippet-body{
+    background: rgb(142 221 239);
+}
+
+.text-decoration-none{
+    text-decoration: none;
+    color: white;
+}
+
+#profile, #booking, #rented{
+    display: none;
+}
+
+#profile:target, #booking:target, #rented:target{
+    display: block;
+}
+
+.required{
+    color: red;
+    font-weight: bold;
+}
+
+.col-md{
+    display: flex;
+    flex-direction: column;
+}
+
+.labels-1{
+    font-size: 1.2rem !important;
+    padding-top: .6rem;
+}
