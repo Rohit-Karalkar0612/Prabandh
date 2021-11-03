@@ -41,4 +41,11 @@ class SellerForm(forms.ModelForm):
     class Meta:
         model=Seller
         exclude=('seller',)
+        widgets={
+            'name_of_business':forms.TextInput(attrs={'class':'form-control textinput'}),
+            'gst_no':forms.TextInput(attrs={'class':'form-control textinput'}),
+            'mobile_no':forms.NumberInput(attrs={'class':'form-control textinput'}),
+            'city':forms.TextInput(attrs={'class':'form-control textinput'}),
+            'PAN':forms.TextInput(attrs={'class':'form-control textinput'}),
+        }
     

@@ -30,12 +30,16 @@
                               Deposit:{{i.deposit}}
                             </p>
                     </div>
-                  <a href="#" class="btn btn-primary" style="margin-right:10px;">Add to Cart</a>
+                  <a href="/cartdel/{{i.id}}" class="btn btn-danger" style="margin-right:10px;">Remove</a>
                   <a href="#" class="btn btn-primary">Rent</a>
                 </div>
               </div>
             </div>
      {% endfor %}
+            <center>
+                <b>Total Amount:{{sum}}<b><br/>
+                <button class="btn-primary">Proceed to checkout</button>
+            </center>
     </main>
 {% endblock %}
 {% block js %}

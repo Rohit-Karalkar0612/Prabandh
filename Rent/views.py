@@ -2,12 +2,45 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import CreateView
-from .models import Product,Photo,Subcategory,Category,Photo
+from .models import Product,Photo,Subcategory,Category,Photo,Cart
 from User.models import Seller
 from .forms import ProductForm,PhotoForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
 # Create your views here.
+def cart(request):
+    us = request.user
+    Cartobj=(Cart.objects.filter(user=us)).values('product_id')
+    print(Cartobj)
+    prod=[]
+    j=0
+    for i in Cartobj:
+        j=j+1
+    print(j)
+    for i in range(0, j):
+        prod=prod+list(Cartobj[i].values())
+    print(prod)
+    sum=0
+    products = Product.objects.filter(id__in=prod)
+    for i in products:
+        sum=sum+i.deposit
+    param = {
+        'product': products,
+        'sum':sum,
+    }
+    print(products)
+    return render(request, 'Rent/subcstfil.html', param)
+def cartadd(request,my_id):
+    us = request.user
+    prod = Product.objects.get(id=my_id)
+    b = Cart(user=us, product_id=prod)
+    b.save()
+    return redirect('cart')
+
+
+def cartdel(request, my_id):
+    Cart.objects.filter(product_id=my_id).delete()
+    return redirect('cart')
 
 def search_match(query,item):
     if query in item.title.lower() or query in item.about.lower() or query in item.category or query in item.subcategory:
@@ -50,7 +83,7 @@ def search_subcat(request,my_id,mysubcat):
 def search_subcat1(request):
     query=request.GET.get('search')
     category = get_object_or_404(Subcategory, subcategories='Ethnic')
-    products1 = Product.objects.filter(subcategory=category)
+    products1=Product.objects.all()
     products=[item for item in products1 if search_match(query,item)]
     return render(request, 'Rent/subcstfil.html',{'product':products})
 
