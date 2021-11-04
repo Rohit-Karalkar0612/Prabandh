@@ -8,6 +8,8 @@
   <title>Rental IT</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+      <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+      <script src="https://js.stripe.com/v3/"></script>
   {% block css %}
   {% endblock css %}
   <!-- <link rel="stylesheet" href="phone.css"> -->
@@ -26,7 +28,12 @@
             </form>
             <div class="color">
               <a href="/cart/" class=".text-decoration-none me-4">Cart</a>
+              {% if user.is_authenicated %}
               <a href="/user/login" class=".text-decoration-none">Login</a>
+              {% else %}
+              <a href="/user/logout" class=".text-decoration-none">Logout</a>
+
+              {% endif %}
             </div>
           </div>
       </nav>

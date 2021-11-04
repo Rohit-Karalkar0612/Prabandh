@@ -139,3 +139,9 @@ LOGIN_URL='login'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+STRIPE_PUBLIC_KEY="pk_test_51JsABWSIonIO6GDnpDssD4QwaMlM2lLvzUvmX6pkKZDaEqSwUsHrMiW6pUCbgeAVS2KSUDpezY2AWcOndIwx2WFD00QufjgLAC"
+
+STRIPE_SECRET_KEY="sk_test_51JsABWSIonIO6GDnAKZYTjxpG9j7KyoCPik0nVcGjb1Uk6S7zysmC0haaOBvVP8DJihCRsoNc3TnJsv5Ph2UJNtt00wnGL36dO"
+

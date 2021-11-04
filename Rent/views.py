@@ -1,13 +1,21 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView,TemplateView
 from .models import Product,Photo,Subcategory,Category,Photo,Cart
 from User.models import Seller
 from .forms import ProductForm,PhotoForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
+from django.conf import settings
+import stripe
+from django.http import JsonResponse
 # Create your views here.
+
+stripe.api_key=settings.STRIPE_SECRET_KEY
+
+
+
 def cart(request):
     us = request.user
     Cartobj=(Cart.objects.filter(user=us)).values('product_id')
@@ -27,9 +35,13 @@ def cart(request):
     param = {
         'product': products,
         'sum':sum,
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
     }
     print(products)
     return render(request, 'Rent/subcstfil.html', param)
+
+
+
 def cartadd(request,my_id):
     us = request.user
     prod = Product.objects.get(id=my_id)
@@ -217,3 +229,80 @@ def deleteImage(request):
     
     return JsonResponse({'bool':True})
 
+class CreateCheckOutSessoionView(View):
+    def post(self, request, *args, **kwargs):
+        ng = "http://127.0.0.1:8000"
+        my_items=Cart.objects.filter(user=request.user)
+        total=0
+        for p in my_items:
+            total+=(p.product_id.deposit)
+
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "inr",
+                        "unit_amount": total,
+                        "product_data": {
+                            "name": "kedfnh",
+                        },
+                    },
+                    "quantity": 1,
+                },
+            ],
+            mode="payment",
+            success_url=ng + "/success",
+            cancel_url=ng + "/cancel",
+        )
+        return JsonResponse({"id": checkout_session.id})
+
+# def create_checkout_session(request):
+#     print("KKKKK")
+#     if request.method=='POST':
+#         my_items=Cart.objects.filter(user=request.user)
+#         total=0
+#         for p in my_items:
+#             total+=(p.product_id.deposit)
+
+#         YOUR_DOMAIN="https://localhost:8000"
+#         # try:
+#         checkout_session = stripe.checkout.Session.create(
+#                 line_items=[
+
+#                      {
+#                         'price_data': {
+#                             'currency': 'usd',
+#                             'unit_amount':total,
+#                             'product_data': {
+#                                 'name': 'jdd',
+#                             },
+#                         },
+#                         'quantity': 1,
+#                     },
+#                 ],
+#                 payment_method_types=[
+#                 'card',
+#                 ],
+#                 mode='payment',
+#                 success_url=YOUR_DOMAIN + '/success',
+#                 cancel_url=YOUR_DOMAIN + '/cancel',
+#         )
+
+#         return JsonResponse({
+#             'id': checkout_session.id
+#         })
+
+        # except Exception as e:
+        #     return str(e)
+
+    # return redirect(checkout_session.url, code=303)
+
+class Success(TemplateView):
+        template_name = "Rent/success.html"
+
+
+class Cancel(TemplateView):
+        template_name = "Rent/cancel.html"
+
+    

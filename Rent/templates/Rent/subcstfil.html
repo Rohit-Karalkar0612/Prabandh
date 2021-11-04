@@ -22,9 +22,7 @@
                             <span class="fa fa-star checked" id="third"></span>
                             <span class="fa fa-star" id="fourth"></span>
                             <span class="fa fa-star" id="fifth"></span>
-                            <script src="{% static 'Saarthi/dashboard1.js' %}">
-                                handlestar();
-                            </script>
+                            
                             <p class="card-text">
                               {{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
                               Deposit:{{i.deposit}}
@@ -38,10 +36,72 @@
      {% endfor %}
             <center>
                 <b>Total Amount:{{sum}}<b><br/>
-                <button class="btn-primary">Proceed to checkout</button>
+                  <!-- <form action="{% url 'checkout' %}" method="POST"> -->
+                    <!-- {% csrf_token %} -->
+                    <button class="btn-primary" id="checkout-button">Proceed to checkout</button>
+                  <!-- </form> -->
             </center>
+            {% csrf_token %}
     </main>
 {% endblock %}
 {% block js %}
+<script type="text/javascript">
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  // Create an instance of the Stripe object with your publishable API key
+  var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+  var checkoutButton = document.getElementById("checkout-button");
+
+  checkoutButton.addEventListener("click", function () {
+    fetch("{% url 'checkout' %}", {
+      method: "POST",
+      headers: {
+          'X-CSRFToken': csrftoken,
+      },
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (session) {
+        return stripe.redirectToCheckout({ sessionId: session.id });
+      })
+      .then(function (result) {
+        // If redirectToCheckout fails due to a browser or network
+        // error, you should display the localized error message to your
+        // customer using error.message.
+        if (result.error) {
+          alert(result.error.message);
+        }
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
+  });
+</script>
+
 
 {% endblock js %}
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Buy cool new product</title>
+    <link rel="stylesheet" href="style.css">
+    
+  </head>
+  <body>
+    <section>
+      <div class="product">
+        <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+        <div class="description">
+          <h3>Stubborn Attachments</h3>
+          <h5>$20.00</h5>
+        </div>
+      </div>
+      
+    </section>
+  </body>
+</html> -->
