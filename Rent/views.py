@@ -238,13 +238,16 @@ class CreateCheckOutSessoionView(View):
         for p in my_items:
             total+=(p.product_id.deposit)
 
+         
+        print(total)
+
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=[
                 {
                     "price_data": {
-                        "currency": "inr",
-                        "unit_amount": total,
+                        "currency": "INR",
+                        "unit_amount": total*100,
                         "product_data": {
                             "name": "kedfnh",
                         },
@@ -258,46 +261,6 @@ class CreateCheckOutSessoionView(View):
         )
         return JsonResponse({"id": checkout_session.id})
 
-# def create_checkout_session(request):
-#     print("KKKKK")
-#     if request.method=='POST':
-#         my_items=Cart.objects.filter(user=request.user)
-#         total=0
-#         for p in my_items:
-#             total+=(p.product_id.deposit)
-
-#         YOUR_DOMAIN="https://localhost:8000"
-#         # try:
-#         checkout_session = stripe.checkout.Session.create(
-#                 line_items=[
-
-#                      {
-#                         'price_data': {
-#                             'currency': 'usd',
-#                             'unit_amount':total,
-#                             'product_data': {
-#                                 'name': 'jdd',
-#                             },
-#                         },
-#                         'quantity': 1,
-#                     },
-#                 ],
-#                 payment_method_types=[
-#                 'card',
-#                 ],
-#                 mode='payment',
-#                 success_url=YOUR_DOMAIN + '/success',
-#                 cancel_url=YOUR_DOMAIN + '/cancel',
-#         )
-
-#         return JsonResponse({
-#             'id': checkout_session.id
-#         })
-
-        # except Exception as e:
-        #     return str(e)
-
-    # return redirect(checkout_session.url, code=303)
 
 class Success(TemplateView):
         template_name = "Rent/success.html"

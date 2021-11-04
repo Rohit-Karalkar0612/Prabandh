@@ -26,25 +26,19 @@
               <button class="btn btn-outline-warning" type="submit">Search</button>
             </form>
             <div class="color">
-<<<<<<< HEAD
               <a href="/user" class=".text-decoration-none">Sign Up</a>
-=======
               <a href="/cart/" class=".text-decoration-none me-4">Cart</a>
               {% if user.is_authenicated %}
               <a href="/user/login" class=".text-decoration-none">Login</a>
-<<<<<<< HEAD
               {% else %}
               <a href="/user/logout" class=".text-decoration-none">Logout</a>
 
               {% endif %}
-=======
->>>>>>> 657da4e02a118ada190d57ee7810bbb6d54b183a
->>>>>>> 49350045346a4f172f5e36cc8050e36d684d2e15
             </div>
           </div>
       </nav>
 
-      {% block body %}
+      {% block content %}
       {% endblock %}
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
