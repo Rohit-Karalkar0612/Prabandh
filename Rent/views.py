@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import CreateView,TemplateView
@@ -10,6 +10,7 @@ from urllib.parse import urlencode
 from django.conf import settings
 import stripe
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 stripe.api_key=settings.STRIPE_SECRET_KEY
@@ -230,9 +231,12 @@ def deleteImage(request):
     
     return JsonResponse({'bool':True})
 
-class CreateCheckOutSessoionView(View):
-    def post(self, request, *args, **kwargs):
-        ng = "http://127.0.0.1:8000"
+
+
+    
+
+def create_payment(request):
+    if request.method=='POST':
         my_items=Cart.objects.filter(user=request.user)
         total=0
         for p in my_items:
@@ -240,33 +244,59 @@ class CreateCheckOutSessoionView(View):
 
          
         print(total)
-
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
-            line_items=[
-                {
-                    "price_data": {
-                        "currency": "INR",
-                        "unit_amount": total*100,
-                        "product_data": {
-                            "name": "kedfnh",
-                        },
-                    },
-                    "quantity": 1,
-                },
+        # data = json.loads(request.data)
+        # Create a PaymentIntent with the order amount and currency
+        intent = stripe.PaymentIntent.create(
+            amount=total*100,
+            currency='INR',
+            payment_method_types=[
+                'card',
             ],
-            mode="payment",
-            success_url=ng + "/success",
-            cancel_url=ng + "/cancel",
         )
-        return JsonResponse({"id": checkout_session.id})
+        return JsonResponse({
+            'clientSecret': intent['client_secret']
+        })
 
-
-class Success(TemplateView):
-        template_name = "Rent/success.html"
-
-
-class Cancel(TemplateView):
-        template_name = "Rent/cancel.html"
-
+class Check(TemplateView):
+    template_name = "Rent/checkout.html"
     
+    def get_context_data(self, **kwargs):
+        my_items=Cart.objects.filter(user=self.request.user)
+        total=0
+        for p in my_items:
+            total+=(p.product_id.deposit)
+
+        context = super().get_context_data(**kwargs)
+        context["total"] = total
+        return context
+
+
+@csrf_exempt
+def webhook(request):
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    if event['type'] == 'payment_intent.succeeded':
+        session = event['data']['object']
+
+        print(session)
+
+
+    # Passed signature verification
+    return HttpResponse(status=200)
+
+
+class success(TemplateView):
+    template_name="Rent/success.html"

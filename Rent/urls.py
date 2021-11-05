@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from Rent.views import CreateCheckOutSessoionView
+
 
 urlpatterns = [
     path('',views.index,name="home"),
@@ -17,8 +17,8 @@ urlpatterns = [
     path('deleteImage/',views.deleteImage,name="Delete Image"),
     path('subcategory/<str:mysubcat1>', views.search_subcat1, name="Search subcat1"),
     path('search/', views.search_subcat1, name="search"),
-    path('checkout/',CreateCheckOutSessoionView.as_view(),name="checkout"),
-    path('success/',views.Success.as_view(),name="success"),
-    path('cancel/',views.Cancel.as_view(),name="cancel"),
-
+    path('check/',views.Check.as_view(),name="check"),
+    path('check/create/',views.create_payment,name="create"),
+    path('webhook/',views.webhook,name="web"),
+    path('success/',views.success.as_view(),name="success"),
 ]
