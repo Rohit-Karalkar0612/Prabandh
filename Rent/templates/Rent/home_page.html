@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'Rent/css/basic_manual1.css' %}?{% now "U" %}">
+<link rel="stylesheet" href="{% static 'Rent/css/basic_manual.css' %}?{% now "U" %}">
 <style>
   .height{
   height:300px;
@@ -102,35 +102,35 @@
         <!-- horizontal carousal ends here -->
   <!-- Second Navbar Ends Here -->
 
-    <!-- First Part -->
-    <div class="section mx-4">
-      
-      <div class="carousel-inner">
-        <div class="seller">
-          <img src="{% static 'Rent/images/event_plan.jfif' %}" class="seller-width" alt="...">
-          <div class="card-seller d-md-block">
-            <h5> Plan Event</h5>
-            <p>Plan your Special Festival's Program with goodies</p>
-            <button type="submit" class="btn btn-radius btn-warning" ><a href="event/1">Plan Event</a></button>
-          </div>
-        </div>
-      </div>
 
-      <div class="carousel-inner">
-        <div class="seller">
-          <img src="{% static 'Rent/images/Contact Us.jpg' %}" class="seller-width" alt="...">
-          <div class="card-seller d-md-block">
-            <h5>Contact Us</h5>
-            <p>We are availabale for 24*7</p>
-            
-            <button type="submit" class="btn btn-radius btn-outline-warning"><a href="#contacts" > Contact </a></button>
-            </form>
-          </div>
+
+<!-- First Part -->
+  <div class="section container">
+    <div class="carousel-inner mx-5">
+      <div class="seller">
+        <img src="{% static 'Rent/images/event_plan.jfif' %}" class="seller-width" alt="...">
+        <div class="card-seller d-md-block">
+          <h5> Coming Soon</h5>
+          <p>Plan your Special Moment</p>
+          <button type="submit" class="btn btn-warning" ><a href="event/1">Plan Event</a></button>
         </div>
       </div>
     </div>
-  
 
+    <div class="carousel-inner">
+      <div class="seller">
+        <img src="{% static 'Rent\images\Contact Us.jpg' %}" class="seller-width" alt="...">
+        <div class="card-seller d-md-block">
+          <h5>Contact Us</h5>
+          <p>Here we are available for 24*7 </p>
+          <form action="#contacts">
+          <button type="submit" class="btn btn-outline-primary">Contact</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+      
   <!-- Cards Starts here -->
   <div class="container">
   <div class="card-group">
@@ -146,82 +146,77 @@
       </div>
     </div>
     {% endfor %}
+</div>
+</div>
+</div>
 
-  </div>
-  </div>
 
+<section id="contacts">
 
-  <section id="contacts">
-
-    <div class="row row-large align-center" id="row-1432787271">
-      <div id="col-1538136024" class="col medium-2 small-12 large-2">
-        <div class="col-inner">
-          <div id="text-1712333857" class="text">
-            <p><strong>Mail us<br /></strong>
-              <a
-                href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJTGnLBKzQgQjwdQHfHRJjrpQgSmDdsDwLnnMgPpGMLdBFNzCsZNmSqnzNGDnvZCQhCdCJq" target="_blank">
-                rohit123@gamil.com</a>
-            </p>
-            <style>
-              #text-1712333857 {
-                text-align: center;
-              }
-            </style>
-          </div>
+  <div class="row row-large align-center" id="row-1432787271">
+    <div id="col-1538136024" class="col medium-2 small-12 large-2">
+      <div class="col-inner">
+        <div id="text-1712333857" class="text">
+          <p><strong>Mail us<br /></strong>
+            <a
+              href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJTGnLBKzQgQjwdQHfHRJjrpQgSmDdsDwLnnMgPpGMLdBFNzCsZNmSqnzNGDnvZCQhCdCJq" target="_blank">
+              rohit123@gamil.com</a>
+          </p>
+          <style>
+            #text-1712333857 {
+              text-align: center;
+            }
+          </style>
         </div>
       </div>
-
-
-
-      <div id="col-2122993556" class="col medium-2 small-12 large-2">
-        <div class="col-inner">
-          <div id="text-3540112701" class="text">
-            <p><strong>Visit us<br /></strong>
-            K-001.Maruti Mahadev Nagar,<br>BLDG No.6, Near Parag Bungalow,<br>Sunil Nagar,Dombivli(EAST)<br>Thane Maharashtra 421201</p>
-            <style>
-              #text-3540112701 {
-                text-align: center;
-              }
-            </style>
-          </div>
-        </div>
-      </div>
-
-
-
-      <div id="col-910846341" class="col medium-4 small-12 large-3">
-        <div class="col-inner">
-          <div id="text-1826064971" class="text">
-            <p><strong>Contact us<br /></strong>Tel: <a href="tel:004724119020">+91 9137772979</a><br />Email: <a
-                href="mailto:info@appeartv.com">rohit123@jrk.com </a><br />Org numberNO : 986942033</p>
-            <style>
-              #text-1826064971 {
-                text-align: center;
-              }
-            </style>
-          </div>
-
-
-        </div>
-      </div>
-
-
     </div>
 
 
-    <div id="gap-828615903" class="gap-element clearfix" style="display:block; height:auto;">
-      <style>
-        #gap-828615903 {
-          padding-top: 30px;
-        }
-      </style>
+
+    <div id="col-2122993556" class="col medium-2 small-12 large-2">
+      <div class="col-inner">
+        <div id="text-3540112701" class="text">
+          <p><strong>Visit us<br /></strong>
+          K-001.Maruti Mahadev Nagar,<br>BLDG No.6, Near Parag Bungalow,<br>Sunil Nagar,Dombivli(EAST)<br>Thane Maharashtra 421201</p>
+          <style>
+            #text-3540112701 {
+              text-align: center;
+            }
+          </style>
+        </div>
+      </div>
     </div>
-  </section>
+
+
+
+    <div id="col-910846341" class="col medium-4 small-12 large-3">
+      <div class="col-inner">
+        <div id="text-1826064971" class="text">
+          <p><strong>Contact us<br /></strong>Tel: <a href="tel:004724119020">+91 9137772979</a><br />Email: <a
+              href="mailto:info@appeartv.com">rohit123@jrk.com </a><br />Org numberNO : 986942033</p>
+          <style>
+            #text-1826064971 {
+              text-align: center;
+            }
+          </style>
+        </div>
+    </div>
+  </div>
+
+
+  <div id="gap-828615903" class="gap-element clearfix" style="display:block; height:auto;">
+    <style>
+      #gap-828615903 {
+        padding-top: 30px;
+      }
+    </style>
+  </div>
+</section>
 
   <!-- Footer part -->
-  <footer class="fusion-footer-widget-area fusion-widget-area">
-    <div class="text-center" id="copyright">
-      Copyright &copy;www.Prabhandh.com All Rights Reserved
-    </div>
-  </footer>
+<footer class="fusion-footer-widget-area fusion-widget-area">
+  <div class="text-center" id="copyright">
+    Copyright &copy;www.Prabhandh.com All Rights Reserved
+  </div>
+</footer>
 {% endblock %}

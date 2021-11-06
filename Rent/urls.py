@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('',views.index,name="home"),
     path('product/',views.Productform,name="product"),
@@ -16,5 +17,8 @@ urlpatterns = [
     path('deleteImage/',views.deleteImage,name="Delete Image"),
     path('subcategory/<str:mysubcat1>', views.search_subcat1, name="Search subcat1"),
     path('search/', views.search_subcat1, name="search"),
-    # path('Image/49',views.load,name="load"),
+    path('check/',views.Check.as_view(),name="check"),
+    path('check/create/',views.create_payment,name="create"),
+    path('webhook/',views.webhook,name="web"),
+    path('success/',views.success.as_view(),name="success"),
 ]

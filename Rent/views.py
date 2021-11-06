@@ -1,7 +1,7 @@
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView,TemplateView
 from .models import Product,Photo,Subcategory,Category,Photo,Cart
 from User.models import Seller
 from .forms import ProductForm,PhotoForm
@@ -9,6 +9,16 @@ from django.urls import reverse,resolve
 from urllib.parse import urlencode
 
 # Create your views here.
+
+from django.conf import settings
+import stripe
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+# Create your views here.
+
+stripe.api_key=settings.STRIPE_SECRET_KEY
+
+
 
 def cart(request):
     us = request.user
@@ -29,10 +39,11 @@ def cart(request):
     param = {
         'product': products,
         'sum':sum,
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
     }
     print(products)
     return render(request, 'Rent/subcstfil.html', param)
-    
+
 def cartadd(request,my_id):
     us = request.user
     prod = Product.objects.get(id=my_id)
@@ -221,3 +232,72 @@ def deleteImage(request):
     
     return JsonResponse({'bool':True})
 
+
+
+    
+
+def create_payment(request):
+    if request.method=='POST':
+        my_items=Cart.objects.filter(user=request.user)
+        total=0
+        for p in my_items:
+            total+=(p.product_id.deposit)
+
+         
+        print(total)
+        # data = json.loads(request.data)
+        # Create a PaymentIntent with the order amount and currency
+        intent = stripe.PaymentIntent.create(
+            amount=total*100,
+            currency='INR',
+            payment_method_types=[
+                'card',
+            ],
+        )
+        return JsonResponse({
+            'clientSecret': intent['client_secret']
+        })
+
+class Check(TemplateView):
+    template_name = "Rent/checkout.html"
+    
+    def get_context_data(self, **kwargs):
+        my_items=Cart.objects.filter(user=self.request.user)
+        total=0
+        for p in my_items:
+            total+=(p.product_id.deposit)
+
+        context = super().get_context_data(**kwargs)
+        context["total"] = total
+        return context
+
+
+@csrf_exempt
+def webhook(request):
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    if event['type'] == 'payment_intent.succeeded':
+        session = event['data']['object']
+
+        print(session)
+
+
+    # Passed signature verification
+    return HttpResponse(status=200)
+
+
+class success(TemplateView):
+    template_name="Rent/success.html"

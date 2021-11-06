@@ -3,6 +3,7 @@ from django.views import View
 from django.views.generic import CreateView
 from django.contrib.auth.models import User
 from .forms import RegisterForm,UserForm,SellerForm
+from User.models import Profile
 from .models import Seller
 
 # Create your views here.
@@ -51,9 +52,10 @@ def SellerView(request):
         return render(request,'User/seller.html',{'user':SellerForm})
 
 
+
 def profile(request):
-    allProfile = Profile.objects.all()
+    allProfile = Profile.objects.filter(user=request.user)
     param_profile = {
-        profile : allProfile
+        'Profile' : allProfile
     }
     return render(request,'User/profile.html',param_profile)
