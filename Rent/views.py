@@ -2,7 +2,7 @@ from django.http import JsonResponse,HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import CreateView,TemplateView
-from .models import Product,Photo,Subcategory,Category,Photo,Cart
+from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount
 from User.models import Seller
 from .forms import ProductForm,PhotoForm
 from django.urls import reverse,resolve
@@ -42,6 +42,33 @@ def cart(request):
     return render(request, 'Rent/subcstfil.html', param)
 
 
+def rentprod(request):
+    us = request.user
+    RentProd=Rent_Amount.objects.filter(customer_of_item=us).values('related_product')
+    print(RentProd)
+    prod = []
+    j = 0
+    for i in RentProd:
+        j = j + 1
+    print(j)
+    for i in range(0, j):
+        prod = prod + list(RentProd[i].values())
+    print(prod)
+    sum = 0
+    products = Product.objects.filter(id__in=prod)
+    param = {
+        'product': products,
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+    }
+    return render(request, 'Rent/subcstfil.html', param)
+def putrent(request):
+    us = request.user
+    products = Product.objects.filter(seller_of_item=us)
+    param = {
+        'product': products,
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+    }
+    return render(request, 'Rent/subcstfil.html', param)
 
 def cartadd(request,my_id):
     us = request.user
