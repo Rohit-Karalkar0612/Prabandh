@@ -13,7 +13,7 @@
 
 {% block content %}
   <!-- carousal Starts here -->
-  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div id="carouselExampleDark" class="carousel carousel-white slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
         aria-current="true" aria-label="Slide 1"></button>
@@ -102,38 +102,29 @@
         <!-- horizontal carousal ends here -->
   <!-- Second Navbar Ends Here -->
 
-    <!-- Register Part -->
-    <div class="section">
-
-      <div class="carousel-inner">
-        <div class="seller">
-          <img src="{% static 'Rent/images/seller.png' %}" class="seller-width" alt="...">
-          <div class="card-seller d-md-block">
-            <h5>Welcome Sellers</h5>
-            <p>You can add your products for Rent</p>
-            <button type="submit" class="btn btn-outline-success">Register</button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="carousel-inner">
-        <div class="seller">
-          <img src="{% static 'Rent/images/rent_user.png' %}" class="seller-width" alt="...">
-          <div class="card-seller d-md-block">
-            <h5>Welcome User</h5>
-            <p>You can Rent any products from here</p>
-            <button type="submit" class="btn btn-outline-success">Register</button>
-          </div>
-        </div>
-      </div>
+    <!-- First Part -->
+    <div class="section mx-4">
       
       <div class="carousel-inner">
         <div class="seller">
           <img src="{% static 'Rent/images/event_plan.jfif' %}" class="seller-width" alt="...">
           <div class="card-seller d-md-block">
-            <h5> Coming Soon</h5>
-            <p>Plan your Special Moment</p>
-            <button type="submit" class="btn btn-warning" ><a href="event/1">Plan Event</a></button>
+            <h5> Plan Event</h5>
+            <p>Plan your Special Festival's Program with goodies</p>
+            <button type="submit" class="btn btn-radius btn-warning" ><a href="event/1">Plan Event</a></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="seller">
+          <img src="{% static 'Rent/images/Contact Us.jpg' %}" class="seller-width" alt="...">
+          <div class="card-seller d-md-block">
+            <h5>Contact Us</h5>
+            <p>We are availabale for 24*7</p>
+            
+            <button type="submit" class="btn btn-radius btn-outline-warning"><a href="#contacts" > Contact </a></button>
+            </form>
           </div>
         </div>
       </div>
@@ -214,36 +205,6 @@
         </div>
       </div>
 
-
-      <div id="col-280435187" class="col medium-2 small-7 large-2">
-        <div class="col-inner">
-          <div id="text-24730617" class="text">
-            <p style="text-align: center;">Follow us</p>
-            <style>
-              #text-24730617 {
-                line-height: 0.75;
-                text-align: center;
-              }
-            </style>
-          </div>
-
-          <div class="social-icons follow-icons full-width text-center" style="font-size:75%"><a
-              href="https://www.facebook.com" target="_blank" data-label="Facebook"
-              rel="noopener noreferrer nofollow" class="icon button circle is-outline facebook tooltip"
-              title="Follow on Facebook" aria-label="Follow on Facebook"><i class="icon-facebook"></i></a>
-            <a href="https://twitter.com" target="_blank" data-label="Twitter"
-              rel="noopener noreferrer nofollow" class="icon button circle is-outline  twitter tooltip"
-              title="Follow on Twitter" aria-label="Follow on Twitter"><i class="icon-twitter"></i></a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer nofollow"
-              data-label="LinkedIn" class="icon button circle is-outline  linkedin tooltip" title="Follow on LinkedIn"
-              aria-label="Follow on LinkedIn"><i class="icon-linkedin"></i></a>
-            <a href="https://www.youtube.com" target="_blank"
-              rel="noopener noreferrer nofollow" data-label="YouTube"
-              class="icon button circle is-outline  youtube tooltip" title="Follow on YouTube"
-              aria-label="Follow on YouTube"><i class="icon-youtube"></i></a>
-          </div>
-        </div>
-      </div>
 
     </div>
 

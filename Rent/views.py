@@ -7,7 +7,9 @@ from User.models import Seller
 from .forms import ProductForm,PhotoForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
+
 # Create your views here.
+
 def cart(request):
     us = request.user
     Cartobj=(Cart.objects.filter(user=us)).values('product_id')
@@ -30,6 +32,7 @@ def cart(request):
     }
     print(products)
     return render(request, 'Rent/subcstfil.html', param)
+    
 def cartadd(request,my_id):
     us = request.user
     prod = Product.objects.get(id=my_id)
@@ -115,6 +118,7 @@ def Event(request,my_id=''):
         'product':products
     }
     return render(request,'Rent/Weddings.html',context)
+
 def load_subcat(request):
     print('Hello')
     category_id = request.GET.get('CategoryId')

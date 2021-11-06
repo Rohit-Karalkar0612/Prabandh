@@ -50,3 +50,10 @@ def SellerView(request):
             form=SellerForm()
         return render(request,'User/seller.html',{'user':SellerForm})
 
+
+def profile(request):
+    allProfile = Profile.objects.all()
+    param_profile = {
+        profile : allProfile
+    }
+    return render(request,'User/profile.html',param_profile)

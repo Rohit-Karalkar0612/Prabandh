@@ -58,6 +58,10 @@ body .carousel-control-next-icon{
     height: 50vh !important;
 }
 
+.mx-4 {
+    margin-right: 0.5rem !important;
+    margin-left: 12.5rem !important;
+}
 
 #contact{
     position: relative;
@@ -123,14 +127,19 @@ body .carousel-control-next-icon{
     position: absolute;
     right: 20%;
     bottom: 3rem;
-    left: 10%;
+    left: -15%;
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
     color: #000;
     text-align: center;
   }
 
-  .seller-width{
+.seller-width{
     width: 30vw;
     height: 40vh;
-  }
+border-radius: 2rem;
+}
+
+.btn-radius{
+    border-radius: 2rem;
+}
