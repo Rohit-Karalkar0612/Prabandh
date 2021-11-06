@@ -8,6 +8,9 @@
   <title>PRABANDH</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  {% block headjs %}
+  {% endblock %}
+      
   {% block css %}
   {% endblock css %}
 </head>
@@ -24,18 +27,19 @@
               <button class="btn btn-outline-warning" type="submit">Search</button>
             </form>
             <div class="color">
-<<<<<<< HEAD
-              <a href="#" class=".text-decoration-none me-4">Cart</a>
               <a href="/user" class=".text-decoration-none">Sign Up</a>
-=======
               <a href="/cart/" class=".text-decoration-none me-4">Cart</a>
+              {% if user.is_authenicated %}
               <a href="/user/login" class=".text-decoration-none">Login</a>
->>>>>>> 657da4e02a118ada190d57ee7810bbb6d54b183a
+              {% else %}
+              <a href="/user/logout" class=".text-decoration-none">Logout</a>
+
+              {% endif %}
             </div>
           </div>
       </nav>
 
-      {% block body %}
+      {% block content %}
       {% endblock %}
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
