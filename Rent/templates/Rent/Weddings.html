@@ -161,7 +161,7 @@
                 </div>
                 <div class="col-md-9 col-sm-8">
                     <div class="card-body">
-                      <h5 class="card-title">{{i.title}}</h5>
+                      <h5 class="card-title"><a href="{% url 'Prod_view' i.id %}">{{i.title}}</a></h5>
                           <div id="ca">
                               {{i.score}}
                           </div>
