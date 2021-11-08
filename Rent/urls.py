@@ -23,4 +23,5 @@ urlpatterns = [
     path('check/create/',views.create_payment,name="create"),
     path('webhook/',views.webhook,name="web"),
     path('success/',views.success.as_view(),name="success"),
+    path('details/',views.RentAmt,name="detail"),
 ]

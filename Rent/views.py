@@ -5,7 +5,7 @@ from django.db.models import Min,Max
 from django.views.generic import CreateView,TemplateView
 from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount,Ratings
 from User.models import Seller
-from .forms import ProductForm,PhotoForm
+from .forms import ProductForm,PhotoForm,RentForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
 from django.conf import settings
@@ -62,6 +62,7 @@ def rentprod(request):
         "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
     }
     return render(request, 'Rent/subcstfil.html', param)
+    
 def putrent(request):
     us = request.user
     products = Product.objects.filter(seller_of_item=us)
@@ -359,3 +360,7 @@ def webhook(request):
 
 class success(TemplateView):
     template_name="Rent/success.html"
+
+
+def RentAmt(request):
+    return render(request,'Rent/details.html',{'form':RentForm})

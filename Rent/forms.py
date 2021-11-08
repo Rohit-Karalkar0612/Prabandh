@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product,Category,Subcategory,Photo
+from .models import Product,Category,Subcategory,Photo,Rent_Amount
 from django.contrib.auth.forms import UserCreationForm
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -35,3 +35,12 @@ class PhotoForm(forms.ModelForm):
     class Meta:
         model = Photo
         exclude=('product_photo',)
+
+
+
+class RentForm(forms.ModelForm):
+    
+    class Meta:
+        model = Rent_Amount
+        exclude=('',)
+      

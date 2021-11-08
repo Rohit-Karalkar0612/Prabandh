@@ -6,20 +6,46 @@
 <!-- <div class="col-5 left"> -->
     <div class="col-12 k">
         <!-- <h1>{{ pro.image_of_product.url }}</h1> -->
-        <div class="imgb">
-            <img src="{{ pro.image_of_product.url }}">
-        </div>
-        {% for p in Product %}
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{{ pro.image_of_product.url }}" class="d-block w-100" alt="...">
+                        <div class="over">
+                            <div class="vertical-center">
+                                <button class="btn btn-danger delete" data-val="{{ p.id }}">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% for p in Product %}
+                        <div class="carousel-item">
+                            <img src="{{ p.photo.url }}" class="d-block w-100" alt="...">
+                            <div class="over">
+                                <div class="vertical-center">
+                                    <button class="btn btn-danger delete" data-val="{{ p.id }}">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
         <!-- <div class="outerimg"> -->
-            <div class="imgb">
+            <!-- <div class="imgb">
                 <img src="{{ p.photo.url }}">
                 <div class="over">
                     <div class="vertical-center">
                         <button class="btn btn-danger delete" data-val="{{ p.id }}">Delete</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         <!-- </div> -->
-        {% endfor %}
     </div>
 <!-- </div> -->
