@@ -162,7 +162,9 @@
             background: transparent;
         }
         .scrollable{
-            background-color: cyan;
+            background-image: url('{% static 'Rent/images/ground4.jpg' %}');
+            background-repeat: no-repeat;
+            background-size: cover;
             height: -webkit-fill-available;
             overflow-x: hidden;
             overflow-y: scroll;
@@ -189,8 +191,9 @@
         }
 
         .collapse li a {
-            font-size: 1.1rem;
-            color: rgb(106, 103, 103);
+            font-size: 1rem;
+<!--            color: rgb(52 49 49);-->
+            font-weight: bold;
             margin-left: 30px;
         }
 
@@ -199,8 +202,11 @@
             font-size: 1.2rem;
         }
         .container4{
+            background-image: url('{% static 'Rent/images/ground7.jpg' %}');
+            background-repeat: no-repeat;
+            background-size: cover;
             width: 230px;
-            background-color: rgb(251, 239, 97);
+<!--            background-color: rgb(43 211 249 / 71%);-->
             border-radius: 5px;
             height: 1000px;
         }
@@ -231,6 +237,15 @@
       span:nth-child(6){
         margin-left: 0px;
       }
+      .carousel-control-prev{
+        margin: 0px -80px;
+      }
+      .carousel-control-next{
+        margin-right: -85px;
+      }
+      .navbar-brand #six{
+        margin-right: 100px;
+      }
     </style>
     <!-- Custom styles for this template -->
     <link href="{% static 'Rent/css/sidebars.css' %}" rel="stylesheet">
@@ -243,17 +258,17 @@
           <div class="carousel-item active">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="carousel2">
                   <div class="container-fluid">
-                    <span> <a class="navbar-brand" id="1" href="/event/1">Wedding Session</a> </span>
+                    <span> <a class="navbar-brand" id="1" href="/event/1/1">Wedding Session</a> </span>
 
-                    <span> <a class="navbar-brand" id="2" href="/event/2">Birthday</a> </span>
+                    <span> <a class="navbar-brand" id="2" href="/event/2/1">Birthday</a> </span>
 
-                    <span> <a class="navbar-brand" id="3" href="/event/3">Pooja</a> </span>
+                    <span> <a class="navbar-brand" id="3" href="/event/3/1">Pooja</a> </span>
 
-                    <span> <a class="navbar-brand" href="#">Product4</a> </span>
+                    <span> <a class="navbar-brand" id="4" href="/event/4/1">Diwali</a> </span>
 
-                    <span> <a class="navbar-brand" href="#">Product5</a> </span>
+                    <span> <a class="navbar-brand" id="5" href="/event/5/1">Christmas</a> </span>
 
-                    <span> <a class="navbar-brand" href="#">Product6</a> </span>
+                    <span> <a class="navbar-brand" id="six" href="/event/6/1">Ganpati</a> </span>
                   </div>
                 </nav>
               </div>
@@ -279,34 +294,33 @@
                 <li class="mb-1">
                   <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
                           data-bs-target="#home-collapse{{k}}" aria-expanded="true">
-                    filter
+                    Filter
                   </button>
                   <div class="collapse" id="home-collapse{{k}}">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <div class="col-sm-12">
-      <div id="slider-range"></div>
-    </div>
-  <div class="row slider-labels">
-    <div class="col-xs-6 caption" style="display:none;">
-        <strong>Min:</strong> <span id="slider-range-value1"></span>
-    </div>
-    <div class="col-xs-6 text-right caption" style="display:none;">
-        <strong>Max:</strong> <span id="slider-range-value2" ></span>
-    </div>
-  </div>
-    <div class="col-sm-12">
-      <form method='get' action='/event/1/2' >
-        <label>Min:</label><input type="text" name="min-value" id="id1">
-        <label>Max:</label><input type="text" name="max-value" id="id2">
-
-                            <li><button class="btn-secondary" type="submit" >Apply</button></li>
-        </form>
+                                <div id="slider-range"></div>
+                            </div>
+                            <div class="row slider-labels">
+                                <div class="col-xs-6 caption" style="display:none;">
+                                    <strong>Min:</strong> <span id="slider-range-value1"></span>
+                                </div>
+                                <div class="col-xs-6 text-right caption" style="display:none;">
+                                    <strong>Max:</strong> <span id="slider-range-value2" ></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <form method='get' action='/event/1/2' >
+                                <label>Min:</label><input type="text" name="min-value" id="id1">
+                                <label>Max:</label><input type="text" name="max-value" id="id2">
+                                  <li><button class="btn-secondary" type="submit" >Apply</button></li>
+                                </form>
 
                     </ul>
                 </li>
-                <li class="border-top my-3"></li>
+                  <li class="border-top my-3"></li>
               </ul>
-            </div>
+        </div>
         {% for k,v in test.items %}
             <div class="container1">
               <ul class="list-unstyled ps-0">
@@ -332,6 +346,7 @@
      <div class="b-example-divider"></div>
 
      <div class="scrollable">
+
          <br>
          {% for i in product %}
             <div class="card mb-3 border-bottom" style="max-width: 1340px;">
@@ -339,20 +354,24 @@
                 <div class="col-md-3 col-sm-4">
                   <img src='/media/{{i.image_of_product}}' class="img-fluid me-2" alt="...">
                 </div>
-                <div class="col-md-9 col-sm-8">
+                <div class="col-md-9 col-sm-8" style="font-size: 1.05rem; background-image: url('{% static 'Rent/images/ground1.jpg' %}');
+            background-repeat: no-repeat;
+            background-size: cover;">
                     <div class="card-body">
-                      <h5 class="card-title"><a href="{% url 'Prod_view' i.id %}">{{i.title}}</a></h5>
+                      <h5 class="card-title"><a style= "text-decoration : none; color: black; " href="{% url 'Prod_view' i.id %}">{{i.title}}</a></h5>
                           <div id="ca">
                               {{i.score}}
                           </div>
 
 
                             <p class="card-text">
-                              {{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
-                              Deposit:{{i.deposit}}
+                              {{i.about}}
+                                <BR>
+                                Rent Price: <b> {{i.rental_price}} </b></BR>
+                              Deposit: <b> {{i.deposit}} </b>
                             </p>
                     </div>
-                  <a href="/cartadd/{{i.id}}" class="btn btn-primary" style="margin-right:10px;">Add to Cart</a>
+                  <a href="/cartadd/{{i.id}}" class="btn btn-primary" style="margin-right:10px; margin-left:10px;">Add to Cart</a>
                   <a href="#" class="btn btn-primary">Rent</a>
                 </div>
               </div>

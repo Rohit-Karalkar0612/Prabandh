@@ -136,21 +136,25 @@ def Event(request,my_id='',my_id1='0'):
     # subcat_02=['Swift','Audi','Sedan','Mercedes']
     if my_id=='1':
         test={
-            'Clothes': ['Ethnic','Drum','Gifts','Car',],
+            'Clothes': ['Ethnic','Western','Jackets','Denims'],
             'Car': ['Swift','Audi','Sedan','Mercedes'],
         }
     elif(my_id=='2'):
         test = {
-            'Cake': ['Strawberry', 'Pineapple', 'Chocolate', 'Apple', ],
-            'Gift': ['Watch', 'Pencil', 'Pen', 'Rubber'],
+            'Formals': ['Ethnicity', 'Sweatshirts', 'Jackets', 'Hoodies', ],
+            'Decorations': ['Posters', 'Balloons', 'Streamers', 'Party Hats'],
         }
     elif(my_id=='3'):
         test = {
-            'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
-            'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
+            'Essentials-1': ['Flowers', 'Chandeliers', 'Paper decor', 'Fairy Lights', ],
+            'Essentials-2': ['LED Diyas', 'Electric Lamps', 'Photo Frames', 'Wall Decor'],
         }
 
-    category = get_object_or_404(Subcategory, subcategories='Ethnic')
+    temp_str = [elem[0] for elem in test.values()]
+    print("Hello")
+    print(temp_str[0])
+    print("Hello1")
+    category = get_object_or_404(Subcategory, subcategories= temp_str[0])
     products = Product.objects.filter(subcategory=category)
     if my_id1=='2':
         min2=''
