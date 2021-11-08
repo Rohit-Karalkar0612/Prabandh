@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.db.models import Min,Max
 from django.views.generic import CreateView,TemplateView
-from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount
+from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount,Ratings
 from User.models import Seller
 from .forms import ProductForm,PhotoForm
 from django.urls import reverse,resolve
@@ -232,10 +232,12 @@ def Prod_view(request,prod_id):
     # print(pk)
     request.session['p_id']=prod_id
     ppk=prod_id
+    obj = Ratings.objects.filter(rating_for_product = Product.objects.get(id=ppk))
     context={
         'Product':Photo.objects.filter(product_photo__id=ppk),
         'pro':Product.objects.get(id=ppk),
         'pform':PhotoForm,
+        'object': obj
     }
     print(Photo.objects.filter(product_photo__id=ppk))
     print(Product.objects.get(id=ppk))
