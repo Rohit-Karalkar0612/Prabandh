@@ -2,9 +2,9 @@ from django.http import JsonResponse,HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import CreateView,TemplateView
-from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount
+from .models import Product,Photo,Subcategory,Category,Photo,Cart
 from User.models import Seller
-from .forms import ProductForm,PhotoForm
+from .forms import ProductForm,PhotoForm,RentForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
 from django.conf import settings
@@ -327,3 +327,7 @@ def webhook(request):
 
 class success(TemplateView):
     template_name="Rent/success.html"
+
+
+def RentAmt(request):
+    return render(request,'Rent/details.html',{'form':RentForm})

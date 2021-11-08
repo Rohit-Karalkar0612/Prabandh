@@ -3,14 +3,17 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'Rent/css/ProdViewCust.css' %}?{% now "U" %}">
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+
 {% endblock %}
 {% block title%}
     {{Product.product_name}}
 {%endblock%}
 {% block content %}
 <div class="container-fluid">
+    <br>
     <div class="row">
-        <h2>Product Details</h2>
+        <h2>{{ pro.title }}</h2>
         <br>
         <br>
         <br>
@@ -20,22 +23,19 @@
             </div>
         </div>
         <div class="col-sm-1"></div>
-        <div class="col-sm-5 right col-xs-12"  style="border: 2px solid black;">
+        <div class="col-sm-5 right col-xs-12">
             <div class="row">
                 <div class="col-12">
                     <br>
-                    <div class="row">
-                        <div class="col-5">
-                            <h5>Product Name: </h5>
-                        </div>
-                        <div class="col-7">
-                            <h5>{{ pro.title }}</h5>
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                            <h3>{{ pro.title }}</h3>
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-5">
-                            <h5>Product Description</h5>
+                            <h5>Description</h5>
                         </div>
                         <div class="col-7">
                             <div class="aboutblock">
