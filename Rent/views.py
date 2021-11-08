@@ -1,6 +1,7 @@
 from django.http import JsonResponse,HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+from django.db.models import Min,Max
 from django.views.generic import CreateView,TemplateView
 from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount
 from User.models import Seller
@@ -83,7 +84,7 @@ def cartdel(request, my_id):
     return redirect('cart')
 
 def search_match(query,item):
-    if query in item.title.lower() or query in item.about.lower() or query in item.category or query in item.subcategory:
+    if query in item.title.lower() or query in item.about.lower():
         return True
     else:
         return False
@@ -120,14 +121,16 @@ def search_subcat(request,my_id,mysubcat):
     }
     return render(request, 'Rent/Weddings.html',context)
 
+
 def search_subcat1(request):
     query=request.GET.get('search')
-    category = get_object_or_404(Subcategory, subcategories='Ethnic')
     products1=Product.objects.all()
+    print(products1)
     products=[item for item in products1 if search_match(query,item)]
-    return render(request, 'Rent/subcstfil.html',{'product':products})
+    print(products)
+    return render(request, 'Rent/prod.html',{'products':products})
 
-def Event(request,my_id=''):
+def Event(request,my_id='',my_id1='0'):
     # subcat_01=['Ethnic','Drum','Gifts','Car',]
     # subcat_02=['Swift','Audi','Sedan','Mercedes']
     if my_id=='1':
@@ -148,13 +151,40 @@ def Event(request,my_id=''):
 
     category = get_object_or_404(Subcategory, subcategories='Ethnic')
     products = Product.objects.filter(subcategory=category)
+    if my_id1=='2':
+        min2=''
+        min1= request.GET.get('min-value')
+        for i in min1:
+            if i==',':
+                pass
+            else:
+                min2=min2+i
+        min=int(min2)
+        max2=''
+        max1=request.GET.get('max-value')
+        for i in max1:
+            if i==',':
+                pass
+            else:
+                max2=max2+i
+        max=int(max2)
+        print(min)
+        print(max)
+        products =Product.objects.filter(subcategory=category,rental_price__range=(min, max))
+    min_price = products.aggregate(Min('rental_price'))
+    max_price = products.aggregate(Max('rental_price'))
+    price = {**min_price, **max_price}
+    print(price)
+    print(min_price)
+    context = {
+        'test': test,
+        'my_id': my_id,
+        'product': products,
+        'price': price,
 
-    context={
-        'test':test,
-        'my_id':my_id,
-        'product':products
     }
-    return render(request,'Rent/Weddings.html',context)
+
+    return render(request, 'Rent/Weddings.html', context)
     
 def load_subcat(request):
     print('Hello')

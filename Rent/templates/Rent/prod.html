@@ -238,37 +238,6 @@
 
 {% block content %}
 
-  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="carousel2">
-                  <div class="container-fluid">
-                    <span> <a class="navbar-brand" id="1" href="/event/1">Wedding Session</a> </span>
-
-                    <span> <a class="navbar-brand" id="2" href="/event/2">Birthday</a> </span>
-
-                    <span> <a class="navbar-brand" id="3" href="/event/3">Pooja</a> </span>
-
-                    <span> <a class="navbar-brand" href="#">Product4</a> </span>
-
-                    <span> <a class="navbar-brand" href="#">Product5</a> </span>
-
-                    <span> <a class="navbar-brand" href="#">Product6</a> </span>
-                  </div>
-                </nav>
-              </div>
-
-
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-    </div>
 
     <main>
     <h1 class="visually-hidden">Sidebars examples</h1>
@@ -307,33 +276,13 @@
                 <li class="border-top my-3"></li>
               </ul>
             </div>
-        {% for k,v in test.items %}
-            <div class="container1">
-              <ul class="list-unstyled ps-0">
-                <li class="mb-1">
-                  <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                          data-bs-target="#home-collapse{{k}}" aria-expanded="true">
-                    {{k}}
-                  </button>
-                  <div class="collapse" id="home-collapse{{k}}">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                       {% for v1 in v %}
-                            <li><a href="/subcategory/{{my_id}}/{{v1}}" id="qv{{v1}}" class="link-dark rounded">{{v1}}</a></li>
-                       {% endfor %}
-                    </ul>
-                  </div>
-                </li>
-                <li class="border-top my-3"></li>
-              </ul>
-            </div>
-        {% endfor %}
     </div>
 
      <div class="b-example-divider"></div>
 
      <div class="scrollable">
          <br>
-         {% for i in product %}
+         {% for i in products %}
             <div class="card mb-3 border-bottom" style="max-width: 1340px;">
               <div class="row g-0 border-bottom">
                 <div class="col-md-3 col-sm-4">
