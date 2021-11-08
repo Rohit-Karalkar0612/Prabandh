@@ -8,38 +8,25 @@
         {% for i in product %}
             <div class="card mb-3 border-bottom" style="max-width: 540px;">
               <div class="row g-0 border-bottom">
-                <div class="col-md-3 col-sm-4">
-                  <img src='/media/{{i.image_of_product}}' class="img-fluid me-2" alt="...">
-                </div>
-                <div class="col-md-9 col-sm-8">
+
+                <div class="col-md-12 col-sm-8">
                     <div class="card-body">
                       <h5 class="card-title">{{i.title}}</h5>
-                          <div id="ca">
-                              {{i.score}}
-                          </div>
-                            <span class="fa fa-star checked" id="first"></span>
-                            <span class="fa fa-star checked" id="second"></span>
-                            <span class="fa fa-star checked" id="third"></span>
-                            <span class="fa fa-star" id="fourth"></span>
-                            <span class="fa fa-star" id="fifth"></span>
                             
                             <p class="card-text">
                               {{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
                               Deposit:{{i.deposit}}
+                                <br>
+                                We hope that the product has been delivered to your address safely,if not you can raise an issue else
+                                click on i am satisfied
                             </p>
                     </div>
-                  <a href="/cartdel/{{i.id}}" class="btn btn-danger" style="margin-right:10px;">Remove</a>
-                  <a href="#" class="btn btn-primary">Rent</a>
+                  <a href="/update/{{i.id}}" class="btn btn-primary" style="margin-right:10px;">Yes I am satisfied</a>
+                  <a href="/issue/{{i.id}}" class="btn btn-danger">Raise an issue</a>
                 </div>
               </div>
             </div>
      {% endfor %}
-            <center>
-                <b>Total Amount:{{sum}}<b><br/>
-                    {% csrf_token %} -->
-                    <a href="{% url 'check' %}" class="btn-primary" id="checkout-button">Proceed to checkout</a>
-                  <!-- </form> -->
-            </center>
             <!-- {% csrf_token %} -->
     </main>
 {% endblock %}

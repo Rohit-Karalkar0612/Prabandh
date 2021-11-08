@@ -38,8 +38,8 @@
             </form>
             <div class="color">
               <div class="container-fluid row">
+                  <a class="nav-item nav-link col-3" href="/noti">Noti</a>
                   <a class="nav-item nav-link col-6" href="/user">Sign Up</a>
-                  <a class="nav-item nav-link col-3" href="/cart/">Cart</a>
                   {% if user.is_authenticated %}
                     <a class="nav-item nav-link col-3" href="{% url 'logout' %}">Logout</a>
                   {% else %}
