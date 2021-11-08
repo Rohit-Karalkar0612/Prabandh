@@ -8,7 +8,7 @@ function bg(input){
     var ou=document.querySelector("#o");
     ou.src=URL.createObjectURL(input.target.files[0]);
     ou.onload = function() {
-        URL.revokeObjectURL(ou.src) // free memory
+        URL.revokeObjectURL(ou.src)
     }
     console.log("lkk");
 }

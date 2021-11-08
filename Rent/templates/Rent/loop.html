@@ -10,10 +10,20 @@
             <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="{{ pro.image_of_product.url }}" class="d-block w-100" alt="...">
+                        <div class="over">
+                            <div class="vertical-center">
+                                <button class="btn btn-danger delete" data-val="{{ p.id }}">Delete</button>
+                            </div>
+                        </div>
                     </div>
                     {% for p in Product %}
                         <div class="carousel-item">
                             <img src="{{ p.photo.url }}" class="d-block w-100" alt="...">
+                            <div class="over">
+                                <div class="vertical-center">
+                                    <button class="btn btn-danger delete" data-val="{{ p.id }}">Delete</button>
+                                </div>
+                            </div>
                         </div>
 
                     {% endfor %}

@@ -121,6 +121,7 @@
         const ratings = { };
 
         {% for i in object %}
+            // Object.assign(ratings,{"{{ i.rating_by }}": {{ i.rating }} })
             ratings["{{ i.rating_by }}"] = {{ i.rating }}
         {% endfor %}
 
