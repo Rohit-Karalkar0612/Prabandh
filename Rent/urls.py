@@ -26,4 +26,5 @@ urlpatterns = [
     path('webhook/',views.webhook,name="web"),
     path('success/',views.success.as_view(),name="success"),
     path('details/',views.RentAmt,name="detail"),
+    path('booking/',views.rentprod,name="booking"),
 ]

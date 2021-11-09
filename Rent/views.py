@@ -475,3 +475,57 @@ class success(TemplateView):
 
 def RentAmt(request):
     return render(request,'Rent/details.html',{'form':RentForm})
+
+def cart(request):
+    us = request.user
+    Cartobj=(Cart.objects.filter(user=us)).values('product_id')
+    print(Cartobj)
+    prod=[]
+    j=0
+    for i in Cartobj:
+        j=j+1
+    print(j)
+    for i in range(0, j):
+        prod=prod+list(Cartobj[i].values())
+    print(prod)
+    sum=0
+    products = Product.objects.filter(id__in=prod)
+    for i in products:
+        sum=sum+i.deposit
+    param = {
+        'product': products,
+        'sum':sum,
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+    }
+    print(products)
+    return render(request, 'User/booking.html', param)
+
+
+def rentprod(request):
+    us = request.user
+    RentProd=Rent_Amount.objects.filter(customer_of_item=us).values('related_product')
+    # print(RentProd)
+    prod = []
+    j = 0
+    for i in RentProd:
+        j = j + 1
+    # print(j)
+    for i in range(0, j):
+        prod = prod + list(RentProd[i].values())
+    # print(prod)
+    sum = 0
+    products = Product.objects.filter(id__in=prod)
+    param = {
+        'product': products,
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+    }
+    return render(request, 'User/booking.html', param)
+
+def putrent(request):
+    us = request.user
+    products = Product.objects.filter(seller_of_item=us)
+    param = {
+        'product': products,
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+    }
+    return render(request, 'User/booking.html', param)

@@ -5,15 +5,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pr@bandh</title>
   <title>PRABANDH</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-      <style>
-        a:hover{
-          color: black;
-        }
-        
-      </style>
   {% block headjs %}
   {% endblock %}
       
@@ -26,22 +21,29 @@
           <div class="container">
             <div class="me-4">
               <!-- <img src="images/lo.jfif" class="logo_image" alt="" srcset=""> -->
-              <a href="#" class="navbar-brand">PRABANDH</a>
+              <a href="/" class="navbar-brand">PRABANDH</a>
             </div>
             <form class="d-flex" method='get' action='/search/1'>
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
               <button class="btn btn-outline-warning" type="submit" ><a href="/search/1">Search </a></button>
             </form>
+            
+            <a class="nav-item nav-link col-1" style="color: white" href="/noti">Notification</a>
+            
             <div class="color">
-              <div class="container-fluid row">
-                  <a class="nav-item nav-link col-3" style="color: white" href="/noti">Noti</a>
-                  <a class="nav-item nav-link col-6" style="color: white" href="/user">Sign Up</a>
-                  {% if user.is_authenticated %}
-                    <a class="nav-item nav-link col-3" style="color: white" href="{% url 'logout' %}">Logout</a>
-                  {% else %}
-                    <a class="nav-item nav-link col-3" style="color: white" href="{% url 'login' %}">Login</a>
-                  {% endif %}
-            </div>
+
+              {% if user.is_authenticated %}
+
+                <a href="/user/profile" class="text-decoration-none" style="color: white">Welcome, {{user}}</a>
+                <a href="/user/logout" class="text-decoration-none mx-2" style="color: white">logout</a>
+
+              {% else %}
+                
+                <a href="/user/" class="text-decoration-none" style="color: white">Sign Up</a>
+                <span style="color: white">/</span>
+                <a href="/user/login" class="text-decoration-none" style="color: white">Login</a>
+
+              {% endif %}
             </div>
           </div>
       </nav>
