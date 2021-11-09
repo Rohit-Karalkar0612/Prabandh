@@ -258,11 +258,11 @@
           <div class="carousel-item active">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="carousel2">
                   <div class="container-fluid">
-                    <span> <a class="navbar-brand" id="1" href="/event/1/1">Wedding Session</a> </span>
+                    <span> <a class="navbar-brand" id="1" href="/event/1/Ethnic/1">Wedding Session</a> </span>
 
-                    <span> <a class="navbar-brand" id="2" href="/event/2/1">Birthday</a> </span>
+                    <span> <a class="navbar-brand" id="2" href="/event/1/Ethnicity/1">Birthday</a> </span>
 
-                    <span> <a class="navbar-brand" id="3" href="/event/3/1">Pooja</a> </span>
+                    <span> <a class="navbar-brand" id="3" href="/event/1/Flowers/1">Pooja</a> </span>
 
                     <span> <a class="navbar-brand" id="4" href="/event/4/1">Diwali</a> </span>
 
@@ -310,7 +310,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                              <form method='get' action='/event/1/2' >
+                              <form method='get' action='/event/{{my_id}}/{{mysubcat}}/2' >
                                 <label>Min:</label><input type="text" name="min-value" id="id1">
                                 <label>Max:</label><input type="text" name="max-value" id="id2">
                                   <li><button class="btn-secondary" type="submit" >Apply</button></li>
@@ -332,7 +332,7 @@
                   <div class="collapse" id="home-collapse{{k}}">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                        {% for v1 in v %}
-                            <li><a href="/subcategory/{{my_id}}/{{v1}}" id="qv{{v1}}" class="link-dark rounded">{{v1}}</a></li>
+                            <li><a href="/event/{{my_id}}/{{v1}}/1" id="qv{{v1}}" class="link-dark rounded">{{v1}}</a></li>
                        {% endfor %}
                     </ul>
                   </div>
