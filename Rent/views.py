@@ -104,25 +104,56 @@ def index(request):
     return render(request, 'Rent/home_page.html', param)
 
 
-def search_subcat(request, my_id, mysubcat):
+def search_subcat(request, my_id, mysubcat,my_id1):
     if my_id == '1':
         test = {
-            'Clothes': ['Ethnic', 'Drum', 'Gifts', 'Car', ],
+            'Clothes': ['Ethnic', 'Western', 'Jackets', 'Denims'],
             'Car': ['Swift', 'Audi', 'Sedan', 'Mercedes'],
         }
     elif (my_id == '2'):
         test = {
-            'Cake': ['Strawberry', 'Pineapple', 'Chocolate', 'Apple', ],
-            'Gift': ['Watch', 'Pencil', 'Pen', 'Rubber'],
+            'Formals': ['Ethnicity', 'Sweatshirts', 'Jackets', 'Hoodies', ],
+            'Decorations': ['Posters', 'Balloons', 'Streamers', 'Party Hats'],
         }
-
+    elif (my_id == '3'):
+        test = {
+            'Essentials-1': ['Flowers', 'Chandeliers', 'Paper decor', 'Fairy Lights', ],
+            'Essentials-2': ['LED Diyas', 'Electric Lamps', 'Photo Frames', 'Wall Decor'],
+        }
     category = get_object_or_404(Subcategory, subcategories=mysubcat)
     products = Product.objects.filter(subcategory=category)
-
+    if my_id1 == '2':
+        min2 = ''
+        min1 = request.GET.get('min-value')
+        for i in min1:
+            if i == ',':
+                pass
+            else:
+                min2 = min2 + i
+        min = int(min2)
+        max2 = ''
+        max1 = request.GET.get('max-value')
+        for i in max1:
+            if i == ',':
+                pass
+            else:
+                max2 = max2 + i
+        max = int(max2)
+        print(min)
+        print(max)
+        products = Product.objects.filter(subcategory=category, rental_price__range=(min, max))
+    min_price = products.aggregate(Min('rental_price'))
+    max_price = products.aggregate(Max('rental_price'))
+    price = {**min_price, **max_price}
+    print(price)
+    print(min_price)
     context = {
         'test': test,
         'my_id': my_id,
-        'product': products
+        'product': products,
+        'price': price,
+        'mysubcat':mysubcat,
+
     }
     return render(request, 'Rent/Weddings.html', context)
 
