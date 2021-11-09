@@ -17,7 +17,7 @@
                     <span> </span>
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right"><a href="#profile" class="text-decoration-none" target="_self">
+                            <h4 class="text-right"><a href="/user/profile" class="text-decoration-none" target="_self">
                                     Profile </a></h4>
                         </div>
 
@@ -111,32 +111,32 @@
                                             <div class="row mt-2">
                                                 <div class="col-md-6"><label class="labels-1">Name <span
                                                             class="required">*</span> </label><input type="text"
-                                                        class="form-control" value="{{user}}" disabled>
+                                                        class="form-control" placeholder="None" value="{{user}}" disabled>
                                                 </div>
 
                                                 <div class="row mt-3">
 
                                                     <div class="col-md-12"><label class="labels-1">Email ID</label>
                                                         <input type="text" class="form-control"
-                                                            placeholder="enter email id" value="{{request.user.email}}" disabled>
+                                                            placeholder="None" value="{{request.user.email}}" disabled>
                                                     </div>
 
                                                     <div class="col-md-12"><label class="labels-1">Account Number: <span
                                                                 class="required">*</span></label>
-                                                        <input type="text" class="form-control" placeholder=""
+                                                        <input type="text" class="form-control" placeholder="None"
                                                             value="{{profile.bank_acc_no}}" disabled>
                                                     </div>
 
                                                     <div class="col-md-12"><label class="labels-1">IFSC Code: <span
                                                                 class="required">*</span></label>
-                                                        <input type="text" class="form-control" placeholder=""
+                                                        <input type="text" class="form-control" placeholder="None"
                                                             value="{{profile.ifsc}}" disabled>
                                                     </div>
 
                                                     <div class="row mt-3">
                                                         <div class="col-md-12"><label class="labels-1">Address<span
                                                                     class="required">*</span></label>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control" placeholder="None"
                                                                 value="{{profile.address}}" disabled>
                                                         </div>
                                         </form>

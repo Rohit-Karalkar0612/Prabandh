@@ -18,17 +18,20 @@
 
   <body>
       <nav class="navbar navbar-dark bg-primary">
-          <div class="container">
+          <div class="container-fluid">
             <div class="me-4">
-              <!-- <img src="images/lo.jfif" class="logo_image" alt="" srcset=""> -->
-              <a href="/" class="navbar-brand">PRABANDH</a>
+              
+              <a href="/" class="navbar-brand">
+              {% comment %} <img src="../../static/User/images/Prabandh.png" class="logo_image" alt="" srcset=""> {% endcomment %}
+              PR@BANDH</a>
+            
             </div>
             <form class="d-flex" method='get' action='/search/1'>
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
-              <button class="btn btn-outline-warning" type="submit" ><a href="/search/1">Search </a></button>
+              <button class="btn btn-outline-info" type="submit" style="color: white">Search</button>
             </form>
             
-            <a class="nav-item nav-link col-1" style="color: white" href="/noti">Notification</a>
+            <a class="nav-item nav-link col-1" style="color: white" href="/noti/">Notification</a>
             
             <div class="color">
 
