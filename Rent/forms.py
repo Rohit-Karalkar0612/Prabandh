@@ -1,6 +1,12 @@
 from django import forms
-from .models import Product,Category,Subcategory,Photo,Rent_Amount
+from .models import Product,Category,Subcategory,Photo,Rent_Amount,Issues
+
 from django.contrib.auth.forms import UserCreationForm
+class IssueForm(forms.ModelForm):
+    class Meta:
+        model=Issues
+        exclude=('complainer','complain_against','resolved')
+
 class ProductForm(forms.ModelForm):
     class Meta:
         model=Product
