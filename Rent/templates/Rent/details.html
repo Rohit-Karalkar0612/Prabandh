@@ -1,9 +1,9 @@
 {% extends 'User/basic.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <h1>Hellos</h1>
     <form>
-        {{form}}
+        {{form|crispy}}
     </form>
 {% endblock %}
