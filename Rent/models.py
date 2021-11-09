@@ -62,7 +62,7 @@ class Photo (models.Model):
 class Ratings(models.Model):
     rating_for_product=models.ForeignKey(Product, related_name='rating_for_product', on_delete=models.CASCADE)
     rating_by=models.ForeignKey(User, related_name='rating_by', on_delete=models.CASCADE)
-    rating=models.IntegerField()
+    rating=models.FloatField()
     review=models.TextField()
 
 class Bookings(models.Model):

@@ -22,10 +22,10 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="1000">
-        <img src="{% static 'Rent/images/jumbotron_1200.jpg' %}" class="d-block w-100 height" alt="...">
+        <img src="{% static 'Rent/images/Diwali_carousal.jpeg' %}" class="d-block w-100 height" alt="...">
         <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Some representative placeholder content for the first slide.</p>
+          <h5>Diwali Decoration Products</h5>
+          <p>Rent some product for diwali. Enjoy your Diwali! Happy Diwali</p>
         </div>
       </div>
       <div class="carousel-item" data-bs-interval="2000">
@@ -56,38 +56,22 @@
           <div class="carousel-item active">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                   <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Product1</a>
-                    
-                    <a class="navbar-brand" href="#">Product2</a>
-                    
-                    <a class="navbar-brand" href="#">Product3</a>
-                    
-                    <a class="navbar-brand" href="#">Product4</a>
-                    
-                    <a class="navbar-brand" href="#">Product5</a>
-                    
-                    <a class="navbar-brand" href="#">Product6</a>
+                    <span> <a class="navbar-brand" id="1" href="/event/1/Ethnic/1">Wedding Session</a> </span>
+
+                    <span> <a class="navbar-brand" id="2" href="/event/2/Ethnicity/1">Birthday</a> </span>
+
+                    <span> <a class="navbar-brand" id="3" href="/event/3/Flowers/1">Pooja</a> </span>
+
+                    <span> <a class="navbar-brand" id="4" href="/event/4/1">Diwali</a> </span>
+
+                    <span> <a class="navbar-brand" id="5" href="/event/5/1">Christmas</a> </span>
+
+                    <span> <a class="navbar-brand" id="six" href="/event/6/1">Ganpati</a> </span>
                   </div>
                 </nav>                
               </div>
 
-              <div class="carousel-item">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="#">Product7</a>
-        
-                  <a class="navbar-brand" href="#">Product8</a>
-        
-                  <a class="navbar-brand" href="#">Product9</a>
-        
-                  <a class="navbar-brand" href="#">Product10</a>
-        
-                  <a class="navbar-brand" href="#">Product11</a>
-        
-                  <a class="navbar-brand" href="#">Product12</a>
-                </div>
-                </nav>
-        </div>
+              
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -111,7 +95,7 @@
           <div class="card-seller d-md-block">
             <h5> Coming Soon</h5>
             <p>Plan your Special Moment</p>
-            <button type="submit" class="btn btn-warning" ><a href="event/1/1">Plan Event</a></button>
+            <button type="submit" class="btn btn-warning" ><a href="/event/1/Ethnic/1">Plan Event</a></button>
           </div>
         </div>
       </div>
@@ -131,23 +115,23 @@
       
       
   <!-- Cards Starts here -->
-  <div class="container">
-  <div class="card-group">
-    {% for i in product %}
-    <div class="card" >
-      <img src="{{i.product_name.all}}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{i.title}}
-        </h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-    {% endfor %}
+<!--  <div class="container">-->
+<!--  <div class="card-group">-->
+<!--    {% for i in product %}-->
+<!--    <div class="card" >-->
+<!--      <img src="{{i.product_name.all}}" class="card-img-top" alt="...">-->
+<!--      <div class="card-body">-->
+<!--        <h5 class="card-title">{{i.title}}-->
+<!--        </h5>-->
+<!--        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's-->
+<!--          content.</p>-->
+<!--        <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    {% endfor %}-->
 
-  </div>
-  </div>
+<!--  </div>-->
+<!--  </div>-->
 
 
   <section id="contacts">
