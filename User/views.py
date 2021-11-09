@@ -62,8 +62,11 @@ def profile(request):
     print(user)
     u = User.objects.get(username=user)
     Profiles = Profile.objects.filter(user=u)
+    isSeller=Profile.objects.get(user=u).seller
+    print(isSeller)
     print(Profiles)
     param_profile = {
-        'Profile' : Profiles
+        'Profile' : Profiles,
+        'u':isSeller
     }
     return render(request,'User/profile.html',param_profile)
