@@ -39,8 +39,14 @@ def SellerView(request):
         if request.method=='POST':
             form=SellerForm(request.POST)
             if form.is_valid():
-                user=request.session['user']
-                u=User.objects.get(username=user)
+                if 'user' in request.session:
+                    user=request.session['user']
+                    u=User.objects.get(username=user)
+                else:
+                    user=request.user.username
+                    u=User.objects.get(username=user)
+                    p=Profile.objects.filter(user=u)
+                    p.update(seller=True)
                 p=form.save(commit=False)
                 p.seller=u
                 p.save()

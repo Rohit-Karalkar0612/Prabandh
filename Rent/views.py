@@ -309,6 +309,9 @@ def create_payment(request):
         intent = stripe.PaymentIntent.create(
             amount=total*100,
             currency='INR',
+            metadata={
+                'id':'1'
+            },
             payment_method_types=[
                 'card',
             ],
