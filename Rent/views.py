@@ -158,12 +158,30 @@ def search_subcat(request, my_id, mysubcat,my_id1):
     return render(request, 'Rent/Weddings.html', context)
 
 
-def search_subcat1(request):
+def search_subcat1(request,my_id=''):
     query = request.GET.get('search')
-    products1 = Product.objects.all()
-    print(products1)
-    products = [item for item in products1 if search_match(query, item)]
-    print(products)
+    products=Product.objects.all()
+    if my_id == '2':
+        min2 = ''
+        min1 = request.GET.get('min-value')
+        for i in min1:
+            if i == ',':
+                pass
+            else:
+                min2 = min2 + i
+        min = int(min2)
+        max2 = ''
+        max1 = request.GET.get('max-value')
+        for i in max1:
+            if i == ',':
+                pass
+            else:
+                max2 = max2 + i
+        max = int(max2)
+        print(min)
+        print(max)
+        products = Product.objects.filter(rental_price__range=(min, max))
+    products = [item for item in products if search_match(query, item)]
     return render(request, 'Rent/prod.html', {'products': products})
 
 
