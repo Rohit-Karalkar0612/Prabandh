@@ -27,6 +27,27 @@
               </div>
             </div>
      {% endfor %}
+        {% for i in products %}
+            <div class="card mb-3 border-bottom" style="max-width: 540px;">
+              <div class="row g-0 border-bottom">
+
+                <div class="col-md-12 col-sm-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{i.title}}</h5>
+
+                            <p class="card-text">
+                              {{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
+                              Deposit:{{i.deposit}}
+                                <br>
+                                Thank you for choosing us hope you had an amazing experience.
+                                Rate the product
+                            </p>
+                    </div>
+                  <a href="/update/{{i.id}}" class="btn btn-primary" style="margin-right:10px;">Rate</a>
+                </div>
+              </div>
+            </div>
+     {% endfor %}
             <!-- {% csrf_token %} -->
     </main>
 {% endblock %}
