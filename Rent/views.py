@@ -343,26 +343,34 @@ def NewImage(request):
 
 def Issue(request):
     us = request.user
-    u = Seller.objects.get(seller=us)
-    product=(Product.objects.filter(seller_of_item=u)).values('id')
-    print(product)
-    prod = []
-    j = 0
-    for i in product:
-        j = j + 1
-    print(j)
-    for i in range(0, j):
-        prod = prod + list(product[i].values())
-    print(prod)
-    rentamount=Rent_Amount.objects.filter(related_product_id__in=prod,satisfaction=False)
-    print(rentamount)
-    product1={}
+    sell=Seller.objects.filter(seller=us).exists()
+    if sell==True:
+        u = Seller.objects.get(seller=us)
+        product=(Product.objects.filter(seller_of_item=u)).values('id')
+        print(product)
+        prod = []
+        j = 0
+        for i in product:
+            j = j + 1
+        print(j)
+        for i in range(0, j):
+            prod = prod + list(product[i].values())
+        print(prod)
+        rentamount=Rent_Amount.objects.filter(related_product_id__in=prod,satisfaction=False)
+        print(rentamount)
+        product1={}
+        for r in rentamount:
+            if r.delivered_date<= date.today():
+                print(r.related_product_id)
+                product1=Product.objects.filter(id=r.related_product_id)
+    rentamount = Rent_Amount.objects.filter(customer_of_item=us)
     for r in rentamount:
-        if r.delivered_date<= date.today():
-            print(r.related_product_id)
-            product1=Product.objects.filter(id=r.related_product_id)
+            prod = Ratings.objects.filter(rating_for_product=r.related_product).exists()
+            if r.delivered_date <= date.today() and prod!=True:
+                product2=Product.objects.filter(id__in=r.related_product_id)
     context={
         'product':product1,
+        'products':product2,
     }
     return render(request, 'Rent/subcstfil.html', context)
 def update(request,my_id):
