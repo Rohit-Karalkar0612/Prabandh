@@ -12,17 +12,8 @@
     color: white;
 }
 
-#profile, #booking, #rented{
-    display: none;
-}
-
-#profile:target, #booking:target, #rented:target{
-    display: block;
-}
-
-.required{
-    color: red;
-    font-weight: bold;
+.text-decoration-none{
+    text-decoration: none;
 }
 
 .col-md{

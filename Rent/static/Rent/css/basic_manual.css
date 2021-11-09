@@ -58,6 +58,152 @@ body .carousel-control-next-icon{
     height: 50vh !important;
 }
 
+.mx-4 {
+    margin-right: 0.5rem !important;
+    margin-left: 12.5rem !important;
+}
+
+#contact{
+    position: relative;
+
+}
+
+
+#contact-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+#contact-box form{
+    width: 30%;    
+}
+
+#contact-box label{
+    font-size: 1.5rem;
+    font-family: 'Bree Serif', serif; 
+}
+
+#contact-box input,
+#contact-box textarea{
+    width: 100%;
+    padding: .5rem;
+    font-size: 1.1rem;
+    border-radius: 10px;
+}
+
+
+#contacts::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 26vh;
+    /* background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet); */
+    /* background-color:black; */
+    z-index: -1;
+    opacity: .5;
+}
+
+
+/* copyright */
+#copyright{
+    background-color: black;
+    color: white;
+}
+
+.section{
+    display: flex;
+    flex-direction: row;
+}
+
+.seller{
+    margin-left: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.card-seller{
+    position: absolute;
+    right: 20%;
+    bottom: 3rem;
+    left: -15%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    color: #000;
+    text-align: center;
+  }
+
+.seller-width{
+    width: 30vw;
+    height: 40vh;
+border-radius: 2rem;
+}
+
+.btn-radius{
+    border-radius: 2rem;
+}
+=======
+@import url(https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css);
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/* .navbar{
+    margin-left: -185px !important;
+} */
+
+.logo_image{
+    width: 100px;
+    height: 40px;
+}
+
+.d-flex{
+    width: 600px
+}
+ 
+.color a{
+    color: #f0f0f0;
+}
+
+.color a:hover{
+    color: #e43a3a;
+    text-decoration: underline !important;
+}
+
+text-decoration-none{
+    text-decoration: none;
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+    top: auto;
+    bottom: auto;
+    width: 2% !important;
+}
+
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon{
+        background-color: #3e3e49;
+        border-radius: 15px;
+}
+
+.carousel-indicators .active{
+    background-color: rgb(158, 17, 41);
+    }
+
+.product1{
+    display: flex;
+    flex-direction: row;
+}
+
+.w-100 {
+    width: 100%!important;
+    height: 50vh !important;
+}
+
 
 #contact{
     position: relative;
