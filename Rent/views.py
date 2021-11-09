@@ -12,7 +12,7 @@ from django.conf import settings
 import stripe
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from datetime import date
+from datetime import date,timedelta
 # Create your views here.
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -343,6 +343,7 @@ def NewImage(request):
 
 def Issue(request):
     us = request.user
+    i=0
     sell=Seller.objects.filter(seller=us).exists()
     if sell==True:
         u = Seller.objects.get(seller=us)
@@ -359,26 +360,40 @@ def Issue(request):
         print("Hello")
         rentamount=Rent_Amount.objects.filter(related_product_id__in=prod,satisfaction=False)
         print(rentamount)
-
         print("Hello1")
         product1={}
         for r in rentamount:
             if r.delivered_date<= date.today():
                 print(r.related_product_id)
+                i=i+1
                 product1=Product.objects.filter(id=r.related_product_id)
 
     product2={}
     rentamount = Rent_Amount.objects.filter(customer_of_item=us)
     for r in rentamount:
-            prod = Ratings.objects.filter(rating_for_product=r.related_product).exists()
-            if r.delivered_date <= date.today():
-                product2=Product.objects.filter(id=r.related_product_id)
+        prod = Ratings.objects.filter(rating_for_product=r.related_product).exists()
+        if r.sent_date <= date.today():
+            product2=Product.objects.filter(id=r.related_product_id)
+            i=i+1
+    product3 = {}
+    rentamount = Rent_Amount.objects.filter(customer_of_item=us)
+    print(rentamount)
+    for r in rentamount:
+        print(r.delivered_date)
+        print(date.today()+timedelta(days=1))
+        if r.sent_date == (date.today()+timedelta(days=1)):
+            print(date.today()+timedelta(days=1))
+            i=i+1
+            product3=Product.objects.filter(id=r.related_product_id)
 
-    print(product2)
+    print(product3)
 
     context={
         'product':product1,
         'products':product2,
+        'products1':product3,
+        'i': i,
+
     }
     return render(request, 'Rent/subcstfil.html', context)
 def update(request,my_id):
