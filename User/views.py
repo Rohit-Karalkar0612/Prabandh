@@ -39,8 +39,14 @@ def SellerView(request):
         if request.method=='POST':
             form=SellerForm(request.POST)
             if form.is_valid():
-                user=request.session['user']
-                u=User.objects.get(username=user)
+                if 'user' in request.session:
+                    user=request.session['user']
+                    u=User.objects.get(username=user)
+                else:
+                    user=request.user.username
+                    u=User.objects.get(username=user)
+                    p=Profile.objects.filter(user=u)
+                    p.update(seller=True)
                 p=form.save(commit=False)
                 p.seller=u
                 p.save()
@@ -56,8 +62,11 @@ def profile(request):
     print(user)
     u = User.objects.get(username=user)
     Profiles = Profile.objects.filter(user=u)
+    isSeller=Profile.objects.get(user=u).seller
+    print(isSeller)
     print(Profiles)
     param_profile = {
-        'Profile' : Profiles
+        'Profile' : Profiles,
+        'u':isSeller
     }
     return render(request,'User/profile.html',param_profile)

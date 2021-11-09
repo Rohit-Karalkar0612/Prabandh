@@ -356,18 +356,26 @@ def Issue(request):
         for i in range(0, j):
             prod = prod + list(product[i].values())
         print(prod)
+        print("Hello")
         rentamount=Rent_Amount.objects.filter(related_product_id__in=prod,satisfaction=False)
         print(rentamount)
+
+        print("Hello1")
         product1={}
         for r in rentamount:
             if r.delivered_date<= date.today():
                 print(r.related_product_id)
                 product1=Product.objects.filter(id=r.related_product_id)
+
+    product2={}
     rentamount = Rent_Amount.objects.filter(customer_of_item=us)
     for r in rentamount:
             prod = Ratings.objects.filter(rating_for_product=r.related_product).exists()
-            if r.delivered_date <= date.today() and prod!=True:
-                product2=Product.objects.filter(id__in=r.related_product_id)
+            if r.delivered_date <= date.today():
+                product2=Product.objects.filter(id=r.related_product_id)
+
+    print(product2)
+
     context={
         'product':product1,
         'products':product2,
@@ -422,6 +430,9 @@ def create_payment(request):
         intent = stripe.PaymentIntent.create(
             amount=total * 100,
             currency='INR',
+            metadata={
+                'id':'1'
+            },
             payment_method_types=[
                 'card',
             ],
