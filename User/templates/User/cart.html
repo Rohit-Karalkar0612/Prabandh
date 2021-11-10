@@ -1,0 +1,96 @@
+{% extends 'User/profile.html' %}
+
+{% load static %}
+
+{% block title %}
+<link rel="stylesheet" href="{% static 'User/css/profile.css' %}">
+
+{% endblock title %}
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(268deg, #0000ff, #00f0add9);
+    }
+
+</style>
+
+<body>
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-4 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <h1 class="font-weight-bold">{{user}}</h1>
+                    <span> </span>
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right"><a href="/user/profile/" class="text-decoration-none" target="_self">
+                                    Profile </a></h4>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right"><a href="/booking/" class="text-decoration-none"> Bookings </a></h4>
+                        </div>
+
+                        {% comment %}
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right"><a href="/" class="text-decoration-none"> Rented Products </a></h4>
+                        </div> {% endcomment %}
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right"><a href="/cart/" class="text-decoration-none"> Cart </a></h4>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-md">
+                <div class="p-3 py-5">
+
+                    <!-- Profile Section -->
+                    <div>
+                        {% for i in product %}
+                        <div class="card mb-3 border-bottom" style="max-width: 540px;">
+                            <div class="row g-0 border-bottom">
+                                <div class="col-md-3 col-sm-4">
+                                    <img src='/media/{{i.image_of_product}}' class="img-fluid me-2" alt="...">
+                                </div>
+                                <div class="col-md-9 col-sm-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{i.title}}</h5>
+                                        <div id="ca">
+                                            {{i.score}}
+                                        </div>
+                                        <span class="fa fa-star checked" id="first"></span>
+                                        <span class="fa fa-star checked" id="second"></span>
+                                        <span class="fa fa-star checked" id="third"></span>
+                                        <span class="fa fa-star" id="fourth"></span>
+                                        <span class="fa fa-star" id="fifth"></span>
+
+                                        <p class="card-text">
+                                            {{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
+                                            Deposit:{{i.deposit}}
+                                        </p>
+                                    </div>
+                                    <a href="/cartdel/{{i.id}}" class="btn btn-danger"
+                                        style="margin-right:10px;">Remove</a>
+                                    <a href="#" class="btn btn-primary">Rent</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}    
+                    </div>
+                </div>
+                <center>
+                    <b>Total Amount:{{sum}}</b><br>
+                            {% csrf_token %} -->
+                            <a href="{% url 'check' %}" class="btn-primary" id="checkout-button">Proceed to
+                                checkout</a>
+                </center>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock%}
