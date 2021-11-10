@@ -446,7 +446,7 @@ def create_payment(request):
             amount=total * 100,
             currency='INR',
             metadata={
-                'id':'1'
+                'id':request.user.id
             },
             payment_method_types=[
                 'card',
@@ -490,8 +490,15 @@ def webhook(request):
 
     if event['type'] == 'payment_intent.succeeded':
         session = event['data']['object']
+        carti=session['metadata']['id']
+        c=Cart.objects.filter(user=User.objects.get(id=carti))
+        for item in c:
+            p=Product.objects.filter(id=item.product_id.id)
+            p.update(availability=False)
 
-        print(session)
+        
+
+        # print(session)
 
     # Passed signature verification
     return HttpResponse(status=200)
