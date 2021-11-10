@@ -11,7 +11,13 @@
     body {
         background: linear-gradient(268deg, #0000ff, #00f0add9);
     }
-    
+    .user:hover {
+        color: white;
+    }
+    .user{
+        color: black; 
+        text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px yellow;
+    }    
 </style>
 
 <body>
@@ -19,7 +25,7 @@
         <div class="row">
             <div class="col-md-4 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <h1 class="font-weight-bold">{{user}}</h1>
+                    <h1 class="font-weight-bold user">{{user}}</h1>
                     <span> </span>
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -30,11 +36,14 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right"><a href="/booking/" class="text-decoration-none"> Bookings </a></h4>
                         </div>
+
+                        {% if us %}                        
                         
-                        {% comment %}
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right"><a href="/" class="text-decoration-none"> Rented Products </a></h4>
-                        </div> {% endcomment %}
+                            <h4 class="text-right"><a href="/putrent/" class="text-decoration-none"> Rented Products </a></h4>
+                        </div> 
+                        
+                        {% endif %}
                         
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right"><a href="/cart/" class="text-decoration-none"> Cart </a></h4>
