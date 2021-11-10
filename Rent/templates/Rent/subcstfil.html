@@ -1,10 +1,18 @@
 {% extends 'Rent/Weddings.html' %}
 {% load static %}
 {% block css %}
-
+<style>
+body{
+background-color:blue;
+}
+.card{
+margin-top:10px;
+}
+</style>
 {% endblock css %}
 {% block content %}
     <main>
+        <center>
         {% for i in product %}
             <div class="card mb-3 border-bottom" style="max-width: 540px;">
               <div class="row g-0 border-bottom">
@@ -12,14 +20,10 @@
                 <div class="col-md-12 col-sm-8">
                     <div class="card-body">
                       <h5 class="card-title">{{i.title}}</h5>
-                            
-                            <p class="card-text">
-                              {{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
-                              Deposit:{{i.deposit}}
-                                <br>
-                                We hope that the product has been delivered to your address safely,if not you can raise an issue else
+                                Dear {{request.user}},<br>
+                                We hope that this product has been delivered to your address safely,if not you can raise an issue else
                                 click on i am satisfied
-                            </p>
+
                     </div>
                   <a href="/update/{{i.id}}" class="btn btn-primary" style="margin-right:10px;">Yes I am satisfied</a>
                   <a href="/issue/{{i.id}}" class="btn btn-danger">Raise an issue</a>
@@ -34,21 +38,31 @@
                 <div class="col-md-12 col-sm-8">
                     <div class="card-body">
                       <h5 class="card-title">{{i.title}}</h5>
-
-                            <p class="card-text">
-                              {{i.about}}<BR>Rent Price: {{i.rental_price}}</BR>
-                              Deposit:{{i.deposit}}
-                                <br>
-                                Thank you for choosing us hope you had an amazing experience.
-                                Rate the product
-                            </p>
+                                Dear {{request.user}},<br>Thank you for choosing us hope you had an amazing experience.
+                                Can u just take a moment to rate amazing experience you had with product.
                     </div>
                   <a href="/update/{{i.id}}" class="btn btn-primary" style="margin-right:10px;">Rate</a>
                 </div>
               </div>
             </div>
      {% endfor %}
+        {% for i in products1 %}
+            <div class="card mb-3 border-bottom" style="max-width: 540px;">
+              <div class="row g-0 border-bottom">
+
+                <div class="col-md-12 col-sm-8">
+                    <div class="card-body">
+                        <h3 style="color:Red;">Alert!!!</h3>
+                      <h5 class="card-title">{{i.title}}</h5>
+                        Dear {{request.user}},<br>Kindly note that this product is scheduled for return tommorow.
+
+                    </div>
+                </div>
+              </div>
+            </div>
+     {% endfor %}
             <!-- {% csrf_token %} -->
+            </center>
     </main>
 {% endblock %}
 {% block js %}
