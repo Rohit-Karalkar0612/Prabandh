@@ -45,7 +45,9 @@ def cart(request):
 
 def rentprod(request):
     us = request.user
-    RentProd = Rent_Amount.objects.filter(customer_of_item=us).values('related_product')
+    RentPr = Rent_Amount.objects.filter(customer_of_item=us).values('related_product')
+    RentProd=RentPr.values('related_product')
+
     print(RentProd)
     prod = []
     j = 0
@@ -65,7 +67,8 @@ def rentprod(request):
 
 def putrent(request):
     us = request.user
-    products = Product.objects.filter(seller_of_item=us)
+    u = Seller.objects.get(seller=us)
+    products = Product.objects.filter(seller_of_item=u)
     param = {
         'product': products,
         "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
@@ -385,7 +388,6 @@ def Issue(request):
             print(date.today()+timedelta(days=1))
             i=i+1
             product3=Product.objects.filter(id=r.related_product_id)
-
     print(product3)
 
     context={
