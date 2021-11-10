@@ -560,9 +560,18 @@ def rentprod(request):
 
 def putrent(request):
     us = request.user
-    products = Product.objects.filter(seller_of_item=us)
+    u = Seller.objects.get(seller=us)
+    products = Product.objects.filter(seller_of_item=u)
     param = {
         'product': products,
         "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
     }
-    return render(request, 'User/booking.html', param)
+    return render(request, 'User/add_rent.html', param)
+
+
+def rentdel(request, my_id):
+    x= my_id
+    print(x)
+    pr = Product.objects.filter(product_id=my_id).delete()
+    print(Product)
+    return redirect('putrent')
