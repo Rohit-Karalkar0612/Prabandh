@@ -28,4 +28,5 @@ urlpatterns = [
     path('details/',views.RentAmt,name="detail"),
     path('booking/',views.rentprod,name="booking"),
     path('putrent/',views.putrent,name="putrent"),
+    path('rentdel/<my_id>',views.rentdel,name="rentdel"),
 ]

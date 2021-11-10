@@ -4,16 +4,24 @@
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'User/css/profile.css' %}">
-
 {% endblock title %}
 {% block content %}
 
 <body>
+<style>
+.user:hover {
+  color: white;
+}
+.user{
+    color: black; 
+    text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px yellow;
+}
+</style>
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
             <div class="col-md-4 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <h1 class="font-weight-bold">{{user}}</h1>
+                    <h1 class="font-weight-bold user">{{user}}</h1>
                     <span> </span>
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">

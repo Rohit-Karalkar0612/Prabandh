@@ -565,3 +565,11 @@ def putrent(request):
         "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
     }
     return render(request, 'User/add_rent.html', param)
+
+
+def rentdel(request, my_id):
+    x= my_id
+    print(x)
+    pr = Product.objects.filter(product_id=my_id).delete()
+    print(Product)
+    return redirect('putrent')
