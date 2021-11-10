@@ -381,9 +381,11 @@ def Issue(request):
         'products':product2,
     }
     return render(request, 'Rent/subcstfil.html', context)
+
 def update(request,my_id):
     Rent_Amount.objects.filter(related_product_id=my_id).update(satisfaction=True)
     return redirect('/')
+
 def issueform(request,my_id):
     Rent_Amount.objects.filter(related_product_id=my_id).update(satisfaction=True)
     if request.method == 'POST':
@@ -509,7 +511,7 @@ def cart(request):
         "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
     }
     print(products)
-    return render(request, 'User/booking.html', param)
+    return render(request, 'User/cart.html', param)
 
 
 def rentprod(request):
