@@ -581,3 +581,17 @@ def putrent(request):
     }
 
     return render(request, 'User/add_rent.html', param_putrent)
+
+def rate(request,my_id):
+    us = request.user
+    product = Product.objects.filter(id = my_id)
+    for j in product:
+        j = j
+    print(us)
+    print(j)
+    if request.method=='POST':
+        rating = request.POST['rating']
+        review = request.POST['review']
+        data = Ratings(rating_for_product= j,rating_by= us,rating=rating,review=review)
+        data.save()
+        return redirect('/')
