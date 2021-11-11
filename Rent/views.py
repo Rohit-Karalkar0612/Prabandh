@@ -79,8 +79,10 @@ def putrent(request):
 def cartadd(request, my_id):
     us = request.user
     prod = Product.objects.get(id=my_id)
-    b = Cart(user=us, product_id=prod)
-    b.save()
+    cart1=Cart.objects.filter(user=us, product_id=prod).exist()
+    if cart1!=True:
+        b = Cart(user=us, product_id=prod)
+        b.save()
     return redirect('cart')
 
 
@@ -97,58 +99,54 @@ def search_match(query, item):
 
 
 def index(request):
-    us = request.user
-    k = 0
-    sell = Seller.objects.filter(seller=us).exists()
-    if sell == True:
-        u = Seller.objects.get(seller=us)
-        product = (Product.objects.filter(seller_of_item=u)).values('id')
-        print(product)
-        prod = []
-        j = 0
-        for i in product:
-            j = j + 1
-        print(j)
-        for i in range(0, j):
-            prod = prod + list(product[i].values())
-        print(prod)
-        print("Hello")
-        rentamount = Rent_Amount.objects.filter(related_product_id__in=prod, satisfaction=False)
-        print(rentamount)
-        print("Hello1")
-        product1 = {}
+    k=0
+    if request.user.is_authenticated:
+        us = request.user
+        k = 0
+        sell = Seller.objects.filter(seller=us).exists()
+        if sell == True:
+            u = Seller.objects.get(seller=us)
+            product = (Product.objects.filter(seller_of_item=u)).values('id')
+            print(product)
+            prod = []
+            j = 0
+            for i in product:
+               j = j + 1
+            print(j)
+            for i in range(0, j):
+                prod = prod + list(product[i].values())
+            print(prod)
+            print("Hello")
+            rentamount = Rent_Amount.objects.filter(related_product_id__in=prod, satisfaction=False)
+            print(rentamount)
+            print("Hello1")
+            product1 = {}
+            for r in rentamount:
+                prod = Issues.objects.filter(complain_against=r.related_product, complainer=us).exists()
+                if r.delivered_date <= date.today() and prod!=True:
+                    print(r.related_product_id)
+                    k = k + 1
+                    product1 = Product.objects.filter(id=r.related_product_id)
+
+        product2 = {}
+        rentamount = Rent_Amount.objects.filter(customer_of_item=us)
         for r in rentamount:
-            prod = Issues.objects.filter(complain_against=r.related_product, complainer=us).exists()
-            if r.delivered_date <= date.today() and prod!=True:
-                print(r.related_product_id)
+            prod = Ratings.objects.filter(rating_for_product=r.related_product, rating_by=us).exists()
+            if r.sent_date <= date.today() and prod != True:
+                product2 = Product.objects.filter(id=r.related_product_id)
                 k = k + 1
-                product1 = Product.objects.filter(id=r.related_product_id)
-
-    product2 = {}
-    rentamount = Rent_Amount.objects.filter(customer_of_item=us)
-    for r in rentamount:
-        prod = Ratings.objects.filter(rating_for_product=r.related_product, rating_by=us).exists()
-        if r.sent_date <= date.today() and prod != True:
-            product2 = Product.objects.filter(id=r.related_product_id)
-            k = k + 1
-    product3 = {}
-    rentamount = Rent_Amount.objects.filter(customer_of_item=us)
-    print(rentamount)
-    for r in rentamount:
-        print(r.delivered_date)
-        print(date.today() + timedelta(days=1))
-        if r.sent_date == (date.today() + timedelta(days=1)):
+        product3 = {}
+        rentamount = Rent_Amount.objects.filter(customer_of_item=us)
+        print(rentamount)
+        for r in rentamount:
+            print(r.delivered_date)
             print(date.today() + timedelta(days=1))
-
-            product3 = Product.objects.filter(id=r.related_product_id)
-    products = Product.objects.all()
-    Photos = Photo.objects.all()
+            if r.sent_date == (date.today() + timedelta(days=1)):
+                print(date.today() + timedelta(days=1))
+                product3 = Product.objects.filter(id=r.related_product_id)
     param = {
-        'product': products,
-        'photos': Photos,
         'k':k,
     }
-    print(products)
     return render(request, 'Rent/home_page.html', param)
 
 
