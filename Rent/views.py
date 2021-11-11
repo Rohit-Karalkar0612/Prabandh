@@ -5,17 +5,21 @@ from django.db.models import Min,Max
 from django.views.generic import CreateView,TemplateView
 from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount,Ratings,Issues
 from User.models import Seller,User,Profile
-from .forms import ProductForm,PhotoForm,RentForm,IssueForm
+from .forms import ProductForm,PhotoForm,RentForm,IssueForm,RentForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
 from django.conf import settings
 import stripe
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from datetime import date,timedelta
+from datetime import date,timedelta,datetime
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+
 
 
 def cart(request):
@@ -34,6 +38,8 @@ def cart(request):
     products = Product.objects.filter(id__in=prod)
     for i in products:
         sum = sum + i.deposit
+
+    request.session['total']=sum
     param = {
         'product': products,
         'sum': sum,
@@ -41,6 +47,77 @@ def cart(request):
     }
     print(products)
     return render(request, 'Rent/subcstfil.html', param)
+
+
+def cart(request):
+
+    if request.method=='POST':
+        my_items = Cart.objects.filter(user=request.user)
+        print(my_items)
+        total = 0
+        d=date.today()
+        s=d.strftime("%Y-%m-%d")
+        r=Rent_Amount.objects.all()
+        listw=[]
+        for y in r:
+            listw.append(y.related_product)
+        
+        print(listw)
+        print(s)
+        for p in my_items:
+            if p.product_id not in listw:
+                print(p)
+                form=RentForm(request.POST)
+                unsave=form.save(commit=False)
+                u=form.cleaned_data['expected']
+                unsave.related_product=p.product_id
+                unsave.customer_of_item=request.user
+                print(request.session['total'])
+                unsave.payment=request.session['total']
+                unsave.delivered_date=s
+                unsave.sent_date=s
+                unsave.save()
+                print("ll")              
+
+        
+        return redirect('check')
+
+
+
+
+
+    user = request.user
+    Cartobj=(Cart.objects.filter(user=user)).values('product_id')
+    print(Cartobj)
+    prod=[]
+    j=0
+    for i in Cartobj:
+        j=j+1
+    print(j)
+    for i in range(0, j):
+        prod=prod+list(Cartobj[i].values())
+    print(prod)
+    sum=0
+    products = Product.objects.filter(id__in=prod)
+    
+    for i in products:
+        sum=sum+i.deposit
+
+    request.session['total']=sum
+
+    u = User.objects.get(username=user)
+    isSeller=Profile.objects.get(user=u).seller
+
+    print(isSeller)
+    param = {
+        'product': products,
+        'sum':sum,
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
+        'us':isSeller,
+        'form':RentForm
+    }
+    print(products)
+    return render(request, 'User/cart.html', param)
 
 
 def rentprod(request):
@@ -391,6 +468,7 @@ def Issue(request):
     us = request.user
     i=0
 
+
     product1 = {}
     sell=Seller.objects.filter(seller=us).exists()
     if sell==True:
@@ -484,11 +562,16 @@ def create_payment(request):
 class Check(TemplateView):
     template_name = "Rent/checkout.html"
 
+
     def get_context_data(self, **kwargs):
         my_items = Cart.objects.filter(user=self.request.user)
         total = 0
         for p in my_items:
-            total += (p.product_id.deposit)
+            u=(p.product_id.rented_product.expected-datetime.strptime(date.today().strftime("%Y-%m-%d"),"%Y-%m-%d").date()).days
+            print(u)
+            print("hadsgdf")
+            u=u*p.product_id.rental_price
+            total =total+u+ (p.product_id.deposit)
 
         context = super().get_context_data(**kwargs)
         context["total"] = total
@@ -535,33 +618,6 @@ class success(TemplateView):
 def RentAmt(request):
     return render(request,'Rent/details.html',{'form':RentForm})
 
-def cart(request):
-    user = request.user
-    Cartobj=(Cart.objects.filter(user=user)).values('product_id')
-    print(Cartobj)
-    prod=[]
-    j=0
-    for i in Cartobj:
-        j=j+1
-    print(j)
-    for i in range(0, j):
-        prod=prod+list(Cartobj[i].values())
-    print(prod)
-    sum=0
-    products = Product.objects.filter(id__in=prod)
-    for i in products:
-        sum=sum+i.deposit
-    u = User.objects.get(username=user)
-    isSeller=Profile.objects.get(user=u).seller
-    print(isSeller)
-    param = {
-        'product': products,
-        'sum':sum,
-        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
-        'us':isSeller
-    }
-    print(products)
-    return render(request, 'User/cart.html', param)
 
 
 def rentprod(request):
@@ -617,6 +673,7 @@ def rate(request,my_id):
         data = Ratings(rating_for_product= j,rating_by= us,rating=rating,review=review)
         data.save()
         return redirect('/')
+
 def issueform(request,my_id):
     us = request.user
     product = Product.objects.filter(id = my_id)

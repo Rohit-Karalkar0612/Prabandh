@@ -40,7 +40,7 @@ class Rent_Amount (models.Model):
     customer_of_item=models.ForeignKey(User,related_name='customer_of_item',on_delete=models.CASCADE)
     delivered_date=models.DateField()
     sent_date=models.DateField()
-    related_product=models.ForeignKey(Product,related_name='rented_product',on_delete=models.CASCADE)
+    related_product=models.OneToOneField(Product,related_name='rented_product',on_delete=models.CASCADE)
     payment=models.IntegerField()
     satisfaction=models.BooleanField(default=True)
     expected=models.DateField()

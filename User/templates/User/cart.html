@@ -1,4 +1,4 @@
-{% extends 'User/profile.html' %}
+{% extends 'User/basic.html' %}
 
 {% load static %}
 
@@ -6,6 +6,123 @@
 <link rel="stylesheet" href="{% static 'User/css/profile.css' %}">
 
 {% endblock title %}
+
+{% block css %}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style>
+
+.card{
+margin-top:10px;
+}
+body {
+    background-color: #FFCC99;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 50%%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: blue;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.fa-star:before {
+  content: "\f005";
+}
+
+.rating-list li i.yellow {
+  color: #FFD700;
+}
+
+.rating-list li i.gray {
+  color: #bbb;
+}
+
+.list-inline>li {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.rating-list li {
+  padding: 0px;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+</style>
+{% endblock css %}
+
 {% block content %}
 <style>
     body {
@@ -94,12 +211,71 @@
                 </div>
                 <center>
                     <b>Total Amount:{{sum}}</b><br>
-                            {% csrf_token %} -->
-                            <a href="{% url 'check' %}" class="btn-primary" id="checkout-button">Proceed to
-                                checkout</a>
+                            <!-- <a href="{% url 'check' %}" class="btn btn-primary" id="checkout-button">Proceed to
+                                checkout</a> -->
+                                <a id="myButton" class="btn btn-danger">Set your date</a>
+                    <!-- The Modal -->
+                    
+                        <div id="myModal1" class="modal">
+
+                      <!-- Modal content -->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4>Dear {{request.user}} , When should we pick up?</h4>
+                                        <span class="close">&times;</span>
+                                    </div>
+                                    <br>
+                                    <div class="modal-body" style="text-align: left;">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                        <!-- <form action="" method="POST"> -->
+                                            {{form}}
+                                            <br>
+                                                <div>
+                                                    <button id="myBtn2" class="btn btn-primary" style="text-align: left;" type="submit">Submit</button>
+                                                </div>
+                                            </form>
+                                    </div>
+                                
+                                <div class="modal-footer"></div>
+                         </div>
+                        
                 </center>
             </div>
         </div>
     </div>
 </body>
 {% endblock%}
+
+{% block js %}
+
+<script>
+    var modal1 = document.getElementById("myModal1");
+
+// Get the button that opens the modal
+var btn1 = document.getElementById("myButton");
+
+// Get the <span> element that closes the modal
+var span1 = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn1.onclick = function() {
+      modal1.style.display = "block";
+      let v=document.querySelector('.date').setAttribute("min","2021-11-05")
+}
+
+// When the user clicks on (x), close the modal
+span1.onclick = function() {
+modal1.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+if (event.target == modal1) {
+modal1.style.display = "none";
+}
+}
+    </script>
+
+
+{% endblock %}

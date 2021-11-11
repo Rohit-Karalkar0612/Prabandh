@@ -1,5 +1,6 @@
 from django import forms
-from .models import Product,Category,Subcategory,Photo,Rent_Amount,Issues
+from .models import Product,Category,Subcategory,Photo,Rent_Amount,Issues,Bookings
+from datetime import date
 
 from django.contrib.auth.forms import UserCreationForm
 class IssueForm(forms.ModelForm):
@@ -45,8 +46,16 @@ class PhotoForm(forms.ModelForm):
 
 
 class RentForm(forms.ModelForm):
+
+    d=date.today()
+    s=d.strftime("%y-%d-%m")
     
     class Meta:
         model = Rent_Amount
-        exclude=('',)
+        widgets={
+            'expected':forms.DateInput(attrs={'type':'date','class':'form-control date'})
+        }
+        fields=('expected',)
+
+    
       

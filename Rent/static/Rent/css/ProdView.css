@@ -9,7 +9,7 @@
   height: inherit !important;
 }
 .left1 {
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   transition: 0.5s ease-in;
 }
