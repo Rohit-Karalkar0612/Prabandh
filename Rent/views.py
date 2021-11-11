@@ -527,10 +527,13 @@ def cart(request):
     print(prod)
     sum=0
     products = Product.objects.filter(id__in=prod)
+    
     for i in products:
         sum=sum+i.deposit
+
     u = User.objects.get(username=user)
     isSeller=Profile.objects.get(user=u).seller
+
     print(isSeller)
     param = {
         'product': products,

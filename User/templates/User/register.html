@@ -23,10 +23,7 @@
                     </div>
                     <div class="row top-left side-row ">
                         <form method="POST">
-                                {% csrf_token %}
-                                <!-- {{ user|crispy }}
-                                {{ register|crispy }} -->
-                                <!-- {{ user.username.label }} -->    
+                                {% csrf_token %}   
                                 <div class="form-group">
                                 <div class="fieldWrapper">
                                     <label for="{{ user.username.id_for_label }}" class="down">Username</label>
@@ -70,7 +67,6 @@
                                 </div>
                                 <div class="fieldWrapper">
                                     <br>
-                                    <!-- <label for="{{ register.seller.id_for_label }}" style="font-weight: bold;">Want to be a Seller?</label>&nbsp -->
                                     {{ register.captcha }}
                                 </div>
                                 <br>

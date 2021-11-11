@@ -34,7 +34,6 @@ def Register(request):
     return render(request,'User/register.html',{'user':UserForm,'register':RegisterForm})
 
 def SellerView(request):
-    # if Seller.objects.filter(seller=request.user).count()==0 or Seller.objects.filter(seller=User.objects.get(username=request.session['user'])).count()==0:
         if request.method=='POST':
             form=SellerForm(request.POST)
             if form.is_valid():
@@ -49,7 +48,7 @@ def SellerView(request):
                 p=form.save(commit=False)
                 p.seller=u
                 p.save()
-                return redirect('register')
+                return redirect('product')
             else:
                 return render(request,'User/seller.html',{'user':form})
         else:
