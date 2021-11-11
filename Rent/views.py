@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.db.models import Min,Max
 from django.views.generic import CreateView,TemplateView
-from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount,Ratings
+from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount,Ratings,Issues
 from User.models import Seller,User,Profile
 from .forms import ProductForm,PhotoForm,RentForm,IssueForm
 from django.urls import reverse,resolve
@@ -79,8 +79,10 @@ def putrent(request):
 def cartadd(request, my_id):
     us = request.user
     prod = Product.objects.get(id=my_id)
-    b = Cart(user=us, product_id=prod)
-    b.save()
+    cart1=Cart.objects.filter(user=us, product_id=prod).exists()
+    if cart1!=True:
+        b = Cart(user=us, product_id=prod)
+        b.save()
     return redirect('cart')
 
 
@@ -97,13 +99,54 @@ def search_match(query, item):
 
 
 def index(request):
-    products = Product.objects.all()
-    Photos = Photo.objects.all()
+    k=0
+    if request.user.is_authenticated:
+        us = request.user
+        k = 0
+        sell = Seller.objects.filter(seller=us).exists()
+        if sell == True:
+            u = Seller.objects.get(seller=us)
+            product = (Product.objects.filter(seller_of_item=u)).values('id')
+            print(product)
+            prod = []
+            j = 0
+            for i in product:
+               j = j + 1
+            print(j)
+            for i in range(0, j):
+                prod = prod + list(product[i].values())
+            print(prod)
+            print("Hello")
+            rentamount = Rent_Amount.objects.filter(related_product_id__in=prod, satisfaction=False)
+            print(rentamount)
+            print("Hello1")
+            product1 = {}
+            for r in rentamount:
+                prod = Issues.objects.filter(complain_against=r.related_product, complainer=us).exists()
+                if r.delivered_date <= date.today() and prod!=True:
+                    print(r.related_product_id)
+                    k = k + 1
+                    product1 = Product.objects.filter(id=r.related_product_id)
+
+        product2 = {}
+        rentamount = Rent_Amount.objects.filter(customer_of_item=us)
+        for r in rentamount:
+            prod = Ratings.objects.filter(rating_for_product=r.related_product, rating_by=us).exists()
+            if r.sent_date <= date.today() and prod != True:
+                product2 = Product.objects.filter(id=r.related_product_id)
+                k = k + 1
+        product3 = {}
+        rentamount = Rent_Amount.objects.filter(customer_of_item=us)
+        print(rentamount)
+        for r in rentamount:
+            print(r.delivered_date)
+            print(date.today() + timedelta(days=1))
+            if r.sent_date == (date.today() + timedelta(days=1)):
+                print(date.today() + timedelta(days=1))
+                product3 = Product.objects.filter(id=r.related_product_id)
     param = {
-        'product': products,
-        'photos': Photos,
+        'k':k,
     }
-    print(products)
     return render(request, 'Rent/home_page.html', param)
 
 
@@ -124,7 +167,7 @@ def search_subcat(request, my_id, mysubcat,my_id1):
             'Essentials-2': ['LED Diyas', 'Electric Lamps', 'Photo Frames', 'Wall Decor'],
         }
     category = get_object_or_404(Subcategory, subcategories=mysubcat)
-    products = Product.objects.filter(subcategory=category)
+    products = Product.objects.filter(subcategory=category,availability=True)
     if my_id1 == '2':
         min2 = ''
         min1 = request.GET.get('min-value')
@@ -144,7 +187,7 @@ def search_subcat(request, my_id, mysubcat,my_id1):
         max = int(max2)
         print(min)
         print(max)
-        products = Product.objects.filter(subcategory=category, rental_price__range=(min, max))
+        products = Product.objects.filter(subcategory=category, rental_price__range=(min, max),availability=True)
     min_price = products.aggregate(Min('rental_price'))
     max_price = products.aggregate(Max('rental_price'))
     price = {**min_price, **max_price}
@@ -163,7 +206,7 @@ def search_subcat(request, my_id, mysubcat,my_id1):
 
 def search_subcat1(request,my_id=''):
     query = request.GET.get('search')
-    products=Product.objects.all()
+    products=Product.objects.filter(availability=True)
     if my_id == '2':
         min2 = ''
         min1 = request.GET.get('min-value')
@@ -183,7 +226,7 @@ def search_subcat1(request,my_id=''):
         max = int(max2)
         print(min)
         print(max)
-        products = Product.objects.filter(rental_price__range=(min, max))
+        products = Product.objects.filter(rental_price__range=(min, max),availability=True)
     products = [item for item in products if search_match(query, item)]
     return render(request, 'Rent/prod.html', {'products': products})
 
@@ -347,6 +390,8 @@ def NewImage(request):
 def Issue(request):
     us = request.user
     i=0
+
+    product1 = {}
     sell=Seller.objects.filter(seller=us).exists()
     if sell==True:
         u = Seller.objects.get(seller=us)
@@ -364,9 +409,9 @@ def Issue(request):
         rentamount=Rent_Amount.objects.filter(related_product_id__in=prod,satisfaction=False)
         print(rentamount)
         print("Hello1")
-        product1={}
         for r in rentamount:
-            if r.delivered_date<= date.today():
+            prod = Issues.objects.filter(complain_against=r.related_product, complainer=us).exists()
+            if r.delivered_date<= date.today() and prod!=True:
                 print(r.related_product_id)
                 i=i+1
                 product1=Product.objects.filter(id=r.related_product_id)
@@ -374,8 +419,8 @@ def Issue(request):
     product2={}
     rentamount = Rent_Amount.objects.filter(customer_of_item=us)
     for r in rentamount:
-        prod = Ratings.objects.filter(rating_for_product=r.related_product).exists()
-        if r.sent_date <= date.today():
+        prod = Ratings.objects.filter(rating_for_product=r.related_product,rating_by=us).exists()
+        if r.sent_date <= date.today() and prod!=True:
             product2=Product.objects.filter(id=r.related_product_id)
             i=i+1
     product3 = {}
@@ -388,8 +433,6 @@ def Issue(request):
             print(date.today()+timedelta(days=1))
             i=i+1
             product3=Product.objects.filter(id=r.related_product_id)
-    print(product3)
-
     context={
         'product':product1,
         'products':product2,
@@ -402,27 +445,6 @@ def Issue(request):
 def update(request,my_id):
     Rent_Amount.objects.filter(related_product_id=my_id).update(satisfaction=True)
     return redirect('/')
-
-def issueform(request,my_id):
-    Rent_Amount.objects.filter(related_product_id=my_id).update(satisfaction=True)
-    if request.method == 'POST':
-        form = IssueForm(request.POST, request.FILES)
-        if form.is_valid():
-            us = request.user
-            u = Seller.objects.get(seller=us)
-            p = form.save(commit=False)
-            p.complainer = us
-            product=Product.objects.get(id=my_id)
-            p.complain_against =product
-            p.resolved=False
-            p.save()
-            return redirect('/')
-        else:
-            print(form.errors)
-            return render(request, 'Rent/issues.html', {'form': form})
-    else:
-        form = IssueForm()
-    return render(request, 'Rent/issues.html', {'form': form})
 
 def deleteImage(request):
     if request.method == 'POST':
@@ -596,5 +618,17 @@ def rate(request,my_id):
         rating = request.POST['rating']
         review = request.POST['review']
         data = Ratings(rating_for_product= j,rating_by= us,rating=rating,review=review)
+        data.save()
+        return redirect('/')
+def issueform(request,my_id):
+    us = request.user
+    product = Product.objects.filter(id = my_id)
+    for j in product:
+        j = j
+    print(us)
+    print(j)
+    if request.method=='POST':
+        issue = request.POST['issue']
+        data = Issues(complainer=us,complain_against=j,issue=issue,resolved=False)
         data.save()
         return redirect('/')
