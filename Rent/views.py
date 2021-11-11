@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.db.models import Min,Max
 from django.views.generic import CreateView,TemplateView
-from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount,Ratings
+from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount,Ratings,Issues
 from User.models import Seller,User,Profile
 from .forms import ProductForm,PhotoForm,RentForm,IssueForm
 from django.urls import reverse,resolve
@@ -97,11 +97,56 @@ def search_match(query, item):
 
 
 def index(request):
+    us = request.user
+    k = 0
+    sell = Seller.objects.filter(seller=us).exists()
+    if sell == True:
+        u = Seller.objects.get(seller=us)
+        product = (Product.objects.filter(seller_of_item=u)).values('id')
+        print(product)
+        prod = []
+        j = 0
+        for i in product:
+            j = j + 1
+        print(j)
+        for i in range(0, j):
+            prod = prod + list(product[i].values())
+        print(prod)
+        print("Hello")
+        rentamount = Rent_Amount.objects.filter(related_product_id__in=prod, satisfaction=False)
+        print(rentamount)
+        print("Hello1")
+        product1 = {}
+        for r in rentamount:
+            prod = Issues.objects.filter(complain_against=r.related_product, complainer=us).exists()
+            if r.delivered_date <= date.today() and prod!=True:
+                print(r.related_product_id)
+                k = k + 1
+                product1 = Product.objects.filter(id=r.related_product_id)
+
+    product2 = {}
+    rentamount = Rent_Amount.objects.filter(customer_of_item=us)
+    for r in rentamount:
+        prod = Ratings.objects.filter(rating_for_product=r.related_product, rating_by=us).exists()
+        if r.sent_date <= date.today() and prod != True:
+            product2 = Product.objects.filter(id=r.related_product_id)
+            k = k + 1
+    product3 = {}
+    rentamount = Rent_Amount.objects.filter(customer_of_item=us)
+    print(rentamount)
+    for r in rentamount:
+        print(r.delivered_date)
+        print(date.today() + timedelta(days=1))
+        if r.sent_date == (date.today() + timedelta(days=1)):
+            print(date.today() + timedelta(days=1))
+
+            product3 = Product.objects.filter(id=r.related_product_id)
     products = Product.objects.all()
     Photos = Photo.objects.all()
     param = {
         'product': products,
         'photos': Photos,
+        'k':k,
     }
     print(products)
     return render(request, 'Rent/home_page.html', param)
@@ -366,7 +411,8 @@ def Issue(request):
         print("Hello1")
         product1={}
         for r in rentamount:
-            if r.delivered_date<= date.today():
+            prod = Issues.objects.filter(complain_against=r.related_product, complainer=us).exists()
+            if r.delivered_date<= date.today() and prod!=True:
                 print(r.related_product_id)
                 i=i+1
                 product1=Product.objects.filter(id=r.related_product_id)
@@ -400,27 +446,6 @@ def Issue(request):
 def update(request,my_id):
     Rent_Amount.objects.filter(related_product_id=my_id).update(satisfaction=True)
     return redirect('/')
-
-def issueform(request,my_id):
-    Rent_Amount.objects.filter(related_product_id=my_id).update(satisfaction=True)
-    if request.method == 'POST':
-        form = IssueForm(request.POST, request.FILES)
-        if form.is_valid():
-            us = request.user
-            u = Seller.objects.get(seller=us)
-            p = form.save(commit=False)
-            p.complainer = us
-            product=Product.objects.get(id=my_id)
-            p.complain_against =product
-            p.resolved=False
-            p.save()
-            return redirect('/')
-        else:
-            print(form.errors)
-            return render(request, 'Rent/issues.html', {'form': form})
-    else:
-        form = IssueForm()
-    return render(request, 'Rent/issues.html', {'form': form})
 
 def deleteImage(request):
     if request.method == 'POST':
@@ -591,5 +616,17 @@ def rate(request,my_id):
         rating = request.POST['rating']
         review = request.POST['review']
         data = Ratings(rating_for_product= j,rating_by= us,rating=rating,review=review)
+        data.save()
+        return redirect('/')
+def issueform(request,my_id):
+    us = request.user
+    product = Product.objects.filter(id = my_id)
+    for j in product:
+        j = j
+    print(us)
+    print(j)
+    if request.method=='POST':
+        issue = request.POST['issue']
+        data = Issues(complainer=us,complain_against=j,issue=issue,resolved=False)
         data.save()
         return redirect('/')
