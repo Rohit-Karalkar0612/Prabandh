@@ -1,12 +1,117 @@
 {% extends 'Rent/Weddings.html' %}
 {% load static %}
 {% block css %}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
 <style>
-body{
-background-color:blue;
-}
+
 .card{
 margin-top:10px;
+}
+body {
+    background-color: #FFCC99;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.fa-star:before {
+  content: "\f005";
+}
+
+.rating-list li i.yellow {
+  color: #FFD700;
+}
+
+.rating-list li i.gray {
+  color: #bbb;
+}
+
+.list-inline>li {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.rating-list li {
+  padding: 0px;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
 }
 </style>
 {% endblock css %}
@@ -41,7 +146,51 @@ margin-top:10px;
                                 Dear {{request.user}},<br>Thank you for choosing us hope you had an amazing experience.
                                 Can u just take a moment to rate amazing experience you had with product.
                     </div>
-                  <a href="/update/{{i.id}}" class="btn btn-primary" style="margin-right:10px;">Rate</a>
+<!--                  <a href="/update/{{i.id}}" class="btn btn-primary" style="margin-right:10px;">Rate</a>-->
+                    <!-- Trigger/Open The Modal -->
+
+                    <!-- Trigger/Open The Modal -->
+                    <button id="myBtn" class="btn btn-primary">Rate</button>
+
+                    <!-- The Modal -->
+                    <form method="POST" action="/rate/{{i.id}}">
+                        {% csrf_token %}
+                        <div id="myModal" class="modal">
+
+                      <!-- Modal content -->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4>Hi {{request.user}} , Rate This Product ... </h4>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body" style="text-align: left;">
+                            <h5 style="margin-top: 10px;">{{i.title}}</h5>
+                            <p style="margin-left: 30px;">{{i.about}}</p>
+                          <h6>Rate this Product from 1-5 :</h6>
+                            <ul class="list-inline rating-list" style="margin-left: 30px;">
+                              <li><i class="fa fa-star" title="Rate 1" id="1"></i></li>
+                              <li><i class="fa fa-star" title="Rate 2" id="2"></i></li>
+                              <li><i class="fa fa-star" title="Rate 3" id="3"></i></li>
+                              <li><i class="fa fa-star" title="Rate 4" id="4"></i></li>
+                              <li><i class="fa fa-star" title="Rate 5" id="5"></i></li>
+                            </ul>
+
+                            <h6>Write your Review for this product</h6>
+                            <textarea rows="5" cols="120" id="review" name="review"></textarea>
+
+                            <input type="hidden" id="rating" name="rating" value="-1">
+                            <input type="hidden" id="rating1" name="rating1" value="{{i.title}}">
+                            <input type="hidden" id="rating2" name="rating2" value="{{request.user}}">
+                        </div>
+                        <div>
+                            <button id="myBtn1" class="btn btn-primary" style="text-align: left;">Submit</button>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                      </div>
+
+                    </div>
+                    </form>
                 </div>
               </div>
             </div>
@@ -73,7 +222,88 @@ margin-top:10px;
   
 </script>
 
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
 
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    var current_star_statusses = [];
+
+    star_elements = $('.fa-star').parent();
+
+    star_elements.find(".fa-star").each(function(i, elem) {
+      current_star_statusses.push($(elem).hasClass('yellow'));
+    });
+
+    star_elements.find(".fa-star").mouseenter(changeRatingStars);
+    star_elements.find(".fa-star").mouseleave(resetRatingStars);
+
+    /**
+     * Changes the rating star colors when hovering over it.
+     */
+    function changeRatingStars() {
+      // Current star hovered
+      var star = $(this);
+      var star1 = $(this).context.id;
+      console.log(star1)
+      $('#rating').val(star1)
+      // Removes all colors first from all stars
+      $('.fa-star').removeClass('gray').removeClass('yellow');
+
+      // Makes the current hovered star yellow
+      star.addClass('yellow');
+
+      // Makes the previous stars yellow and the next stars gray
+      star.parent().prevAll().children('.fa-star').addClass('yellow');
+      star.parent().nextAll().children('.fa-star').addClass('gray');
+    }
+
+    /**
+     * Resets the rating star colors when not hovered anymore.
+     */
+    function resetRatingStars() {
+      star_elements.each(function(i, elem) {
+        $(elem).removeClass('yellow').removeClass('gray').addClass(current_star_statusses[i] ? 'yellow' : 'gray');
+      });
+    }
+</script>
+
+<script>
+    function dataentry() {
+        rating_prod = document.getElementById("rating1").value
+        rate_by = document.getElementById("rating2").value
+        rating_variable = document.getElementById("rating").value;
+        review_variable = document.getElementById("review").value;
+        console.log(rating_prod)
+        console.log(rate_by)
+        console.log(rating_variable)
+        console.log(review_variable)
+    }
+</script>
 {% endblock js %}
 
 

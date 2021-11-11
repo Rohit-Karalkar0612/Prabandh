@@ -11,14 +11,13 @@
     body {
         background: linear-gradient(268deg, #0000ff, #00f0add9);
     }
-
     .user:hover {
         color: white;
-      }
+    }
     .user{
         color: black; 
         text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px yellow;
-      }
+    }    
 </style>
 
 <body>
@@ -45,21 +44,23 @@
                         </div> 
                         
                         {% endif %}
+                        
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right"><a href="/cart/" class="text-decoration-none"> Cart </a></h4>
                         </div>
-
+                        
                     </div>
                 </div>
-
+                
             </div>
-
-
+            
+            
             <div class="col-md">
                 <div class="p-3 py-5">
-
+                    
                     <!-- Profile Section -->
                     <div>
+                        <a class="btn btn-primary float" href="/product/" role="button">Add Item</a>
                         {% for i in product %}
                         <div class="card mb-3 border-bottom" style="max-width: 540px;">
                             <div class="row g-0 border-bottom">
@@ -83,21 +84,12 @@
                                             Deposit:{{i.deposit}}
                                         </p>
                                     </div>
-                                    <a href="/cartdel/{{i.id}}" class="btn btn-danger"
-                                        style="margin-right:10px;">Remove</a>
-                                    <a href="#" class="btn btn-primary">Rent</a>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}    
                     </div>
                 </div>
-                <center>
-                    <b>Total Amount:{{sum}}</b><br>
-                            {% csrf_token %} -->
-                            <a href="{% url 'check' %}" class="btn-primary" id="checkout-button">Proceed to
-                                checkout</a>
-                </center>
             </div>
         </div>
     </div>

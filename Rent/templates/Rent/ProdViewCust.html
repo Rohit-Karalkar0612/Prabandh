@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 <style>
    .stars-outer {
             position: relative;
@@ -35,6 +36,7 @@
             font-weight: 900;
             color: #f8ce0b;
         }
+
 </style>
 {% endblock %}
 {% block title%}
@@ -72,7 +74,16 @@
                             <div class="aboutblock">
                                 <h5>{{ pro.about }}</h5>
                             </div>
-                            <br>
+                            <input type = "hidden" name = "avgrate" id = "avgrate">
+<!--                            var x = document.getElementById("avgrate").value;-->
+                            <div class="Average">
+                                <span>
+                                    <div class="stars-outer">
+                                        <div class="stars-inner"></div>
+                                    </div>
+                                    <span class="number-rating"></span>
+                                </span>
+                            </div>
                             <form method="POST" class="photoform" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <br>
@@ -102,6 +113,8 @@
                                         </div>
                                         <br>
                                         {% endfor %}
+
+                                        <br>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +129,7 @@
 {% block js %}
 <script>
     $(".over").addClass("d-none");
-</script> 
+</script>
 <script>
         const ratings = { };
 
@@ -124,6 +137,20 @@
             // Object.assign(ratings,{"{{ i.rating_by }}": {{ i.rating }} })
             ratings["{{ i.rating_by }}"] = {{ i.rating }}
         {% endfor %}
+
+        var avg = 0;
+        var n = 0;
+
+        {% for i in object %}
+            avg = avg + {{ i.rating }};
+            n = n + 1;
+        {% endfor %}
+
+        avg = Number((avg / n).toFixed(1));
+
+        ratings['Average'] = avg;
+
+        $('#avgrate').val(avg/n)
 
         // Total Stars
         const starsTotal = 5;
@@ -179,4 +206,5 @@
             }
         }
 </script>
+
 {% endblock %}

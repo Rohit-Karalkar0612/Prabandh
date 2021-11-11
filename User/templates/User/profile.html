@@ -4,44 +4,41 @@
 
 {% block title %}
 <link rel="stylesheet" href="{% static 'User/css/profile.css' %}">
-
 {% endblock title %}
 {% block content %}
 
 <body>
+<style>
+.user:hover {
+  color: white;
+}
+.user{
+    color: black; 
+    text-shadow: 1px 1px 2px black, 0 0 25px red, 0 0 5px yellow;
+}
+</style>
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
             <div class="col-md-4 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <h1 class="font-weight-bold">{{user}}</h1>
+                    <h1 class="font-weight-bold user">{{user}}</h1>
                     <span> </span>
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right"><a href="/user/profile" class="text-decoration-none" target="_self">
-                                    Profile </a></h4>
+                            <h4 class="text-right"><a href="/user/profile" class="text-decoration-none"
+                                    target="_self">Profile </a></h4>
                         </div>
 
-                        
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right"><a href="/booking/" class="text-decoration-none"> Bookings </a></h4>
+                        </div>
 
                         {% if u %}
 
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right"><a href="/booking/" class="text-decoration-none"> Bookings </a></h4>
-                        </div>
-
-
-
-                        {% else %}
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right"><a href="/booking/" class="text-decoration-none"> Bookings </a></h4>
-                        </div>
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right"><a href="/booking/" class="text-decoration-none"> Bookings </a></h4>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h4 class="text-right"><a href="#rented" class="text-decoration-none"> Rented Products </a>
+                            <h4 class="text-right"><a href="/putrent/" class="text-decoration-none"> Add for Rent </a>
                             </h4>
                         </div>
 
@@ -118,14 +115,15 @@
                                             <div class="row mt-2">
                                                 <div class="col-md-6"><label class="labels-1">Name <span
                                                             class="required">*</span> </label><input type="text"
-                                                        class="form-control" placeholder="None" value="{{user}}" disabled>
+                                                        class="form-control" placeholder="None" value="{{user}}"
+                                                        disabled>
                                                 </div>
 
                                                 <div class="row mt-3">
 
                                                     <div class="col-md-12"><label class="labels-1">Email ID</label>
-                                                        <input type="text" class="form-control"
-                                                            placeholder="None" value="{{request.user.email}}" disabled>
+                                                        <input type="text" class="form-control" placeholder="None"
+                                                            value="{{request.user.email}}" disabled>
                                                     </div>
 
                                                     <div class="col-md-12"><label class="labels-1">Account Number: <span

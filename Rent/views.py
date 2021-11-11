@@ -4,7 +4,7 @@ from django.views import View
 from django.db.models import Min,Max
 from django.views.generic import CreateView,TemplateView
 from .models import Product,Photo,Subcategory,Category,Photo,Cart,Rent_Amount,Ratings
-from User.models import Seller
+from User.models import Seller,User,Profile
 from .forms import ProductForm,PhotoForm,RentForm,IssueForm
 from django.urls import reverse,resolve
 from urllib.parse import urlencode
@@ -45,7 +45,9 @@ def cart(request):
 
 def rentprod(request):
     us = request.user
-    RentProd = Rent_Amount.objects.filter(customer_of_item=us).values('related_product')
+    RentPr = Rent_Amount.objects.filter(customer_of_item=us).values('related_product')
+    RentProd=RentPr.values('related_product')
+
     print(RentProd)
     prod = []
     j = 0
@@ -65,7 +67,8 @@ def rentprod(request):
 
 def putrent(request):
     us = request.user
-    products = Product.objects.filter(seller_of_item=us)
+    u = Seller.objects.get(seller=us)
+    products = Product.objects.filter(seller_of_item=u)
     param = {
         'product': products,
         "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
@@ -385,7 +388,6 @@ def Issue(request):
             print(date.today()+timedelta(days=1))
             i=i+1
             product3=Product.objects.filter(id=r.related_product_id)
-
     print(product3)
 
     context={
@@ -512,8 +514,8 @@ def RentAmt(request):
     return render(request,'Rent/details.html',{'form':RentForm})
 
 def cart(request):
-    us = request.user
-    Cartobj=(Cart.objects.filter(user=us)).values('product_id')
+    user = request.user
+    Cartobj=(Cart.objects.filter(user=user)).values('product_id')
     print(Cartobj)
     prod=[]
     j=0
@@ -527,18 +529,22 @@ def cart(request):
     products = Product.objects.filter(id__in=prod)
     for i in products:
         sum=sum+i.deposit
+    u = User.objects.get(username=user)
+    isSeller=Profile.objects.get(user=u).seller
+    print(isSeller)
     param = {
         'product': products,
         'sum':sum,
-        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
+        'us':isSeller
     }
     print(products)
     return render(request, 'User/cart.html', param)
 
 
 def rentprod(request):
-    us = request.user
-    RentProd=Rent_Amount.objects.filter(customer_of_item=us).values('related_product')
+    user = request.user
+    RentProd=Rent_Amount.objects.filter(customer_of_item=user).values('related_product')
     # print(RentProd)
     prod = []
     j = 0
@@ -550,17 +556,42 @@ def rentprod(request):
     # print(prod)
     sum = 0
     products = Product.objects.filter(id__in=prod)
+    u = User.objects.get(username=user)
+    isSeller=Profile.objects.get(user=u).seller
+    print(isSeller)
     param = {
         'product': products,
-        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
+        'us':isSeller
     }
     return render(request, 'User/booking.html', param)
 
 def putrent(request):
-    us = request.user
-    products = Product.objects.filter(seller_of_item=us)
-    param = {
+    user = request.user
+    u = Seller.objects.get(seller=user)
+    print(user)
+    us = User.objects.get(username=user)
+    isSeller=Profile.objects.get(user=us).seller
+    print(isSeller)
+    products = Product.objects.filter(seller_of_item=u)
+    param_putrent = {
         'product': products,
-        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+        "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY,
+        'us':isSeller
     }
-    return render(request, 'User/booking.html', param)
+
+    return render(request, 'User/add_rent.html', param_putrent)
+
+def rate(request,my_id):
+    us = request.user
+    product = Product.objects.filter(id = my_id)
+    for j in product:
+        j = j
+    print(us)
+    print(j)
+    if request.method=='POST':
+        rating = request.POST['rating']
+        review = request.POST['review']
+        data = Ratings(rating_for_product= j,rating_by= us,rating=rating,review=review)
+        data.save()
+        return redirect('/')
