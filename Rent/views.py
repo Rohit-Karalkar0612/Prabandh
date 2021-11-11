@@ -124,7 +124,7 @@ def search_subcat(request, my_id, mysubcat,my_id1):
             'Essentials-2': ['LED Diyas', 'Electric Lamps', 'Photo Frames', 'Wall Decor'],
         }
     category = get_object_or_404(Subcategory, subcategories=mysubcat)
-    products = Product.objects.filter(subcategory=category)
+    products = Product.objects.filter(subcategory=category,availability=True)
     if my_id1 == '2':
         min2 = ''
         min1 = request.GET.get('min-value')
@@ -144,7 +144,7 @@ def search_subcat(request, my_id, mysubcat,my_id1):
         max = int(max2)
         print(min)
         print(max)
-        products = Product.objects.filter(subcategory=category, rental_price__range=(min, max))
+        products = Product.objects.filter(subcategory=category, rental_price__range=(min, max),availability=True)
     min_price = products.aggregate(Min('rental_price'))
     max_price = products.aggregate(Max('rental_price'))
     price = {**min_price, **max_price}
@@ -163,7 +163,7 @@ def search_subcat(request, my_id, mysubcat,my_id1):
 
 def search_subcat1(request,my_id=''):
     query = request.GET.get('search')
-    products=Product.objects.all()
+    products=Product.objects.filter(availability=True)
     if my_id == '2':
         min2 = ''
         min1 = request.GET.get('min-value')
@@ -183,7 +183,7 @@ def search_subcat1(request,my_id=''):
         max = int(max2)
         print(min)
         print(max)
-        products = Product.objects.filter(rental_price__range=(min, max))
+        products = Product.objects.filter(rental_price__range=(min, max),availability=True)
     products = [item for item in products if search_match(query, item)]
     return render(request, 'Rent/prod.html', {'products': products})
 
@@ -374,8 +374,8 @@ def Issue(request):
     product2={}
     rentamount = Rent_Amount.objects.filter(customer_of_item=us)
     for r in rentamount:
-        prod = Ratings.objects.filter(rating_for_product=r.related_product).exists()
-        if r.sent_date <= date.today():
+        prod = Ratings.objects.filter(rating_for_product=r.related_product,rating_by=us).exists()
+        if r.sent_date <= date.today() and prod!=True:
             product2=Product.objects.filter(id=r.related_product_id)
             i=i+1
     product3 = {}
@@ -388,8 +388,6 @@ def Issue(request):
             print(date.today()+timedelta(days=1))
             i=i+1
             product3=Product.objects.filter(id=r.related_product_id)
-    print(product3)
-
     context={
         'product':product1,
         'products':product2,
