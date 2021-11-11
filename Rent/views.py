@@ -79,7 +79,7 @@ def putrent(request):
 def cartadd(request, my_id):
     us = request.user
     prod = Product.objects.get(id=my_id)
-    cart1=Cart.objects.filter(user=us, product_id=prod).exist()
+    cart1=Cart.objects.filter(user=us, product_id=prod).exists()
     if cart1!=True:
         b = Cart(user=us, product_id=prod)
         b.save()
@@ -390,6 +390,8 @@ def NewImage(request):
 def Issue(request):
     us = request.user
     i=0
+
+    product1 = {}
     sell=Seller.objects.filter(seller=us).exists()
     if sell==True:
         u = Seller.objects.get(seller=us)
@@ -407,7 +409,6 @@ def Issue(request):
         rentamount=Rent_Amount.objects.filter(related_product_id__in=prod,satisfaction=False)
         print(rentamount)
         print("Hello1")
-        product1={}
         for r in rentamount:
             prod = Issues.objects.filter(complain_against=r.related_product, complainer=us).exists()
             if r.delivered_date<= date.today() and prod!=True:
