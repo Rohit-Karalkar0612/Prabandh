@@ -235,7 +235,7 @@ def search_subcat(request, my_id, mysubcat,my_id1):
         }
     elif (my_id == '2'):
         test = {
-            'Formals': ['Ethnicity', 'Sweatshirts', 'Jackets', 'Hoodies', ],
+            'Formals': ['Ethnicity', 'Sweatshirts', 'Jacket', 'Hoodies', ],
             'Decorations': ['Posters', 'Balloons', 'Streamers', 'Party Hats'],
         }
     elif (my_id == '3'):
@@ -318,7 +318,7 @@ def Event(request, my_id='', my_id1='0'):
         }
     elif (my_id == '2'):
         test = {
-            'Formals': ['Ethnicity', 'Sweatshirts', 'Jackets', 'Hoodies', ],
+            'Formals': ['Ethnicity', 'Sweatshirts', 'Jacket', 'Hoodies', ],
             'Decorations': ['Posters', 'Balloons', 'Streamers', 'Party Hats'],
         }
     elif (my_id == '3'):
