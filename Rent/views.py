@@ -75,7 +75,7 @@ def cart(request):
                 print(request.session['total'])
                 unsave.payment=request.session['total']
                 unsave.delivered_date=s
-                unsave.sent_date=s
+                unsave.sent_date=u
                 unsave.save()
                 print("ll")              
 
