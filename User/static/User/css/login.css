@@ -27,3 +27,7 @@ body {
 .im {
   text-align: center;
 }
+
+btn{
+  z-index: 100;
+}

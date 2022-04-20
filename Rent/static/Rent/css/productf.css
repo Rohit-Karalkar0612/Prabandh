@@ -1,5 +1,5 @@
-   .container {
-  background-image: url("..../images/background.jpg");
+.container {
+  background-image: url("../images/background.jpg");
   background-position: center;
   background-size: cover;
 }

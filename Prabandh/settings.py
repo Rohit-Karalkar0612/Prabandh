@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-5)ac1jkpenjr+u+ifd31t=he27v^gu1tyj@x0(oz)_2knp%pj@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ourprabandh.herokuapp.com']
 
 
 # Application definition
@@ -41,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'captcha',
+    'Prabandh',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +61,7 @@ ROOT_URLCONF = 'Prabandh.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -117,44 +120,53 @@ USE_L10N = True
 
 USE_TZ = True
 
-CRISPY_TEMPLATE_PACK='bootstrap4'
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL='/'
+LOGIN_REDIRECT_URL = '/'
 
-LOGIN_URL='login'
+LOGIN_URL = 'login'
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'testingflask31@gmail.com'
-EMAIL_HOST_PASSWORD = 'djangospring'
-
-DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-STRIPE_PUBLIC_KEY="pk_test_51JsABWSIonIO6GDnpDssD4QwaMlM2lLvzUvmX6pkKZDaEqSwUsHrMiW6pUCbgeAVS2KSUDpezY2AWcOndIwx2WFD00QufjgLAC"
+STRIPE_PUBLIC_KEY = "pk_test_51JsABWSIonIO6GDnpDssD4QwaMlM2lLvzUvmX6pkKZDaEqSwUsHrMiW6pUCbgeAVS2KSUDpezY2AWcOndIwx2WFD00QufjgLAC"
 
-STRIPE_SECRET_KEY="sk_test_51JsABWSIonIO6GDnAKZYTjxpG9j7KyoCPik0nVcGjb1Uk6S7zysmC0haaOBvVP8DJihCRsoNc3TnJsv5Ph2UJNtt00wnGL36dO"
+STRIPE_SECRET_KEY = "sk_test_51JsABWSIonIO6GDnAKZYTjxpG9j7KyoCPik0nVcGjb1Uk6S7zysmC0haaOBvVP8DJihCRsoNc3TnJsv5Ph2UJNtt00wnGL36dO"
 
-STRIPE_WEBHOOK_SECRET="whsec_yZReRnVKG0HhvEkEF4vZU6rH6jLGeMZe"
+STRIPE_WEBHOOK_SECRET = "whsec_yZReRnVKG0HhvEkEF4vZU6rH6jLGeMZe"
 
+django_heroku.settings(locals())
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+
+PWA_APP_NAME = 'Prabandh'
+PWA_APP_DESCRIPTION = "My app description"
+PWA_APP_THEME_COLOR = '#0610c9'
+PWA_APP_BACKGROUND_COLOR = '#0610c9'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [{'src': '/static/images/my_app_icon.png', 'sizes': '160x160'}]
+PWA_APP_ICONS_APPLE = [
+    {'src': '/static/images/my_app_icon.png', 'sizes': '160x160'}]
+PWA_APP_SPLASH_SCREEN = [{'src': '/static/images/icons/splash-640x1136.png',
+                          'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'}]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
